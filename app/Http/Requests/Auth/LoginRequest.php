@@ -24,13 +24,13 @@ class LoginRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
      */
-        public function rules(): array
-        {
-            return [
-                'login' => ['required', 'string'], // email OR username OR mobile
-                'password' => ['required', 'string'],
-            ];
-        }
+         public function rules(): array
+    {
+        return [
+            'login'    => ['required', 'string'], // email, username or mobile
+            'password' => ['required', 'string'],
+        ];
+    }
 
     public function authenticate(): void
     {
@@ -38,11 +38,11 @@ class LoginRequest extends FormRequest
 
         $login = $this->input('login');
 
-        // Detect whether it's email, username, or mobile
+        // Detect field type
         if (filter_var($login, FILTER_VALIDATE_EMAIL)) {
             $field = 'email';
         } elseif (preg_match('/^[0-9]{6,15}$/', $login)) {
-            // allow 6–15 digit phone numbers
+            // 6–15 digit phone numbers
             $field = 'mobile';
         } else {
             $field = 'username';
@@ -59,11 +59,8 @@ class LoginRequest extends FormRequest
         RateLimiter::clear($this->throttleKey());
     }
 
-
     /**
-     * Ensure the login request is not rate limited.
-     *
-     * @throws \Illuminate\Validation\ValidationException
+     * Prevent brute force login attempts
      */
     public function ensureIsNotRateLimited(): void
     {
@@ -83,11 +80,8 @@ class LoginRequest extends FormRequest
         ]);
     }
 
-    /**
-     * Get the rate limiting throttle key for the request.
-     */
     public function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->string('login')).'|'.$this->ip());
+        return Str::lower($this->input('login')).'|'.$this->ip();
     }
 }
