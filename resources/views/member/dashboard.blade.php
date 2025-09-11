@@ -1,45 +1,23 @@
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>  
-  
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-<meta name="generator" content="">
-<title>randour-x | Panel</title>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Kaiadmin - Bootstrap 5 Admin Dashboard</title>
+    <meta
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+      name="viewport"
+    />
+    <link
+      rel="icon"
+      href="assets/img/kaiadmin/favicon.ico"
+      type="image/x-icon"
+    />
 
-<!-- manifest meta -->
-<meta name="apple-mobile-web-app-capable" content="yes">
-<link rel="manifest" href="manifest.json" />
-
-<!-- Favicons -->
-
-<link rel="icon" href="member/assets/img/favicon.ico" type="image/icon">
-<!-- Google fonts-->
-
-<link rel="preconnect" href="https://fonts.googleapis.com/">
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&amp;display=swap" rel="stylesheet">
-
-<!-- bootstrap icons -->
-<!-- Bootstrap Icons -->
 <link rel="stylesheet" href="{{ asset('member/assets/css/bootstrap-icons.css') }}">
-
-<!-- Swiper carousel css -->
 <link rel="stylesheet" href="{{ asset('member/assets/vendor/swiperjs-6.6.2/swiper-bundle.min.css') }}">
-
-<!-- Style css for this template -->
 <link href="{{ asset('member/assets/css/style.css') }}" rel="stylesheet" id="style">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-
-<!-- Favicon -->
 <link rel="icon" href="{{ asset('member/assets/img/kaiadmin/favicon.ico') }}" type="image/x-icon">
-
-<!-- WebFont Loader -->
 <script src="{{ asset('member/assets/js/plugin/webfont/webfont.min.js') }}"></script>
 <script>
   WebFont.load({
@@ -58,29 +36,33 @@
     },
   });
 </script>
-
-<!-- CSS Files -->
 <link rel="stylesheet" href="{{ asset('member/assets/css/bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ asset('member/assets/css/plugins.min.css') }}">
 <link rel="stylesheet" href="{{ asset('member/assets/css/kaiadmin.min.css') }}">
-
-<!-- CSS Just for demo purpose, don't include it in your project -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  />
 <link rel="stylesheet" href="{{ asset('member/assets/css/demo.css') }}">
 
-</head>
-<body>
+  </head>
+  <body>
     <div class="wrapper">
       <!-- Sidebar -->
-<div class="sidebar" data-background-color="dark">
+      <div class="sidebar" data-background-color="dark">
         <div class="sidebar-logo">
           <!-- Logo Header -->
           <div class="logo-header" data-background-color="dark">
-            <a href="/member/" class="logo">
+            <a href="index.html" class="logo">
               <img
-                src="imagess/logorandour.png"
+                src="assets/img/kaiadmin/logo_light.svg"
                 alt="navbar brand"
                 class="navbar-brand"
-                height="50"
+                height="20"
               />
             </a>
             <div class="nav-toggle">
@@ -293,32 +275,18 @@
         </div>
       </div>
       <!-- End Sidebar -->
-       <style>
-         .pb-4{
-                  padding-bottom: 0.5rem !important;
-                }
-                .page-inner{
-                  padding-top: 19px !important;
-                }
-                .sidebar .nav>.nav-item a p, .sidebar[data-background-color=white] .nav>.nav-item a p{
-                  font-size: 18px !important;
-                }
-                .sidebar .nav>.nav-item a, .sidebar[data-background-color=white] .nav>.nav-item a {
-                  padding-top: 25px !important;
-                }
-       </style>      <!-- End Sidebar -->
 
       <div class="main-panel">
         <div class="main-header">
           <div class="main-header-logo">
             <!-- Logo Header -->
             <div class="logo-header" data-background-color="dark">
-              <a href="/member/" class="logo">
+              <a href="index.html" class="logo">
                 <img
-                  src="member/assets/img/kaiadmin/logo_dark.svg"
+                  src="{{ asset('member/assets/img/kaiadmin/logo_light.svg') }}"
                   alt="navbar brand"
                   class="navbar-brand"
-                  height="0"
+                  height="20"
                 />
               </a>
               <div class="nav-toggle">
@@ -383,9 +351,6 @@
                     </form>
                   </ul>
                 </li>
-               
-                
-               
 
                 <li class="nav-item topbar-user dropdown hidden-caret">
                   <a
@@ -396,14 +361,14 @@
                   >
                     <div class="avatar-sm">
                       <img
-                        src="member/assets/img/profile.jpg"
+                        src="{{ asset('assets/img/profile.jpg') }}"
                         alt="..."
                         class="avatar-img rounded-circle"
                       />
                     </div>
                     <span class="profile-username">
                       <span class="op-7">Hi,</span>
-                      <span class="fw-bold">Adarsh</span>
+                      <span class="fw-bold">Hizrian</span>
                     </span>
                   </a>
                   <ul class="dropdown-menu dropdown-user animated fadeIn">
@@ -412,16 +377,16 @@
                         <div class="user-box">
                           <div class="avatar-lg">
                             <img
-                              src="member/assets/img/profile.jpg"
+                              src="{{ asset('assets/img/profile.jpg') }}"
                               alt="image profile"
                               class="avatar-img rounded"
                             />
                           </div>
                           <div class="u-text">
-                            <h4>Adarsh Tomar</h4>
-                            <p class="text-muted">tomaradarsh0001@gmail.com</p>
+                            <h4>Hizrian</h4>
+                            <p class="text-muted">hello@example.com</p>
                             <a
-                              href="my-profile"
+                              href="profile.html"
                               class="btn btn-xs btn-secondary btn-sm"
                               >View Profile</a
                             >
@@ -430,10 +395,13 @@
                       </li>
                       <li>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="my-profile">My Profile</a>
-                                      
+                        <a class="dropdown-item" href="#">My Profile</a>
+                        <a class="dropdown-item" href="#">My Balance</a>
+                        <a class="dropdown-item" href="#">Inbox</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="logout">Logout</a>
+                        <a class="dropdown-item" href="#">Account Setting</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Logout</a>
                       </li>
                     </div>
                   </ul>
@@ -445,10 +413,9 @@
         </div>
 
         <div class="container">
-          <div class="page-inner">
+            <div class="page-inner">
             <div
-              class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4"
-            >
+              class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
               <div>
                 <h3 class="fw-bold mb-3"><span class="fw-bold">Hi</span>, Adarsh Tomar RX43324</h3>
               
@@ -464,7 +431,7 @@
                 <div class="card card-secondary bg-secondary-gradient">
                   <div class="card-body skew-shadow">
                     <img
-                      src="member/assets/img/visa.svg"
+                      src="{{ asset('assets/img/visa.svg') }}"
                       height="35"
                       alt="Visa Logo"
                     />
@@ -487,7 +454,7 @@
                 <div class="card card-secondary bg-secondary-gradient">
                   <div class="card-body bubble-shadow">
                     <img
-                      src="member/assets/img/visa.svg"
+                      src="{{ asset('assets/img/visa.svg') }}"
                       height="35"
                       alt="Visa Logo"
                     />
@@ -510,7 +477,7 @@
                 <div class="card card-secondary bg-secondary-gradient">
                   <div class="card-body curves-shadow">
                     <img
-                      src="member/assets/img/visa.svg"
+                      src="{{ asset('assets/img/visa.svg') }}"
                       height="35"
                       alt="Visa Logo"
                     />
@@ -533,7 +500,7 @@
                 <div class="card card-secondary bg-secondary-gradient">
                   <div class="card-body skew-shadow">
                     <img
-                      src="member/assets/img/visa.svg"
+                      src="{{ asset('assets/img/visa.svg') }}"
                       height="35"
                       alt="Visa Logo"
                     />
@@ -575,104 +542,6 @@
               </div>
             </a>
           </div>
-
-             <style>
-              .card-link {
-                  display: block;
-                  text-decoration: none;
-                }
-
-                .card-link:hover {
-                  text-decoration: none; /* Removes underline on hover */
-                }
-
-                .card {
-                  transition: transform 0.3s ease;
-                }
-               
-                .card:hover {
-                  transform: scale(1.02); /* Zoom in on hover */
-                }
-                 /* Outer Wrapper */
-                .animated-card-link {
-                  display: block;
-                  text-decoration: none;
-                  border-radius: 1px;
-                  position: relative;
-                }
-
-                /* Card Container */
-                .animated-card {
-                  position: relative;
-                  border-radius: 12px;
-                  background: white;
-                  overflow: hidden;
-                  padding: 2px;
-                  z-index: 1;
-                }
-
-                /* Animated Gradie2t Border */
-                .animated-card::before {
-                  content: "";
-                  position: absolute;
-                  top: -2px;
-                  left: -2px;
-                  right: -2px;
-                  bottom: -2px;
-                  border-radius: 1px;
-                  border: 1px solid transparent;
-                  background: linear-gradient(90deg, #ff416c, #ff4b2b, #1fa2ff, #12d8fa, #06ff99);
-                  background-size: 300% 300%;
-                  animation: gradientWave 5s infinite linear;
-                  z-index: -1;
-                }
-
-                /* Keyframe for Gradient Animation */
-                @keyframes gradientWave {
-                  0% { background-position: 0% 50%; }
-                  50% { background-position: 100% 50%; }
-                  100% { background-position: 0% 50%; }
-                }
-
-                /* Inner Card */
-                .animated-card-body {
-                  position: relative;
-                  z-index: 2;
-                  border-radius: 10px;
-                  background: white;
-                  padding: 20px;
-                }
-
-                /* Icon Styling */
-                .animated-icon {
-                  font-size: 2rem;
-                  color: #ff4b2b;
-                }
-
-                /* Text Styling */
-                .animated-category {
-                  font-weight: bold;
-                  color: #555;
-                }
-
-                .animated-title {
-                  font-size: 1.5rem;
-                  font-weight: bold;
-                  color: #333;
-                }
-                .pb-4{
-                  padding-bottom: 0.5rem !important;
-                }
-                .page-inner{
-                  padding-top: 19px !important;
-                }
-                .sidebar .nav>.nav-item a p, .sidebar[data-background-color=white] .nav>.nav-item a p{
-                  font-size: 18px !important;
-                }
-                .sidebar .nav>.nav-item a, .sidebar[data-background-color=white] .nav>.nav-item a {
-                  padding-top: 25px !important;
-                }
-             </style>
               <div class="col-sm-6 col-md-4">
               <a href="level-income" class="animated-card-link card-link">
                 <div class="animated-card card card-stats card-round">
@@ -737,7 +606,7 @@
                                             </div>
                                         </div>
                                         <div class="col-4 col-md-3 col-xl-3 ps-0">
-                                            <img src="member/assets/img/linkcopy.png" height="70" alt="Copy Link" class="mw-100">
+                                            <img src="{{ asset('assets/img/linkcopy.png') }}" height="70" alt="Copy Link" class="mw-100">
                                         </div>
                                     </div>
                                     <div class="mt-auto">
@@ -757,7 +626,7 @@
                                     <!-- User Info Row -->
                                     <div class="d-flex align-items-center justify-content-center mb-3">
                                         <div class="me-2">
-                                            <img src="imagess/logorandour.png" class="img-fluid" style="width: 150px; height: 50px;" alt="User Logo">
+                                            <img src="{{ asset('imagess/logorandour.png') }}" class="img-fluid" style="width: 150px; height: 50px;" alt="User Logo">
                                         </div>
                                         <div class="text-start">
                                             <h6 class="mb-0 text-white"><b>UserID : </b> &apos;u sername &apos;</h6>
@@ -792,21 +661,98 @@
                                             <div class="tile bg-lightblue text-dark p-2 rounded shadow-sm">
                                                 <h6>Total Downline <i class="bi bi-people"></i></h6>
                                                 <p class="fw-bold">
-                                                  
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                              </p>
+                             </div>
+                          </div>
+                 <style>
+                .card-link {
+                  display: block;
+                  text-decoration: none;
+                }
+                .card-link:hover {
+                  text-decoration: none; 
+                }
+                .card {
+                  transition: transform 0.3s ease;
+                }
+                .card:hover {
+                  transform: scale(1.02); 
+                }
+                .animated-card-link {
+                  display: block;
+                  text-decoration: none;
+                  border-radius: 1px;
+                  position: relative;
+                }
+                .animated-card {
+                  position: relative;
+                  border-radius: 12px;
+                  background: white;
+                  overflow: hidden;
+                  padding: 2px;
+                  z-index: 1;
+                }
+                .animated-card::before {
+                  content: "";
+                  position: absolute;
+                  top: -2px;
+                  left: -2px;
+                  right: -2px;
+                  bottom: -2px;
+                  border-radius: 1px;
+                  border: 1px solid transparent;
+                  background: linear-gradient(90deg, #ff416c, #ff4b2b, #1fa2ff, #12d8fa, #06ff99);
+                  background-size: 300% 300%;
+                  animation: gradientWave 5s infinite linear;
+                  z-index: -1;
+                }
+                @keyframes gradientWave {
+                  0% { background-position: 0% 50%; }
+                  50% { background-position: 100% 50%; }
+                  100% { background-position: 0% 50%; }
+                }
+                /* Inner Card */
+                .animated-card-body {
+                  position: relative;
+                  z-index: 2;
+                  border-radius: 10px;
+                  background: white;
+                  padding: 20px;
+                }
+                /* Icon Styling */
+                .animated-icon {
+                  font-size: 2rem;
+                  color: #ff4b2b;
+                }
+                /* Text Styling */
+                .animated-category {
+                  font-weight: bold;
+                  color: #555;
+                }
+                .animated-title {
+                  font-size: 1.5rem;
+                  font-weight: bold;
+                  color: #333;
+                }
+                .pb-4{
+                  padding-bottom: 0.5rem !important;
+                }
+                .page-inner{
+                  padding-top: 19px !important;
+                }
+                .sidebar .nav>.nav-item a p, .sidebar[data-background-color=white] .nav>.nav-item a p{
+                  font-size: 18px !important;
+                }
+                .sidebar .nav>.nav-item a, .sidebar[data-background-color=white] .nav>.nav-item a {
+                  padding-top: 25px !important;
+                }
+             </style>
+                
                   <style>
                   .tile {
                         transition: transform 0.3s ease-in-out;
@@ -848,7 +794,6 @@
 
                       
                       </div>
-
                       <script>
                           function geturl() {
                               var copyText = document.getElementById("url");
@@ -858,9 +803,7 @@
                               alert("Referral link copied: " + copyText.value);
                           }
                       </script>
-
-
-</div>
+        </div>
 <style>
             
  .footer .nav .nav-item.centerbutton .nav-link{
@@ -903,7 +846,7 @@
 }
 
 .footer{
-        position: fixed !important;
+        position: absolute !important;
         background-color: #1a2035!important;
     }
 .footer .nav .nav-item.centerbutton .nav-link .nav-menu-popover {
@@ -990,112 +933,26 @@
             
         </ul>
     </div>
-</footer>
-      <!-- Custom template | don't include it in your project! -->
-      
-      <!-- End Custom template -->
-    <!-- </div> -->
-    <!--   Core JS Files   -->
-    <script src="member/assets/js/core/jquery-3.7.1.min.js"></script>
-    <script src="member/assets/js/core/popper.min.js"></script>
-    <!-- <script src="member/assets/js/core/bootstrap.min.js"></script> -->
+    </footer>
+      </div>
 
-    <!-- jQuery Scrollbar -->
-    <script src="member/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+    </div>
+    <script src="{{ asset('assets/js/core/jquery-3.7.1.min.js') }}"></script>
+<script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
+<script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugin/chart.js/chart.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugin/chart-circle/circles.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugin/datatables/datatables.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugin/jsvectormap/jsvectormap.min.js') }}"></script>
+<script src="{{ asset('assets/js/plugin/jsvectormap/world.js') }}"></script>
+<script src="{{ asset('assets/js/plugin/sweetalert/sweetalert.min.js') }}"></script>
+<script src="{{ asset('assets/js/kaiadmin.min.js') }}"></script>
+<script src="{{ asset('assets/js/setting-demo.js') }}"></script>
+<script src="{{ asset('assets/js/demo.js') }}"></script>
 
-    <!-- Chart JS -->
-    <script src="member/assets/js/plugin/chart.js/chart.min.js"></script>
 
-    <!-- jQuery Sparkline -->
-    <script src="member/assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
-
-    <!-- Chart Circle -->
-    <script src="member/assets/js/plugin/chart-circle/circles.min.js"></script>
-
-    <!-- Datatables -->
-    <script src="member/assets/js/plugin/datatables/datatables.min.js"></script>
-
-    <!-- Bootstrap Notify -->
-    <script src="member/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
-
-    <!-- jQuery Vector Maps -->
-    <script src="member/assets/js/plugin/jsvectormap/jsvectormap.min.js"></script>
-    <script src="member/assets/js/plugin/jsvectormap/world.js"></script>
-
-    <!-- Sweet Alert -->
-    <script src="member/assets/js/plugin/sweetalert/sweetalert.min.js"></script>
-
-    <!-- Kaiadmin JS -->
-    <script src="member/assets/js/kaiadmin.min.js"></script>
-
-    <!-- Kaiadmin DEMO methods, don't include it in your project! -->
-    <script src="member/assets/js/setting-demo.js"></script>
-    <script src="member/assets/js/demo.js"></script>
-    <script>
-      $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
-        type: "line",
-        height: "70",
-        width: "100%",
-        lineWidth: "2",
-        lineColor: "#177dff",
-        fillColor: "rgba(23, 125, 255, 0.14)",
-      });
-
-      $("#lineChart2").sparkline([99, 125, 122, 105, 110, 124, 115], {
-        type: "line",
-        height: "70",
-        width: "100%",
-        lineWidth: "2",
-        lineColor: "#f3545d",
-        fillColor: "rgba(243, 84, 93, .14)",
-      });
-
-      $("#lineChart3").sparkline([105, 103, 123, 100, 95, 105, 115], {
-        type: "line",
-        height: "70",
-        width: "100%",
-        lineWidth: "2",
-        lineColor: "#ffa534",
-        fillColor: "rgba(255, 165, 52, .14)",
-      });
-    </script>
-<script>
-  function geturl() {
-
-/* Get the text field */
-
-var copyText = document.getElementById("url");
-
-/* Select the text field */
-
-copyText.select();
-
-/* Copy the text inside the text field */
-
-document.execCommand("copy");
-
-/* Alert the copied text */
-
-  Swal.fire(
-
-    'Link Copied!',
-
-    '',
-
-    'success'
-
-  );
-
-}
-</script>
-    <script src="member/assets/js/popper.min.js"></script>
-    <script src="member/assets/vendor/bootstrap-5/js/bootstrap.bundle.min.js"></script>
-    <script src="member/assets/js/jquery.cookie.js"></script>
-    <script src="member/assets/js/main.js"></script>
-    <script src="member/assets/js/color-scheme.js"></script>
-    <script src="member/assets/vendor/chart-js-3.3.1/chart.min.js"></script>
-    <script src="member/assets/vendor/progressbar-js/progressbar.min.js"></script>
-    <script src="member/assets/vendor/swiperjs-6.6.2/swiper-bundle.min.js"></script>
-    <script src="member/assets/js/app.js"></script>
   </body>
 </html>
