@@ -222,7 +222,7 @@
                   <ul class="nav nav-collapse">
                     <li>
                       <a href="my-sponsored">
-                        <span class="sub-item">Sponsored Members</span>
+                        <span class="sub-item">Topup Users</span>
                       </a>
                     </li>
                     

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +23,17 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('member.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+// Admin login routes
+Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
+Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login.submit');
+Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+
+// Admin dashboard - only accessible for admins
+Route::get('/admindashboard', function () {
+    return view('member.admindashboard');
+})->middleware(['auth', 'admin'])->name('admindashboard');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
