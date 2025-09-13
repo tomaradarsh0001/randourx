@@ -619,7 +619,7 @@
 
         <footer class="footer">
           <div class="container-fluid">
-            <ul class="nav nav-pills nav-justified">
+            <ul class="nav nav-pills ">
               <li class="nav-item">
                 <a class="nav-link " href="member/">
                   <span>
@@ -629,19 +629,109 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link  " href="plans">
-                  <span>
-                    <img src="{{ asset('member/assets/img/buy_package.png') }}" alt="Buy Package" style="width: 35px; height: 35px;">
-                    <span class="nav-text">Buy Package</span>
-                  </span>
-                </a>
+                  <a class="nav-link" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#buyPackageModal">
+                      <span>
+                          <img src="{{ asset('member/assets/img/buy_package.png') }}" alt="Buy Package" style="width: 35px; height: 35px;">
+                          <span class="nav-text">Buy Package</span>
+                      </span>
+                  </a>
               </li>
+
             </ul>
           </div>
         </footer>
       </div>
     </div>
-    
+    <!-- Buy Package Modal -->
+<!-- Buy Package Modal -->
+<!-- Buy Package Modal -->
+<div class="modal fade" id="buyPackageModal" tabindex="-1" aria-labelledby="buyPackageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-3 shadow-lg">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="buyPackageModalLabel">Buy Package</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      
+      <div class="modal-body">
+        <p class="fw-bold">
+            Available Balance: 
+            <span class="text-success">{{ $user->wallet1 }} USD</span>
+        </p>
+
+        <form id="buyPackageForm" method="POST" action="{{ route('member.buyPackage') }}">
+        @csrf
+        <div class="mb-3">
+            <label for="investAmount" class="form-label">Enter Amount (in multiples of 10)</label>
+            <input type="number" class="form-control" id="investAmount" name="amount" placeholder="e.g. 50" required>
+            <div id="errorMsg" class="text-danger fw-bold mt-2 d-none"></div>
+        </div>
+    </form>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success" id="confirmBtn" disabled>Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    let available = {{ $user->wallet1 }};
+    let input = document.getElementById("investAmount");
+    let errorBox = document.getElementById("errorMsg");
+    let confirmBtn = document.getElementById("confirmBtn");
+
+    function validateAmount() {
+        let amount = parseInt(input.value);
+
+        if (isNaN(amount)) {
+            errorBox.innerText = "Please enter an amount.";
+            errorBox.classList.remove("d-none");
+            confirmBtn.disabled = true;
+            return false;
+        }
+
+        if (amount < 10) {
+            errorBox.innerText = "Amount must be at least 10 USD.";
+            errorBox.classList.remove("d-none");
+            confirmBtn.disabled = true;
+            return false;
+        }
+
+        if (amount % 10 !== 0) {
+            errorBox.innerText = "Amount must be in multiples of 10.";
+            errorBox.classList.remove("d-none");
+            confirmBtn.disabled = true;
+            return false;
+        }
+
+        if (amount > available) {
+            errorBox.innerText = "Amount cannot exceed available balance (" + available + " USD).";
+            errorBox.classList.remove("d-none");
+            confirmBtn.disabled = true;
+            return false;
+        }
+
+        // ✅ Passed all validations
+        errorBox.classList.add("d-none");
+        confirmBtn.disabled = false;
+        return true;
+    }
+
+    input.addEventListener("input", validateAmount);
+
+    confirmBtn.addEventListener("click", function () {
+    if (validateAmount()) {
+        document.getElementById("buyPackageForm").submit();
+    }
+});
+
+});
+</script>
+
+
+
     <!-- Core JS -->
     <script src="{{ asset('member/assets/js/core/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('member/assets/js/core/popper.min.js') }}"></script>

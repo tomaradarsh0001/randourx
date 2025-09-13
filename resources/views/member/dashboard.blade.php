@@ -8,7 +8,7 @@
     <div class="page-inner">
         <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
             <div>
-                <h3 class="fw-bold mb-3"><span class="fw-bold">Hi</span>, Adarsh Tomar RX43324</h3>
+                <h3 class="fw-bold mb-3"><span class="fw-bold">Hi</span>, {{ $user->full_name }}, {{ $user->username }}</h3>
                 <h6 class="op-7 mb-2">Status: <span class="badge bg-success">Active</span></h6>
             </div>
         </div>
@@ -18,7 +18,7 @@
                 <div class="card card-secondary bg-secondary-gradient">
                     <div class="card-body skew-shadow">
                         <img src="{{ asset('assets/img/visa.svg') }}" height="35" alt="Visa Logo" />
-                        <h2 class="py-4 mb-0">500 USD</h2>
+                        <h2 class="py-4 mb-0">{{ $user->wallet1 }} USD</h2>
                         <div class="row">
                             <div class="col-8 pe-0">
                                 <h3 class="fw-bold mb-1">My Wallet</h3>
@@ -36,12 +36,12 @@
                 <div class="card card-secondary bg-secondary-gradient">
                     <div class="card-body bubble-shadow">
                         <img src="{{ asset('assets/img/visa.svg') }}" height="35" alt="Visa Logo" />
-                        <h2 class="py-4 mb-0">564 USD</h2>
+                        <h2 class="py-4 mb-0">{{ $user->wallet2 }} USD</h2>
                         <div class="row">
                             <div class="col-8 pe-0">
                                 <h3 class="fw-bold mb-1">Income Wallet</h3>
                                 <div class="text-small text-uppercase fw-bold op-8">
-                                    <a href="wallet-statements?wid=<?php echo base64_encode(2);?>" class="text-white size-12">View all Transaction</a>
+                                    <a href="{{route('user.income')}}" class="text-white size-12">View all Transaction</a>
                                 </div>
                             </div>
                             <div class="col-4 ps-0 text-end"></div>
@@ -54,12 +54,12 @@
                 <div class="card card-secondary bg-secondary-gradient">
                     <div class="card-body curves-shadow">
                         <img src="{{ asset('assets/img/visa.svg') }}" height="35" alt="Visa Logo" />
-                        <h2 class="py-4 mb-0">343 USD</h2>
+                        <h2 class="py-4 mb-0">{{ $user->wallet3 }} USD</h2>
                         <div class="row">
                             <div class="col-8 pe-0">
                                 <h3 class="fw-bold mb-1">Investment</h3>
                                 <div class="text-small text-uppercase fw-bold op-8">
-                                    <a href="purchase" class="text-white size-12">View all Transaction</a>
+                                    <a href="{{ route('user.investments')}}" class="text-white size-12">View all Transaction</a>
                                 </div>
                             </div>
                             <div class="col-4 ps-0 text-end"></div>
@@ -72,7 +72,7 @@
                 <div class="card card-secondary bg-secondary-gradient">
                     <div class="card-body skew-shadow">
                         <img src="{{ asset('assets/img/visa.svg') }}" height="35" alt="Visa Logo" />
-                        <h2 class="py-4 mb-0">433 USD</h2>
+                        <h2 class="py-4 mb-0">{{ $user->wallet4 }} USD</h2>
                         <div class="row">
                             <div class="col-8 pe-0">
                                 <h3 class="fw-bold mb-1">Withdrawen</h3>
@@ -89,7 +89,7 @@
         
         <div class="row">
             <div class="col-sm-6 col-md-4">
-                <a href="daily-income" class="animated-card-link card-link">
+                <a href="{{ route('roi.history')}}" class="animated-card-link card-link">
                     <div class="animated-card card card-stats card-round">
                         <div class="animated-card-body card-body">
                             <div class="row align-items-center">
@@ -101,7 +101,7 @@
                                 <div class="col col-stats ms-3 ms-sm-0">
                                     <div class="numbers">
                                         <p class="animated-category card-category">ROI Bonus</p>
-                                        <h4 class="animated-title card-title">$43</h4>
+                                        <h4 class="animated-title card-title">${{ $user->income1 }} USD</h4>
                                     </div>
                                 </div>
                             </div>
@@ -123,7 +123,7 @@
                                 <div class="col col-stats ms-3 ms-sm-0">
                                     <div class="numbers">
                                         <p class="animated-category card-category">Level Bonus</p>
-                                        <h4 class="animated-title card-title">$43</h4>
+                                        <h4 class="animated-title card-title">${{ $user->income2 }} USD</h4>
                                     </div>
                                 </div>
                             </div>
@@ -145,7 +145,7 @@
                                 <div class="col col-stats ms-3 ms-sm-0">
                                     <div class="numbers">
                                         <p class="animated-category card-category">Royalty Income</p>
-                                        <h4 class="animated-title card-title">$43</h4>
+                                        <h4 class="animated-title card-title">${{ $user->income3 }} USD</h4>
                                     </div>
                                 </div>
                             </div>

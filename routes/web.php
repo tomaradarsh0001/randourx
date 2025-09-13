@@ -3,6 +3,11 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\MemberController;
+use App\Http\Controllers\RoiRateController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\UserDashboardController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,7 +39,9 @@ Route::get('/admindashboard', function () {
     return view('member.admindashboard');
 })->middleware(['auth', 'admin'])->name('admindashboard');
 
-
+Route::prefix('admin')->middleware(['auth', 'admin'])->group(function() {
+    Route::resource('users', UserController::class);
+});
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -48,4 +55,20 @@ Route::get('/rules', [HomeController::class, 'rules'])->name('rules');
 Route::get('/faq', [HomeController::class, 'faq'])->name('faq');
 
 
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/roi', [RoiRateController::class, 'index'])->name('roi.index');
+    Route::post('/roi/{roiRate}/update', [RoiRateController::class, 'update'])->name('roi.update');
+    Route::post('/roi/manual', [RoiRateController::class, 'manualProcess'])->name('roi.manual');
+});
+
+Route::get('/roi-history', [UserDashboardController::class, 'roiHistory'])
+    ->name('roi.history');
+Route::get('/my-investments', [UserDashboardController::class, 'investments'])
+    ->name('user.investments');
+Route::get('/my-incomes', [UserDashboardController::class, 'wallet2incomes'])
+    ->name('user.income');
+
+Route::post('/member/buy-package', [MemberController::class, 'buyPackage'])
+    ->name('member.buyPackage')
+    ->middleware('auth');
 require __DIR__.'/auth.php';
