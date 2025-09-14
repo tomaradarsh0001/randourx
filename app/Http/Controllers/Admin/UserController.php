@@ -18,7 +18,7 @@ class UserController extends Controller
         return datatables()->of($users)
             ->addIndexColumn()
             ->addColumn('action', function($user){
-            $edit = '<a href="'.route('users.edit', $user->id).'" class="btn btn-sm btn-primary me-1 mb-1">Edit</a>';
+            $edit = '<a href="'.route('users.edit', $user->id).'" class="btn btn-sm btn-primary me-1 mb-1">Update</a>';
                 $delete = '<form action="'.route('users.destroy', $user->id).'" method="POST" class="d-inline-block" onsubmit="return confirm(\'Are you sure?\')">'
                            .csrf_field().method_field('DELETE').
                            '<button type="submit" class="btn btn-sm btn-danger">Delete</button>

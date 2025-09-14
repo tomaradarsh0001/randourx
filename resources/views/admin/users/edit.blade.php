@@ -36,7 +36,7 @@
     </div>
 
     <div class="mb-3">
-        <label>Wallet 1</label>
+        <label>Wallet 1 Balance</label>
         <input type="number" name="wallet1" class="form-control"
                value="{{ old('wallet1', $editUser->wallet1) }}">
     </div>

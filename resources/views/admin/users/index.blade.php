@@ -15,7 +15,7 @@
                 <th>Full Name</th>
                 <th>Mobile</th>
                 <th>Email</th>
-                <th>Wallet1</th>
+                <th>Wallet 1 Balance</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -44,7 +44,13 @@ $(document).ready(function() {
             { data: 'full_name', name: 'full_name' },
             { data: 'mobile', name: 'mobile' },
             { data: 'email', name: 'email' },
-            { data: 'wallet1', name: 'wallet1' },
+            { 
+                data: 'wallet1', 
+                name: 'wallet1',
+                render: function(data, type, row) {
+                    return '$' + data; // prepend $ sign
+                }
+            },
             { data: 'action', name: 'action', orderable: false, searchable: false }
         ],
         columnDefs: [
@@ -62,4 +68,5 @@ $(document).ready(function() {
     });
 });
 </script>
+
 @endsection

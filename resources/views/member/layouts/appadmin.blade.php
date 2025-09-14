@@ -199,7 +199,7 @@
                 <div class="collapse" id="dashboard">
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="member/">
+                      <a href="{{route('admindashboard')}}">
                         <span class="sub-item">Dashboard 1</span>
                       </a>
                     </li>
@@ -210,19 +210,19 @@
                 <span class="sidebar-mini-icon">
                   <i class="fa fa-ellipsis-h"></i>
                 </span>
-                <h4 class="text-section">Wallet Recharge</h4>
+                <h4 class="text-section">Members Data</h4>
               </li>
               <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#base">
                   <i class="fas fa-layer-group"></i>
-                  <p>Recharge Wallet</p>
+                  <p>Members</p>
                   <span class="caret"></span>
                 </a>
                 <div class="collapse" id="base">
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="my-sponsored">
-                        <span class="sub-item">Topup Users</span>
+                      <a href="{{route('users.index')}}">
+                        <span class="sub-item">Manage Users</span>
                       </a>
                     </li>
                     
@@ -234,24 +234,14 @@
               <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#maps">
                   <i class="fas fa-map-marker-alt"></i>
-                  <p>Settings</p>
+                  <p>ROI Settings</p>
                   <span class="caret"></span>
                 </a>
                 <div class="collapse" id="maps">
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="my-profile">
-                        <span class="sub-item">My Profile</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="my-account">
-                        <span class="sub-item">My Account</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="change-password">
-                        <span class="sub-item">Change Password</span>
+                      <a href="{{route('admin.roi.index')}}">
+                        <span class="sub-item">Manage ROI</span>
                       </a>
                     </li>
                   </ul>
