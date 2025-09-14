@@ -43,4 +43,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+       public function sponsor()
+    {
+        return $this->belongsTo(User::class, 'sponsor_id');
+    }
+
+    // Direct downlines
+    public function referrals()
+    {
+        return $this->hasMany(User::class, 'sponsor_id');
+    }
 }

@@ -249,16 +249,16 @@
               </li>
              
               <li class="nav-item">
-    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-        <i class="fas fa-desktop"></i>
-        <p>Logout</p>
-        <span class="badge badge-danger">></span>
-    </a>
+                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <i class="fas fa-desktop"></i>
+                    <p>Logout</p>
+                    <span class="badge badge-danger">></span>
+                </a>
 
-    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-        @csrf
-    </form>
-</li>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            </li>
 
               
             </ul>

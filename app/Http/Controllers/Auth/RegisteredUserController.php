@@ -15,12 +15,13 @@ use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 
 class RegisteredUserController extends Controller
 {
    
- public function create(): View
+   public function create(): View
     {
         $countries = CountryCode::orderBy('country_name', 'ASC')->get();
 
@@ -34,13 +35,10 @@ class RegisteredUserController extends Controller
         return view('auth.register', compact('countries', 'default'));
     }
 
-    /**
-     * Handle registration.
-     */
-   public function store(Request $request): RedirectResponse
+  public function store(Request $request): RedirectResponse
 {
     try {
-        // Validate the request
+        // ✅ Step 1: Validation
         $request->validate([
             'sponsor_username' => ['nullable', 'exists:users,username'],
             'full_name'        => ['required', 'string', 'max:255'],
@@ -50,20 +48,20 @@ class RegisteredUserController extends Controller
             'password'         => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        // Log validation passed
-        Log::info('Registration validation passed.', [
-            'sponsor_username' => $request->sponsor_username,
-            'email' => $request->email,
-            'mobile' => $request->mobile,
-        ]);
+        // ✅ Step 2: Get Sponsor
+        $sponsor = null;
+        if ($request->sponsor_username) {
+            $sponsor = User::where('username', $request->sponsor_username)->first();
+        }
 
-        // Generate unique RX***** username
+        // ✅ Step 3: Generate unique username
         do {
             $username = 'RX' . str_pad(rand(0, 99999), 5, '0', STR_PAD_LEFT);
         } while (User::where('username', $username)->exists());
 
-        // Create user
+        // ✅ Step 4: Create User
         $user = User::create([
+            'sponsor_id'       => $sponsor?->id,
             'sponsor_username' => $request->sponsor_username,
             'username'         => $username,
             'full_name'        => $request->full_name,
@@ -73,58 +71,83 @@ class RegisteredUserController extends Controller
             'password'         => Hash::make($request->password),
         ]);
 
-        // Log user creation
-        Log::info('New user registered successfully.', [
-            'username' => $user->username,
-            'email' => $user->email,
-            'id' => $user->id,
-        ]);
+        // ✅ Step 5: Build Downline Tracking
+        DB::transaction(function () use ($user, $sponsor) {
+            // Add self-reference (depth 0)
+            DB::table('downlines')->insert([
+                'ancestor_id'   => $user->id,
+                'descendant_id' => $user->id,
+                'depth'         => 0,
+                'created_at'    => now(),
+                'updated_at'    => now(),
+            ]);
 
-        // Fire the registered event
+            if ($sponsor) {
+                // Inherit all sponsor’s ancestors
+                $ancestors = DB::table('downlines')
+                    ->where('descendant_id', $sponsor->id)
+                    ->get();
+
+                foreach ($ancestors as $ancestor) {
+                    DB::table('downlines')->insert([
+                        'ancestor_id'   => $ancestor->ancestor_id,
+                        'descendant_id' => $user->id,
+                        'depth'         => $ancestor->depth + 1,
+                        'created_at'    => now(),
+                        'updated_at'    => now(),
+                    ]);
+                }
+            }
+        });
+
+        // ✅ Step 6: Login & Redirect
         event(new Registered($user));
-
-        // Login the user
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect(RouteServiceProvider::HOME)
+            ->with('success', 'Registration successful!');
     } catch (\Exception $e) {
-        // Log any exception
         Log::error('Error during user registration.', [
-            'error' => $e->getMessage(),
-            'trace' => $e->getTraceAsString(),
+            'error'   => $e->getMessage(),
+            'trace'   => $e->getTraceAsString(),
             'request' => $request->all(),
         ]);
 
-        return back()->withInput()->withErrors(['error' => 'Registration failed. Please try again.']);
-    }
-}
-
-public function checkSponsor(Request $request)
-{
-    $request->validate([
-        'username' => 'required|string|min:5'
-    ]);
-
-    $user = User::where('username', $request->username)->first();
-
-    if($user){
-        return response()->json([
-            'exists' => true,
-            'full_name' => $user->full_name
+        return back()->withInput()->withErrors([
+            'error' => 'Registration failed. Please try again.'
         ]);
-    } else {
-        return response()->json(['exists' => false]);
     }
 }
-public function checkUser(Request $request)
-{
-    $request->validate([
-        'type' => 'required|in:mobile,email',
-        'value' => 'required|string'
-    ]);
 
-    $exists = User::where($request->type, $request->value)->exists();
 
-    return response()->json(['exists' => $exists]);
-}
+
+    public function checkSponsor(Request $request)
+    {
+        $request->validate([
+            'username' => 'required|string|min:5'
+        ]);
+
+        $user = User::where('username', $request->username)->first();
+
+        if($user){
+            return response()->json([
+                'exists' => true,
+                'full_name' => $user->full_name
+            ]);
+        } else {
+            return response()->json(['exists' => false]);
+        }
+    }
+
+    public function checkUser(Request $request)
+    {
+        $request->validate([
+            'type' => 'required|in:mobile,email',
+            'value' => 'required|string'
+        ]);
+
+        $exists = User::where($request->type, $request->value)->exists();
+
+        return response()->json(['exists' => $exists]);
+    }
 }

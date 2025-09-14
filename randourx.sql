@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 10, 2025 at 02:21 PM
+-- Generation Time: Sep 14, 2025 at 10:59 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -518,6 +518,66 @@ INSERT INTO `country_codes` (`id`, `country_code`, `country_name`, `country_code
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `downlines`
+--
+
+CREATE TABLE `downlines` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `ancestor_id` bigint(20) UNSIGNED NOT NULL,
+  `descendant_id` bigint(20) UNSIGNED NOT NULL,
+  `depth` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `downlines`
+--
+
+INSERT INTO `downlines` (`id`, `ancestor_id`, `descendant_id`, `depth`, `created_at`, `updated_at`) VALUES
+(1, 11, 11, 0, '2025-09-14 08:06:09', '2025-09-14 08:06:09'),
+(2, 12, 12, 0, '2025-09-14 08:07:40', '2025-09-14 08:07:40'),
+(3, 11, 12, 1, '2025-09-14 08:07:40', '2025-09-14 08:07:40'),
+(4, 13, 13, 0, '2025-09-14 08:08:52', '2025-09-14 08:08:52'),
+(5, 12, 13, 1, '2025-09-14 08:08:52', '2025-09-14 08:08:52'),
+(6, 11, 13, 2, '2025-09-14 08:08:52', '2025-09-14 08:08:52'),
+(7, 14, 14, 0, '2025-09-14 08:11:57', '2025-09-14 08:11:57'),
+(8, 13, 14, 1, '2025-09-14 08:11:57', '2025-09-14 08:11:57'),
+(9, 12, 14, 2, '2025-09-14 08:11:57', '2025-09-14 08:11:57'),
+(10, 11, 14, 3, '2025-09-14 08:11:57', '2025-09-14 08:11:57'),
+(11, 15, 15, 0, '2025-09-14 14:16:31', '2025-09-14 14:16:31'),
+(12, 11, 15, 1, '2025-09-14 14:16:31', '2025-09-14 14:16:31'),
+(13, 16, 16, 0, '2025-09-14 14:18:34', '2025-09-14 14:18:34'),
+(14, 15, 16, 1, '2025-09-14 14:18:34', '2025-09-14 14:18:34'),
+(15, 11, 16, 2, '2025-09-14 14:18:34', '2025-09-14 14:18:34'),
+(16, 17, 17, 0, '2025-09-14 14:19:18', '2025-09-14 14:19:18'),
+(17, 16, 17, 1, '2025-09-14 14:19:18', '2025-09-14 14:19:18'),
+(18, 15, 17, 2, '2025-09-14 14:19:18', '2025-09-14 14:19:18'),
+(19, 11, 17, 3, '2025-09-14 14:19:18', '2025-09-14 14:19:18'),
+(20, 18, 18, 0, '2025-09-14 14:49:45', '2025-09-14 14:49:45'),
+(21, 11, 18, 1, '2025-09-14 14:49:45', '2025-09-14 14:49:45'),
+(22, 19, 19, 0, '2025-09-14 14:50:38', '2025-09-14 14:50:38'),
+(23, 18, 19, 1, '2025-09-14 14:50:38', '2025-09-14 14:50:38'),
+(24, 11, 19, 2, '2025-09-14 14:50:38', '2025-09-14 14:50:38'),
+(25, 20, 20, 0, '2025-09-14 14:51:33', '2025-09-14 14:51:33'),
+(26, 19, 20, 1, '2025-09-14 14:51:33', '2025-09-14 14:51:33'),
+(27, 18, 20, 2, '2025-09-14 14:51:33', '2025-09-14 14:51:33'),
+(28, 11, 20, 3, '2025-09-14 14:51:33', '2025-09-14 14:51:33'),
+(29, 21, 21, 0, '2025-09-14 14:52:16', '2025-09-14 14:52:16'),
+(30, 20, 21, 1, '2025-09-14 14:52:16', '2025-09-14 14:52:16'),
+(31, 19, 21, 2, '2025-09-14 14:52:16', '2025-09-14 14:52:16'),
+(32, 18, 21, 3, '2025-09-14 14:52:16', '2025-09-14 14:52:16'),
+(33, 11, 21, 4, '2025-09-14 14:52:16', '2025-09-14 14:52:16'),
+(34, 22, 22, 0, '2025-09-14 14:53:36', '2025-09-14 14:53:36'),
+(35, 21, 22, 1, '2025-09-14 14:53:36', '2025-09-14 14:53:36'),
+(36, 20, 22, 2, '2025-09-14 14:53:36', '2025-09-14 14:53:36'),
+(37, 19, 22, 3, '2025-09-14 14:53:36', '2025-09-14 14:53:36'),
+(38, 18, 22, 4, '2025-09-14 14:53:36', '2025-09-14 14:53:36'),
+(39, 11, 22, 5, '2025-09-14 14:53:36', '2025-09-14 14:53:36');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `failed_jobs`
 --
 
@@ -551,7 +611,14 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '2014_10_12_000000_create_users_table', 1),
 (2, '2014_10_12_100000_create_password_reset_tokens_table', 1),
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
-(4, '2019_12_14_000001_create_personal_access_tokens_table', 1);
+(4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(5, '2025_09_12_184043_add_wallets_and_incomes_to_users_table', 2),
+(6, '2025_09_12_185327_add_is_admin_to_users_table', 3),
+(9, '2025_09_12_220956_create_roi_rates_table', 4),
+(10, '2025_09_13_121204_create_roi_incomes_table', 5),
+(11, '2025_09_13_125400_create_user_purchases_table', 6),
+(12, '2025_09_14_132618_add_sponsor_id_to_users_table', 7),
+(13, '2025_09_14_133018_create_downlines_table', 8);
 
 -- --------------------------------------------------------
 
@@ -587,6 +654,86 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `roi_incomes`
+--
+
+CREATE TABLE `roi_incomes` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `from_admin` tinyint(1) NOT NULL DEFAULT 1,
+  `wallet_value` decimal(15,2) NOT NULL,
+  `roi_bonus` decimal(15,2) NOT NULL,
+  `timing` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `roi_incomes`
+--
+
+INSERT INTO `roi_incomes` (`id`, `user_id`, `from_admin`, `wallet_value`, `roi_bonus`, `timing`, `created_at`, `updated_at`) VALUES
+(1, 5, 1, 100.00, 1.84, '2025-09-13 12:13:43', '2025-09-13 06:43:43', '2025-09-13 06:43:43'),
+(2, 5, 1, 100.00, 2.25, '2025-09-13 12:16:11', '2025-09-13 06:46:11', '2025-09-13 06:46:11'),
+(3, 6, 1, 70.00, 1.58, '2025-09-13 12:16:11', '2025-09-13 06:46:11', '2025-09-13 06:46:11'),
+(4, 5, 1, 100.00, 2.25, '2025-09-13 12:23:50', '2025-09-13 06:53:50', '2025-09-13 06:53:50'),
+(5, 6, 1, 70.00, 1.58, '2025-09-13 12:23:50', '2025-09-13 06:53:50', '2025-09-13 06:53:50'),
+(6, 5, 1, 200.00, 4.50, '2025-09-13 13:30:24', '2025-09-13 08:00:24', '2025-09-13 08:00:24'),
+(7, 6, 1, 70.00, 1.58, '2025-09-13 13:30:25', '2025-09-13 08:00:25', '2025-09-13 08:00:25'),
+(8, 5, 1, 200.00, 4.00, '2025-09-13 13:31:34', '2025-09-13 08:01:34', '2025-09-13 08:01:34'),
+(9, 6, 1, 70.00, 1.40, '2025-09-13 13:31:34', '2025-09-13 08:01:34', '2025-09-13 08:01:34'),
+(10, 7, 1, 340.00, 6.80, '2025-09-13 13:31:34', '2025-09-13 08:01:34', '2025-09-13 08:01:34'),
+(11, 8, 1, 100.00, 2.00, '2025-09-13 13:31:34', '2025-09-13 08:01:34', '2025-09-13 08:01:34'),
+(12, 9, 1, 210.00, 4.20, '2025-09-13 13:31:34', '2025-09-13 08:01:34', '2025-09-13 08:01:34'),
+(13, 5, 1, 200.00, 4.00, '2025-09-13 13:31:38', '2025-09-13 08:01:38', '2025-09-13 08:01:38'),
+(14, 6, 1, 70.00, 1.40, '2025-09-13 13:31:38', '2025-09-13 08:01:38', '2025-09-13 08:01:38'),
+(15, 7, 1, 340.00, 6.80, '2025-09-13 13:31:38', '2025-09-13 08:01:38', '2025-09-13 08:01:38'),
+(16, 8, 1, 100.00, 2.00, '2025-09-13 13:31:39', '2025-09-13 08:01:39', '2025-09-13 08:01:39'),
+(17, 9, 1, 210.00, 4.20, '2025-09-13 13:31:39', '2025-09-13 08:01:39', '2025-09-13 08:01:39'),
+(18, 5, 1, 200.00, 4.00, '2025-09-13 13:31:42', '2025-09-13 08:01:42', '2025-09-13 08:01:42'),
+(19, 6, 1, 70.00, 1.40, '2025-09-13 13:31:42', '2025-09-13 08:01:42', '2025-09-13 08:01:42'),
+(20, 7, 1, 340.00, 6.80, '2025-09-13 13:31:42', '2025-09-13 08:01:42', '2025-09-13 08:01:42'),
+(21, 8, 1, 100.00, 2.00, '2025-09-13 13:31:42', '2025-09-13 08:01:42', '2025-09-13 08:01:42'),
+(22, 9, 1, 210.00, 4.20, '2025-09-13 13:31:42', '2025-09-13 08:01:42', '2025-09-13 08:01:42'),
+(23, 5, 1, 200.00, 4.00, '2025-09-13 13:31:45', '2025-09-13 08:01:45', '2025-09-13 08:01:45'),
+(24, 6, 1, 70.00, 1.40, '2025-09-13 13:31:45', '2025-09-13 08:01:45', '2025-09-13 08:01:45'),
+(25, 7, 1, 340.00, 6.80, '2025-09-13 13:31:45', '2025-09-13 08:01:45', '2025-09-13 08:01:45'),
+(26, 8, 1, 100.00, 2.00, '2025-09-13 13:31:45', '2025-09-13 08:01:45', '2025-09-13 08:01:45'),
+(27, 9, 1, 210.00, 4.20, '2025-09-13 13:31:45', '2025-09-13 08:01:45', '2025-09-13 08:01:45'),
+(28, 5, 1, 200.00, 6.80, '2025-09-13 13:31:58', '2025-09-13 08:01:58', '2025-09-13 08:01:58'),
+(29, 6, 1, 70.00, 2.38, '2025-09-13 13:31:58', '2025-09-13 08:01:58', '2025-09-13 08:01:58'),
+(30, 7, 1, 340.00, 11.56, '2025-09-13 13:31:58', '2025-09-13 08:01:58', '2025-09-13 08:01:58'),
+(31, 8, 1, 100.00, 3.40, '2025-09-13 13:31:58', '2025-09-13 08:01:58', '2025-09-13 08:01:58'),
+(32, 9, 1, 210.00, 7.14, '2025-09-13 13:31:58', '2025-09-13 08:01:58', '2025-09-13 08:01:58'),
+(33, 5, 1, 200.00, 6.80, '2025-09-13 13:32:01', '2025-09-13 08:02:01', '2025-09-13 08:02:01'),
+(34, 6, 1, 70.00, 2.38, '2025-09-13 13:32:01', '2025-09-13 08:02:01', '2025-09-13 08:02:01'),
+(35, 7, 1, 340.00, 11.56, '2025-09-13 13:32:01', '2025-09-13 08:02:01', '2025-09-13 08:02:01'),
+(36, 8, 1, 100.00, 3.40, '2025-09-13 13:32:01', '2025-09-13 08:02:01', '2025-09-13 08:02:01'),
+(37, 9, 1, 210.00, 7.14, '2025-09-13 13:32:02', '2025-09-13 08:02:02', '2025-09-13 08:02:02');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `roi_rates`
+--
+
+CREATE TABLE `roi_rates` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `rate` decimal(5,2) NOT NULL DEFAULT 0.00,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `roi_rates`
+--
+
+INSERT INTO `roi_rates` (`id`, `rate`, `created_at`, `updated_at`) VALUES
+(1, 3.40, '2025-09-13 04:30:00', '2025-09-13 08:01:54');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -600,23 +747,80 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) NOT NULL,
+  `is_admin` tinyint(1) DEFAULT 0,
   `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `wallet1` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `wallet2` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `wallet3` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `wallet4` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `income1` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `income2` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `income3` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `sponsor_id` bigint(20) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `sponsor_username`, `username`, `full_name`, `country_code`, `mobile`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'sponsor001', 'RX0001', 'John Doe', '+91', '9876543210', 'john.doe@example.com', '2025-09-10 06:54:30', '$2y$10$1234567890abcdef...', 'randomtoken123', '2025-09-10 06:54:30', '2025-09-10 06:54:30'),
-(2, 'RX0001', 'RX61643', 'Adarsh Tomar', '+91', '7011864373', 'tomaradarsh0001@gmail.com', NULL, '$2y$12$QPVrTLQ2maHJrIDLxsXSA.prpx9xj4M4ozi.Rmd.Edb6gdx5BkP7a', NULL, '2025-09-10 01:24:54', '2025-09-10 01:24:54'),
-(3, 'RX0001', 'RX62384', 'Shiv Nandan Singh', '+93', '9818653848', 'test@yopmail.com', NULL, '$2y$12$3BBDgdMUkvekizcyKunatO0AaXvZLhyJYu4dUz9A4Es7ciz0bHmr2', NULL, '2025-09-10 05:12:48', '2025-09-10 05:12:48');
+INSERT INTO `users` (`id`, `sponsor_username`, `username`, `full_name`, `country_code`, `mobile`, `email`, `email_verified_at`, `password`, `is_admin`, `remember_token`, `created_at`, `updated_at`, `wallet1`, `wallet2`, `wallet3`, `wallet4`, `income1`, `income2`, `income3`, `sponsor_id`) VALUES
+(4, 'RX62384', 'RX54851', 'Harsh', '+91', '9911550920', 'harsh@gmail.com', NULL, '$2y$12$OIbpeo.3BKCORvrG81iOGe927iHP2xXQDV8KOrsbR8QBhHo3wYlcO', 0, NULL, '2025-09-12 23:09:34', '2025-09-12 23:09:34', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, NULL),
+(5, 'RX54851', 'RX33169', 'Adarsh Tomar', '+91', '7011864373', 'adarsh@gmail.com', NULL, '$2y$12$YF0QQr2cFzke/UhSkdzuduBFxzVWaIsSR7w8j9z5TFLgCAgv22Y7a', 1, NULL, '2025-09-12 23:21:19', '2025-09-13 08:02:01', 90.00, 51.44, 200.00, 0.00, 36.35, 0.00, 0.00, NULL),
+(6, 'RX33169', 'RX17404', 'Rahul', '+91', '8882824199', 'rahul@gmail.com', NULL, '$2y$12$.iKJiQQY4fHHBL3aN6hageXka6F63Q2WnTwlt1kNZJbj9dhCJD6oq', 0, NULL, '2025-09-13 06:45:04', '2025-09-13 08:02:01', 0.00, 15.10, 70.00, 0.00, 13.52, 0.00, 0.00, NULL),
+(7, 'RX17404', 'RX12620', 'Yogesh kapadia', '+91', '7053152217', 'kapadia.yogesh@gmail.com', NULL, '$2y$12$nNu8QzYn8s4ugoelM8fhJeAhSH3GNN8qKxcKncFArNY/XIrHlMQQe', 0, NULL, '2025-09-13 07:56:41', '2025-09-13 08:17:45', 120.00, 50.32, 340.00, 0.00, 50.32, 0.00, 0.00, NULL),
+(8, 'RX17404', 'RX67943', 'Vishu', '+91', '84476756754', 'vishu@gmail.com', NULL, '$2y$12$EmYgpSiQV76AVAUz7oMBs.LvJvqUmqIYtF1nqzGJaDJsqRbJLq8my', 0, NULL, '2025-09-13 07:57:55', '2025-09-13 08:02:01', 0.00, 14.80, 100.00, 0.00, 14.80, 0.00, 0.00, NULL),
+(9, 'RX67943', 'RX26290', 'Kamal', '+91', '23432432432', 'kamal@gmail.com', NULL, '$2y$12$5s0lM3jRZSBQ7.9CyyBzeuAmwc1nprMDptV4b48UKT6yapiyNMRo.', 0, NULL, '2025-09-13 07:58:31', '2025-09-14 00:23:38', 78.00, 31.08, 210.00, 0.00, 31.08, 0.00, 0.00, NULL),
+(11, 'RX26290', 'RX16008', 'Abhishek', '+91', '12345678', 'abhishek@gmail.com', NULL, '$2y$12$3HiJ3mzSkjh8eASX49nTzOGhJfVWGs98fCQ8c2Ny8v9OLPjxOl7KC', 0, NULL, '2025-09-14 08:06:09', '2025-09-14 08:06:09', 15.00, 0.00, 34.00, 0.00, 0.00, 0.00, 0.00, NULL),
+(12, 'RX16008', 'RX48807', 'Bharat', '+91', '213456788', 'bharat@gmail.com', NULL, '$2y$12$yqPyA5qi09cstTCmR2qjeO.fnh9SiEShWD2Fbe6mdo2bsJUBipxsa', 0, NULL, '2025-09-14 08:07:40', '2025-09-14 08:07:40', 10.00, 0.00, 24.00, 0.00, 0.00, 0.00, 0.00, NULL),
+(13, 'RX48807', 'RX57732', 'Chirag', '+91', '3214567898', 'chirag@gmail.com', NULL, '$2y$12$1mTX/bd41F9MUM7wpkLtSO/k2Rmz/GKyEWdOl2Lswkzle5Ya/U6xS', 0, NULL, '2025-09-14 08:08:51', '2025-09-14 08:08:51', 50.00, 0.00, 30.00, 0.00, 0.00, 0.00, 0.00, NULL),
+(14, 'RX57732', 'RX23129', 'Devender', '+91', '5437534875', 'devender@gmail.com', NULL, '$2y$12$6xa2hpcP8mSv7sTQFVONOOSdqnI2hSGfPYR.TfuV8kDRe6jZY9MNy', 0, NULL, '2025-09-14 08:11:57', '2025-09-14 08:11:57', 35.00, 0.00, 12.00, 0.00, 0.00, 0.00, 0.00, NULL),
+(15, 'RX16008', 'RX55895', 'Bahadur', '+91', '453534534', 'bahadur@gmail.com', NULL, '$2y$12$Ixuvpu9fXbQyojiuWyJw7ukx9SajoRnWMAvvELkhSz4tX0m2NEnAS', 0, NULL, '2025-09-14 14:16:31', '2025-09-14 14:16:31', 0.00, 0.00, 54.00, 0.00, 0.00, 0.00, 0.00, NULL),
+(16, 'RX55895', 'RX35712', 'Chetan', '+91', '35635343453', 'chetan@gmail.com', NULL, '$2y$12$qtyzV4mFLAc7ARPiuVCtCu4R2dZJC9N9o1jPApLkFs.2TBl3zoP3C', 0, NULL, '2025-09-14 14:18:34', '2025-09-14 14:18:34', 0.00, 0.00, 28.00, 0.00, 0.00, 0.00, 0.00, NULL),
+(17, 'RX35712', 'RX80281', 'Dharmesh', '+91', '4645645645', 'dharmesh@gmail.com', NULL, '$2y$12$2UGv17UPwWXUfGo7PP2kUeZ.L.FWLCVuEr8PHiMRBKmPKsBI4c7GC', 0, NULL, '2025-09-14 14:19:17', '2025-09-14 14:19:17', 0.00, 0.00, 11.00, 0.00, 0.00, 0.00, 0.00, NULL),
+(18, 'RX16008', 'RX89984', 'Bunny', '+91', '43834354343', 'bunny@gmail.com', NULL, '$2y$12$55wiccFO2t6iHGjMUMJxMeWdGFlFvr0IVuvV/.TO/xd/08tzgPgq2', 0, NULL, '2025-09-14 14:49:45', '2025-09-14 14:49:45', 0.00, 0.00, 23.00, 0.00, 0.00, 0.00, 0.00, NULL),
+(19, 'RX89984', 'RX25873', 'Chang', '+91', '5432423324', 'chang@gmail.com', NULL, '$2y$12$QbtsYNspFP5EhBuBziUREOn8/OcSWhIQOPkrDz6awcl2FpHASvhPe', 0, NULL, '2025-09-14 14:50:37', '2025-09-14 14:50:37', 0.00, 0.00, 65.00, 0.00, 0.00, 0.00, 0.00, NULL),
+(20, 'RX25873', 'RX25458', 'Dennis', '+91', '53453453434', 'dennis@gmail.com', NULL, '$2y$12$OT1NxSzwUR61Q6.tf7i/WelCrxLqKIeFFXeuTdEU4ZFKpVYyw9nla', 0, NULL, '2025-09-14 14:51:33', '2025-09-14 14:51:33', 0.00, 0.00, 16.00, 0.00, 0.00, 0.00, 0.00, NULL),
+(21, 'RX25458', 'RX25056', 'Eren', '+91', '534534534', 'eren@gmail.com', NULL, '$2y$12$udIsrDvgER.dPovCu.H0n.COM3IXedftutReIou/VEW/PXllp/kiW', 0, NULL, '2025-09-14 14:52:15', '2025-09-14 14:52:15', 0.00, 0.00, 21.00, 0.00, 0.00, 0.00, 0.00, NULL),
+(22, 'RX25056', 'RX20290', 'Finn', '+91', '534534534346', 'finn@gmail.com', NULL, '$2y$12$EWHs3PYyp4OV1UIdYqE3XuLmDK.BGNce7FWAIiL/EUL3aL2N/2sTm', 0, NULL, '2025-09-14 14:53:35', '2025-09-14 14:53:35', 0.00, 0.00, 26.00, 0.00, 0.00, 0.00, 0.00, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_purchases`
+--
+
+CREATE TABLE `user_purchases` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `purchase_value` decimal(15,2) NOT NULL,
+  `purchased_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `user_purchases`
+--
+
+INSERT INTO `user_purchases` (`id`, `user_id`, `purchase_value`, `purchased_at`, `created_at`, `updated_at`) VALUES
+(1, 5, 100.00, '2025-09-13 07:30:07', '2025-09-13 07:30:07', '2025-09-13 07:30:07'),
+(2, 9, 210.00, '2025-09-13 08:00:46', '2025-09-13 08:00:46', '2025-09-13 08:00:46'),
+(3, 8, 100.00, '2025-09-13 08:01:08', '2025-09-13 08:01:08', '2025-09-13 08:01:08'),
+(4, 7, 340.00, '2025-09-13 08:01:27', '2025-09-13 08:01:27', '2025-09-13 08:01:27');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `downlines`
+--
+ALTER TABLE `downlines`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `downlines_ancestor_id_foreign` (`ancestor_id`),
+  ADD KEY `downlines_descendant_id_foreign` (`descendant_id`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -646,17 +850,45 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
+-- Indexes for table `roi_incomes`
+--
+ALTER TABLE `roi_incomes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `roi_incomes_user_id_foreign` (`user_id`);
+
+--
+-- Indexes for table `roi_rates`
+--
+ALTER TABLE `roi_rates`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `roi_rates_rate_index` (`rate`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_username_unique` (`username`),
   ADD UNIQUE KEY `users_mobile_unique` (`mobile`),
-  ADD UNIQUE KEY `users_email_unique` (`email`);
+  ADD UNIQUE KEY `users_email_unique` (`email`),
+  ADD KEY `users_sponsor_id_foreign` (`sponsor_id`);
+
+--
+-- Indexes for table `user_purchases`
+--
+ALTER TABLE `user_purchases`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_purchases_user_id_foreign` (`user_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `downlines`
+--
+ALTER TABLE `downlines`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -668,7 +900,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -677,10 +909,57 @@ ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `roi_incomes`
+--
+ALTER TABLE `roi_incomes`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
+--
+-- AUTO_INCREMENT for table `roi_rates`
+--
+ALTER TABLE `roi_rates`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT for table `user_purchases`
+--
+ALTER TABLE `user_purchases`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `downlines`
+--
+ALTER TABLE `downlines`
+  ADD CONSTRAINT `downlines_ancestor_id_foreign` FOREIGN KEY (`ancestor_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `downlines_descendant_id_foreign` FOREIGN KEY (`descendant_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `roi_incomes`
+--
+ALTER TABLE `roi_incomes`
+  ADD CONSTRAINT `roi_incomes_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `users_sponsor_id_foreign` FOREIGN KEY (`sponsor_id`) REFERENCES `users` (`id`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `user_purchases`
+--
+ALTER TABLE `user_purchases`
+  ADD CONSTRAINT `user_purchases_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\RoiRateController;
+use App\Http\Controllers\DownlineController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\UserDashboardController;
 
@@ -59,6 +60,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/roi', [RoiRateController::class, 'index'])->name('roi.index');
     Route::post('/roi/{roiRate}/update', [RoiRateController::class, 'update'])->name('roi.update');
     Route::post('/roi/manual', [RoiRateController::class, 'manualProcess'])->name('roi.manual');
+
 });
 
 Route::get('/roi-history', [UserDashboardController::class, 'roiHistory'])
@@ -67,7 +69,7 @@ Route::get('/my-investments', [UserDashboardController::class, 'investments'])
     ->name('user.investments');
 Route::get('/my-incomes', [UserDashboardController::class, 'wallet2incomes'])
     ->name('user.income');
-
+Route::get('/downlines', [DownlineController::class, 'index'])->name('downlines.index');
 Route::post('/member/buy-package', [MemberController::class, 'buyPackage'])
     ->name('member.buyPackage')
     ->middleware('auth');

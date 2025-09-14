@@ -19,11 +19,12 @@
                 <th>Action</th>
             </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+        </tbody>
     </table>
 </div>
 </div>
-</div>
+
 
 <!-- jQuery, Bootstrap, DataTables -->
 <link href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
