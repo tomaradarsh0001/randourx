@@ -219,7 +219,7 @@
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <img src="{{ asset('member/assets/img/upcoming_project.jpg') }}" class="img-fluid"
+                    <img src="{{ asset('assets/img/upcoming_project.jpg') }}" class="img-fluid"
                         alt="Upcoming Project">
                 </div>
             </div>

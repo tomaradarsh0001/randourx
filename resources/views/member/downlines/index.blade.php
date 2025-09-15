@@ -5,7 +5,24 @@
 @section('content')
 <div class="container">
     <div class="page-inner">
-        <h2 class="mb-4">My Downline Users</h2>
+        <!-- Heading and Filter in a single row -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="mb-0">My Downline Users</h2>
+            
+            @if(!$downlines->isEmpty())
+            <div class="d-flex align-items-center">
+                <label for="downline-filter" class="form-label me-2 mb-0">Filter by:</label>
+                <select id="downline-filter" class="form-select" style="width: auto;">
+                    <option value="">All Downlines</option>
+                    @foreach($level1Groups as $id => $group)
+                        <option value="{{ $group['label'] }}">
+                            {{ $group['label'] }} - {{ $group['username'] }} ({{ $group['full_name'] }})
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            @endif
+        </div>
 
         @if($downlines->isEmpty())
             <div class="alert alert-info">No downline users yet.</div>
@@ -26,7 +43,7 @@
                         </thead>
                         <tbody>
                             @foreach($downlines as $index => $downline)
-                                <tr>
+                                <tr data-downline="{{ $downline->downline_name }}">
                                     <td>{{ $index + 1 }}</td>
                                     <td>
                                         <span class="me-1"
@@ -52,7 +69,7 @@
                         </tbody>
                         <tfoot>
                             <tr class="table-dark">
-                                <td class="text-end fw-bold" colspan="5">Total Downline Count</td>
+                                <td class="text-end fw-bold" colspan="5">Total Level-1 Downlines</td>
                                 <td class="fw-bold text-success" colspan="2">{{ $level1Count }}</td>
                             </tr>
                             <tr class="table-dark">
@@ -68,7 +85,6 @@
                                 </td>
                             </tr>
                         </tfoot>
-
                     </table>
                 </div>
             </div>
@@ -89,15 +105,16 @@
 
 <script>
     $(document).ready(function() {
-        $('#downlines-table').DataTable({
-            "pageLength": 10, // Show 10 entries per page
-            "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]], // Page length options
-            "order": [[0, 'asc']], // Default sorting by the first column (index)
-            "responsive": true, // Enable responsive feature
-            "searching": true, // Enable search functionality
-            "paging": true, // Enable pagination
-            "info": true, // Show table information
-            "autoWidth": false, // Disable automatic column width calculation
+        // Initialize DataTable
+        var table = $('#downlines-table').DataTable({
+            "pageLength": 10,
+            "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+            "order": [[0, 'asc']],
+            "responsive": true,
+            "searching": true,
+            "paging": true,
+            "info": true,
+            "autoWidth": false,
             "language": {
                 "search": "Filter:",
                 "lengthMenu": "Show _MENU_ entries",
@@ -110,13 +127,37 @@
                 }
             },
             "columnDefs": [
-                { "orderable": true, "targets": [0, 1, 2, 3, 4, 5, 6] } // Make all columns sortable
-                // Removed dt-center class
+                { "orderable": true, "targets": [0, 1, 2, 3, 4, 5, 6] }
             ]
+        });
+        
+        // Add custom filtering function for downline groups
+        $.fn.dataTable.ext.search.push(
+            function(settings, data, dataIndex) {
+                var selectedDownline = $('#downline-filter').val();
+                if (!selectedDownline) {
+                    return true; // Show all if no filter selected
+                }
+                
+                // Extract just the downline label (e.g., "Downline 1") from the option value
+                var downlineLabel = selectedDownline.split(' - ')[0];
+                var rowDownline = $(table.row(dataIndex).node()).data('downline');
+                return rowDownline === downlineLabel;
+            }
+        );
+        
+        // Handle filter change event
+        $('#downline-filter').on('change', function() {
+            table.draw();
+            
+            // Update the count of visible rows in the table info
+            var info = table.page.info();
+            $('#downlines-table_info').html(
+                'Showing ' + (info.recordsDisplay) + ' entries'
+            );
         });
     });
 </script>
-
 
 <style>
     .dataTables_wrapper .dataTables_paginate .paginate_button {
@@ -139,6 +180,33 @@
     }
     .card, .card-light {
         margin-bottom: 120px !important;
+    }
+    
+    /* Make dropdown wider to accommodate the additional text */
+    #downline-filter {
+        min-width: 300px;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .d-flex.justify-content-between.align-items-center.mb-4 {
+            flex-direction: column;
+            align-items: flex-start !important;
+        }
+        
+        .d-flex.justify-content-between.align-items-center.mb-4 > * {
+            margin-bottom: 10px;
+        }
+        
+        .d-flex.align-items-center {
+            width: 100%;
+            justify-content: flex-end;
+        }
+        
+        #downline-filter {
+            min-width: 200px;
+            width: 100% !important;
+        }
     }
 </style>
 @endsection

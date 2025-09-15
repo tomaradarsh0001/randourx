@@ -294,8 +294,8 @@
                 <div class="collapse" id="dashboard">
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="member/">
-                        <span class="sub-item">Dashboard 1</span>
+                      <a href="{{ route('dashboard')}}">
+                        <span class="sub-item">Dashboard</span>
                       </a>
                     </li>
                   </ul>
@@ -305,7 +305,7 @@
                 <span class="sidebar-mini-icon">
                   <i class="fa fa-ellipsis-h"></i>
                 </span>
-                <h4 class="text-section">Components</h4>
+                <h4 class="text-section">MENU OPTIONS</h4>
               </li>
               <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#base">
@@ -316,7 +316,7 @@
                 <div class="collapse" id="base">
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="my-sponsored">
+                      <a href="{{ route('downlines.index')}}">
                         <span class="sub-item">Sponsored Members</span>
                       </a>
                     </li>

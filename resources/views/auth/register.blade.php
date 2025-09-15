@@ -83,7 +83,7 @@
                                         <li>
                                             <div class="menu-ico text-center">
                                                 <a class="nav-link active" href="#" data-bs-toggle="modal" data-bs-target="#upcomingProjectModal">
-                                                    <img src="imagess/menu-ico3.png">
+                                                    <img src="{{ asset('imagess/menu-ico3.png') }}">
                                                     <br>
                                                     <span class="text-white">Upcoming Project</span>
                                                 </a>
@@ -98,7 +98,7 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body text-center">
-                                                        <img src="member/assets/img/upcoming_project.jpg" class="img-fluid" alt="Upcoming Project">
+                                                        <img src="{{ asset('assets/img/upcoming_project.jpg') }}" class="img-fluid" alt="Upcoming Project">
                                                     </div>
                                                 </div>
                                             </div>

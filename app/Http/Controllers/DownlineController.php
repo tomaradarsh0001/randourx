@@ -12,7 +12,7 @@ class DownlineController extends Controller
     /**
      * Show logged-in user’s downline.
      */
-   public function index()
+  public function index()
 {
     $user = Auth::user();
 
@@ -48,11 +48,24 @@ class DownlineController extends Controller
         '#f39c12', '#1abc9c', '#e67e22', '#34495e',
     ];
 
-    // Assign label + color to each level1
+    // Get details for each level-1 user
+    $level1Details = DB::table('users')
+        ->whereIn('id', $level1Users)
+        ->select('id', 'username', 'full_name')
+        ->get()
+        ->keyBy('id');
+
+    // Assign label + color + user details to each level1
     $level1Groups = [];
     foreach ($level1Users as $index => $id) {
+        $userDetails = $level1Details->get($id);
+        $username = $userDetails ? $userDetails->username : 'Unknown';
+        $fullName = $userDetails ? $userDetails->full_name : 'Unknown';
+        
         $level1Groups[$id] = [
             'label' => "Downline " . ($index + 1),
+            'username' => $username,
+            'full_name' => $fullName,
             'color' => $colorPalette[$index % count($colorPalette)],
         ];
     }
@@ -73,7 +86,7 @@ class DownlineController extends Controller
             $d->color = $level1Groups[$level1Ancestor]['color'];
         } else {
             $d->downline_name = "Unknown";
-            $d->color = "#7f8c8d"; // gray fallback
+            $d->color = "#7f8c8d"; 
         }
     }
 
@@ -89,9 +102,8 @@ class DownlineController extends Controller
         'downlineCount',
         'totalBusinessDownline',
         'user',
-        'level1Count'
+        'level1Count',
+        'level1Groups' // Added this variable
     ));
 }
-
-
 }
