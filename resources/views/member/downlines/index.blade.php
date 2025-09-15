@@ -67,7 +67,7 @@
                                 </tr>
                             @endforeach
                         </tbody>
-                        <tfoot>
+                        <tfoot id="downlines-tfoot" style="display: table-row-group;">
                             <tr class="table-dark">
                                 <td class="text-end fw-bold" colspan="5">Total Level-1 Downlines</td>
                                 <td class="fw-bold text-success" colspan="2">{{ $level1Count }}</td>
@@ -128,7 +128,16 @@
             },
             "columnDefs": [
                 { "orderable": true, "targets": [0, 1, 2, 3, 4, 5, 6] }
-            ]
+            ],
+            "drawCallback": function(settings) {
+                // Show/hide footer based on filter selection
+                var selectedDownline = $('#downline-filter').val();
+                if (!selectedDownline) {
+                    $('#downlines-tfoot').show();
+                } else {
+                    $('#downlines-tfoot').hide();
+                }
+            }
         });
         
         // Add custom filtering function for downline groups
