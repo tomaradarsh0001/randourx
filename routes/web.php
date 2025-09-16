@@ -105,6 +105,10 @@ Route::get('/my-investments', [UserDashboardController::class, 'investments'])
     ->name('user.investments');
 Route::get('/my-incomes', [UserDashboardController::class, 'wallet2incomes'])
     ->name('user.income');
+    Route::get('/member/commissions/export', [MemberController::class, 'exportCommissions'])->name('member.commissions.export');
+    Route::get('/member/wallets/level', [MemberController::class, 'levelCommissions'])->name('member.wallets.level');
+
+// OR if you want to use a separate controller
 Route::get('/downlines', [DownlineController::class, 'index'])->name('downlines.index');
 Route::post('/member/buy-package', [MemberController::class, 'buyPackage'])
     ->name('member.buyPackage')

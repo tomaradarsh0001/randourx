@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Models\LevelIncome;
 use Illuminate\Support\Facades\Auth;
 
 class DownlineController extends Controller
@@ -96,14 +97,39 @@ class DownlineController extends Controller
     $downlineCount = $downlines->count();
     $level1Count = $downlines->where('depth', 1)->count();
 
-    return view('member.downlines.index', compact(
+    // In your DownlineController's index method, add this before returning the view:
+
+// Get commission summary for each level 1 downline
+ $commissionByLevel = LevelIncome::where('to_user_id', $user->id)
+        ->select('level', DB::raw('SUM(amount) as total_commission'))
+        ->groupBy('level')
+        ->orderBy('level')
+        ->get()
+        ->keyBy('level');
+    
+    // Get total commissions
+    $totalCommissions = LevelIncome::where('to_user_id', $user->id)->sum('amount');
+    
+    // Get recent commissions
+    $recentCommissions = LevelIncome::with('fromUser')
+        ->where('to_user_id', $user->id)
+        ->orderBy('created_at', 'desc')
+        ->limit(10)
+        ->get();
+
+// Then pass this to the view:
+ return view('member.downlines.index', compact(
         'downlines',
         'totalBusiness',
         'downlineCount',
         'totalBusinessDownline',
         'user',
         'level1Count',
-        'level1Groups'
+        'level1Groups',
+        'commissionSummary',
+        'commissionByLevel',
+        'totalCommissions',
+        'recentCommissions'
     ));
 }
 }

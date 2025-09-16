@@ -59,4 +59,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Transaction::class);
     }
+    // In App\Models\User
+    public function levelIncomes()
+    {
+        return $this->hasMany(LevelIncome::class, 'to_user_id');
+    }
+
+    public function levelIncomesGiven()
+    {
+        return $this->hasMany(LevelIncome::class, 'from_user_id');
+    }
 }
