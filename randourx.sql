@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 14, 2025 at 10:59 PM
+-- Generation Time: Sep 16, 2025 at 02:24 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -573,7 +573,12 @@ INSERT INTO `downlines` (`id`, `ancestor_id`, `descendant_id`, `depth`, `created
 (36, 20, 22, 2, '2025-09-14 14:53:36', '2025-09-14 14:53:36'),
 (37, 19, 22, 3, '2025-09-14 14:53:36', '2025-09-14 14:53:36'),
 (38, 18, 22, 4, '2025-09-14 14:53:36', '2025-09-14 14:53:36'),
-(39, 11, 22, 5, '2025-09-14 14:53:36', '2025-09-14 14:53:36');
+(39, 11, 22, 5, '2025-09-14 14:53:36', '2025-09-14 14:53:36'),
+(40, 23, 23, 0, '2025-09-16 05:07:36', '2025-09-16 05:07:36'),
+(41, 14, 23, 1, '2025-09-16 05:07:36', '2025-09-16 05:07:36'),
+(42, 13, 23, 2, '2025-09-16 05:07:36', '2025-09-16 05:07:36'),
+(43, 12, 23, 3, '2025-09-16 05:07:36', '2025-09-16 05:07:36'),
+(44, 11, 23, 4, '2025-09-16 05:07:36', '2025-09-16 05:07:36');
 
 -- --------------------------------------------------------
 
@@ -590,6 +595,39 @@ CREATE TABLE `failed_jobs` (
   `exception` longtext NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `level_incomes`
+--
+
+CREATE TABLE `level_incomes` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `from_user_id` bigint(20) UNSIGNED NOT NULL,
+  `to_user_id` bigint(20) UNSIGNED NOT NULL,
+  `amount` decimal(10,2) NOT NULL,
+  `percentage` decimal(5,2) NOT NULL,
+  `level` int(11) NOT NULL,
+  `description` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `level_incomes`
+--
+
+INSERT INTO `level_incomes` (`id`, `from_user_id`, `to_user_id`, `amount`, `percentage`, `level`, `description`, `created_at`, `updated_at`) VALUES
+(1, 12, 11, 0.30, 3.00, 1, 'Level 1 commission from RX48807\'s purchase of $10', '2025-09-16 04:41:31', '2025-09-16 04:41:31'),
+(2, 13, 12, 1.50, 3.00, 1, 'Level 1 commission from RX57732\'s purchase of $50', '2025-09-16 04:43:55', '2025-09-16 04:43:55'),
+(3, 14, 13, 6.00, 20.00, 1, 'Level 1 commission from RX23129\'s purchase of $30', '2025-09-16 04:53:40', '2025-09-16 04:53:40'),
+(4, 14, 12, 0.90, 3.00, 2, 'Level 2 commission from RX23129\'s purchase of $30', '2025-09-16 04:53:40', '2025-09-16 04:53:40'),
+(5, 14, 11, 0.60, 2.00, 3, 'Level 3 commission from RX23129\'s purchase of $30', '2025-09-16 04:53:40', '2025-09-16 04:53:40'),
+(6, 23, 14, 24.00, 20.00, 1, 'Level 1 commission from RX43236\'s purchase of $120', '2025-09-16 05:10:15', '2025-09-16 05:10:15'),
+(7, 23, 13, 3.60, 3.00, 2, 'Level 2 commission from RX43236\'s purchase of $120', '2025-09-16 05:10:15', '2025-09-16 05:10:15'),
+(8, 23, 12, 2.40, 2.00, 3, 'Level 3 commission from RX43236\'s purchase of $120', '2025-09-16 05:10:15', '2025-09-16 05:10:15'),
+(9, 23, 11, 2.40, 2.00, 4, 'Level 4 commission from RX43236\'s purchase of $120', '2025-09-16 05:10:15', '2025-09-16 05:10:15');
 
 -- --------------------------------------------------------
 
@@ -618,7 +656,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (10, '2025_09_13_121204_create_roi_incomes_table', 5),
 (11, '2025_09_13_125400_create_user_purchases_table', 6),
 (12, '2025_09_14_132618_add_sponsor_id_to_users_table', 7),
-(13, '2025_09_14_133018_create_downlines_table', 8);
+(13, '2025_09_14_133018_create_downlines_table', 8),
+(14, '2025_09_15_173814_create_transactions_table', 9),
+(16, '2025_09_16_092739_create_level_income_table', 10);
 
 -- --------------------------------------------------------
 
@@ -709,7 +749,25 @@ INSERT INTO `roi_incomes` (`id`, `user_id`, `from_admin`, `wallet_value`, `roi_b
 (34, 6, 1, 70.00, 2.38, '2025-09-13 13:32:01', '2025-09-13 08:02:01', '2025-09-13 08:02:01'),
 (35, 7, 1, 340.00, 11.56, '2025-09-13 13:32:01', '2025-09-13 08:02:01', '2025-09-13 08:02:01'),
 (36, 8, 1, 100.00, 3.40, '2025-09-13 13:32:01', '2025-09-13 08:02:01', '2025-09-13 08:02:01'),
-(37, 9, 1, 210.00, 7.14, '2025-09-13 13:32:02', '2025-09-13 08:02:02', '2025-09-13 08:02:02');
+(37, 9, 1, 210.00, 7.14, '2025-09-13 13:32:02', '2025-09-13 08:02:02', '2025-09-13 08:02:02'),
+(38, 5, 1, 200.00, 6.80, '2025-09-16 10:42:45', '2025-09-16 05:12:45', '2025-09-16 05:12:45'),
+(39, 6, 1, 70.00, 2.38, '2025-09-16 10:42:45', '2025-09-16 05:12:45', '2025-09-16 05:12:45'),
+(40, 7, 1, 340.00, 11.56, '2025-09-16 10:42:45', '2025-09-16 05:12:45', '2025-09-16 05:12:45'),
+(41, 8, 1, 100.00, 3.40, '2025-09-16 10:42:45', '2025-09-16 05:12:45', '2025-09-16 05:12:45'),
+(42, 9, 1, 210.00, 7.14, '2025-09-16 10:42:45', '2025-09-16 05:12:45', '2025-09-16 05:12:45'),
+(43, 11, 1, 94.00, 3.20, '2025-09-16 10:42:45', '2025-09-16 05:12:45', '2025-09-16 05:12:45'),
+(44, 12, 1, 34.00, 1.16, '2025-09-16 10:42:45', '2025-09-16 05:12:45', '2025-09-16 05:12:45'),
+(45, 13, 1, 80.00, 2.72, '2025-09-16 10:42:45', '2025-09-16 05:12:45', '2025-09-16 05:12:45'),
+(46, 14, 1, 42.00, 1.43, '2025-09-16 10:42:45', '2025-09-16 05:12:45', '2025-09-16 05:12:45'),
+(47, 15, 1, 54.00, 1.84, '2025-09-16 10:42:45', '2025-09-16 05:12:45', '2025-09-16 05:12:45'),
+(48, 16, 1, 28.00, 0.95, '2025-09-16 10:42:45', '2025-09-16 05:12:45', '2025-09-16 05:12:45'),
+(49, 17, 1, 11.00, 0.37, '2025-09-16 10:42:45', '2025-09-16 05:12:45', '2025-09-16 05:12:45'),
+(50, 18, 1, 23.00, 0.78, '2025-09-16 10:42:45', '2025-09-16 05:12:45', '2025-09-16 05:12:45'),
+(51, 19, 1, 65.00, 2.21, '2025-09-16 10:42:45', '2025-09-16 05:12:45', '2025-09-16 05:12:45'),
+(52, 20, 1, 16.00, 0.54, '2025-09-16 10:42:45', '2025-09-16 05:12:45', '2025-09-16 05:12:45'),
+(53, 21, 1, 21.00, 0.71, '2025-09-16 10:42:45', '2025-09-16 05:12:45', '2025-09-16 05:12:45'),
+(54, 22, 1, 26.00, 0.88, '2025-09-16 10:42:45', '2025-09-16 05:12:45', '2025-09-16 05:12:45'),
+(55, 23, 1, 120.00, 4.08, '2025-09-16 10:42:45', '2025-09-16 05:12:45', '2025-09-16 05:12:45');
 
 -- --------------------------------------------------------
 
@@ -730,6 +788,36 @@ CREATE TABLE `roi_rates` (
 
 INSERT INTO `roi_rates` (`id`, `rate`, `created_at`, `updated_at`) VALUES
 (1, 3.40, '2025-09-13 04:30:00', '2025-09-13 08:01:54');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transactions`
+--
+
+CREATE TABLE `transactions` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `type` enum('deposit','withdrawal') NOT NULL,
+  `amount` decimal(15,2) NOT NULL,
+  `payment_method` varchar(255) NOT NULL,
+  `reference_id` varchar(255) DEFAULT NULL,
+  `screenshot` varchar(255) DEFAULT NULL,
+  `admin_notes` text DEFAULT NULL,
+  `status` enum('pending','approved','rejected') NOT NULL DEFAULT 'pending',
+  `approved_at` timestamp NULL DEFAULT NULL,
+  `approved_by` bigint(20) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `transactions`
+--
+
+INSERT INTO `transactions` (`id`, `user_id`, `type`, `amount`, `payment_method`, `reference_id`, `screenshot`, `admin_notes`, `status`, `approved_at`, `approved_by`, `created_at`, `updated_at`) VALUES
+(1, 11, 'deposit', 50.00, 'Cryptocurrency', '6546897643', 'transaction-screenshots/c7kcUwfJarakrOfc8hHehqsR1N4ciloUuYRWluCn.png', 'okay done i am giving you payment', 'approved', '2025-09-16 03:45:23', 5, '2025-09-16 03:44:29', '2025-09-16 03:45:23'),
+(2, 23, 'deposit', 120.00, 'Cryptocurrency', '45345363', 'transaction-screenshots/r6Q0HBqg3aSViMrpVoN8PCYmh4ufx8taggyZAayb.png', 'dfgoji', 'approved', '2025-09-16 05:09:59', 5, '2025-09-16 05:09:41', '2025-09-16 05:09:59');
 
 -- --------------------------------------------------------
 
@@ -767,23 +855,24 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `sponsor_username`, `username`, `full_name`, `country_code`, `mobile`, `email`, `email_verified_at`, `password`, `is_admin`, `remember_token`, `created_at`, `updated_at`, `wallet1`, `wallet2`, `wallet3`, `wallet4`, `income1`, `income2`, `income3`, `sponsor_id`) VALUES
 (4, 'RX62384', 'RX54851', 'Harsh', '+91', '9911550920', 'harsh@gmail.com', NULL, '$2y$12$OIbpeo.3BKCORvrG81iOGe927iHP2xXQDV8KOrsbR8QBhHo3wYlcO', 0, NULL, '2025-09-12 23:09:34', '2025-09-12 23:09:34', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, NULL),
-(5, 'RX54851', 'RX33169', 'Adarsh Tomar', '+91', '7011864373', 'adarsh@gmail.com', NULL, '$2y$12$YF0QQr2cFzke/UhSkdzuduBFxzVWaIsSR7w8j9z5TFLgCAgv22Y7a', 1, NULL, '2025-09-12 23:21:19', '2025-09-13 08:02:01', 90.00, 51.44, 200.00, 0.00, 36.35, 0.00, 0.00, NULL),
-(6, 'RX33169', 'RX17404', 'Rahul', '+91', '8882824199', 'rahul@gmail.com', NULL, '$2y$12$.iKJiQQY4fHHBL3aN6hageXka6F63Q2WnTwlt1kNZJbj9dhCJD6oq', 0, NULL, '2025-09-13 06:45:04', '2025-09-13 08:02:01', 0.00, 15.10, 70.00, 0.00, 13.52, 0.00, 0.00, NULL),
-(7, 'RX17404', 'RX12620', 'Yogesh kapadia', '+91', '7053152217', 'kapadia.yogesh@gmail.com', NULL, '$2y$12$nNu8QzYn8s4ugoelM8fhJeAhSH3GNN8qKxcKncFArNY/XIrHlMQQe', 0, NULL, '2025-09-13 07:56:41', '2025-09-13 08:17:45', 120.00, 50.32, 340.00, 0.00, 50.32, 0.00, 0.00, NULL),
-(8, 'RX17404', 'RX67943', 'Vishu', '+91', '84476756754', 'vishu@gmail.com', NULL, '$2y$12$EmYgpSiQV76AVAUz7oMBs.LvJvqUmqIYtF1nqzGJaDJsqRbJLq8my', 0, NULL, '2025-09-13 07:57:55', '2025-09-13 08:02:01', 0.00, 14.80, 100.00, 0.00, 14.80, 0.00, 0.00, NULL),
-(9, 'RX67943', 'RX26290', 'Kamal', '+91', '23432432432', 'kamal@gmail.com', NULL, '$2y$12$5s0lM3jRZSBQ7.9CyyBzeuAmwc1nprMDptV4b48UKT6yapiyNMRo.', 0, NULL, '2025-09-13 07:58:31', '2025-09-14 00:23:38', 78.00, 31.08, 210.00, 0.00, 31.08, 0.00, 0.00, NULL),
-(11, 'RX26290', 'RX16008', 'Abhishek', '+91', '12345678', 'abhishek@gmail.com', NULL, '$2y$12$3HiJ3mzSkjh8eASX49nTzOGhJfVWGs98fCQ8c2Ny8v9OLPjxOl7KC', 0, NULL, '2025-09-14 08:06:09', '2025-09-14 08:06:09', 15.00, 0.00, 34.00, 0.00, 0.00, 0.00, 0.00, NULL),
-(12, 'RX16008', 'RX48807', 'Bharat', '+91', '213456788', 'bharat@gmail.com', NULL, '$2y$12$yqPyA5qi09cstTCmR2qjeO.fnh9SiEShWD2Fbe6mdo2bsJUBipxsa', 0, NULL, '2025-09-14 08:07:40', '2025-09-14 08:07:40', 10.00, 0.00, 24.00, 0.00, 0.00, 0.00, 0.00, NULL),
-(13, 'RX48807', 'RX57732', 'Chirag', '+91', '3214567898', 'chirag@gmail.com', NULL, '$2y$12$1mTX/bd41F9MUM7wpkLtSO/k2Rmz/GKyEWdOl2Lswkzle5Ya/U6xS', 0, NULL, '2025-09-14 08:08:51', '2025-09-14 08:08:51', 50.00, 0.00, 30.00, 0.00, 0.00, 0.00, 0.00, NULL),
-(14, 'RX57732', 'RX23129', 'Devender', '+91', '5437534875', 'devender@gmail.com', NULL, '$2y$12$6xa2hpcP8mSv7sTQFVONOOSdqnI2hSGfPYR.TfuV8kDRe6jZY9MNy', 0, NULL, '2025-09-14 08:11:57', '2025-09-14 08:11:57', 35.00, 0.00, 12.00, 0.00, 0.00, 0.00, 0.00, NULL),
-(15, 'RX16008', 'RX55895', 'Bahadur', '+91', '453534534', 'bahadur@gmail.com', NULL, '$2y$12$Ixuvpu9fXbQyojiuWyJw7ukx9SajoRnWMAvvELkhSz4tX0m2NEnAS', 0, NULL, '2025-09-14 14:16:31', '2025-09-14 14:16:31', 0.00, 0.00, 54.00, 0.00, 0.00, 0.00, 0.00, NULL),
-(16, 'RX55895', 'RX35712', 'Chetan', '+91', '35635343453', 'chetan@gmail.com', NULL, '$2y$12$qtyzV4mFLAc7ARPiuVCtCu4R2dZJC9N9o1jPApLkFs.2TBl3zoP3C', 0, NULL, '2025-09-14 14:18:34', '2025-09-14 14:18:34', 0.00, 0.00, 28.00, 0.00, 0.00, 0.00, 0.00, NULL),
-(17, 'RX35712', 'RX80281', 'Dharmesh', '+91', '4645645645', 'dharmesh@gmail.com', NULL, '$2y$12$2UGv17UPwWXUfGo7PP2kUeZ.L.FWLCVuEr8PHiMRBKmPKsBI4c7GC', 0, NULL, '2025-09-14 14:19:17', '2025-09-14 14:19:17', 0.00, 0.00, 11.00, 0.00, 0.00, 0.00, 0.00, NULL),
-(18, 'RX16008', 'RX89984', 'Bunny', '+91', '43834354343', 'bunny@gmail.com', NULL, '$2y$12$55wiccFO2t6iHGjMUMJxMeWdGFlFvr0IVuvV/.TO/xd/08tzgPgq2', 0, NULL, '2025-09-14 14:49:45', '2025-09-14 14:49:45', 0.00, 0.00, 23.00, 0.00, 0.00, 0.00, 0.00, NULL),
-(19, 'RX89984', 'RX25873', 'Chang', '+91', '5432423324', 'chang@gmail.com', NULL, '$2y$12$QbtsYNspFP5EhBuBziUREOn8/OcSWhIQOPkrDz6awcl2FpHASvhPe', 0, NULL, '2025-09-14 14:50:37', '2025-09-14 14:50:37', 0.00, 0.00, 65.00, 0.00, 0.00, 0.00, 0.00, NULL),
-(20, 'RX25873', 'RX25458', 'Dennis', '+91', '53453453434', 'dennis@gmail.com', NULL, '$2y$12$OT1NxSzwUR61Q6.tf7i/WelCrxLqKIeFFXeuTdEU4ZFKpVYyw9nla', 0, NULL, '2025-09-14 14:51:33', '2025-09-14 14:51:33', 0.00, 0.00, 16.00, 0.00, 0.00, 0.00, 0.00, NULL),
-(21, 'RX25458', 'RX25056', 'Eren', '+91', '534534534', 'eren@gmail.com', NULL, '$2y$12$udIsrDvgER.dPovCu.H0n.COM3IXedftutReIou/VEW/PXllp/kiW', 0, NULL, '2025-09-14 14:52:15', '2025-09-14 14:52:15', 0.00, 0.00, 21.00, 0.00, 0.00, 0.00, 0.00, NULL),
-(22, 'RX25056', 'RX20290', 'Finn', '+91', '534534534346', 'finn@gmail.com', NULL, '$2y$12$EWHs3PYyp4OV1UIdYqE3XuLmDK.BGNce7FWAIiL/EUL3aL2N/2sTm', 0, NULL, '2025-09-14 14:53:35', '2025-09-14 14:53:35', 0.00, 0.00, 26.00, 0.00, 0.00, 0.00, 0.00, NULL);
+(5, 'RX54851', 'RX33169', 'Adarsh Tomar', '+91', '7011864373', 'adarsh@gmail.com', NULL, '$2y$12$YF0QQr2cFzke/UhSkdzuduBFxzVWaIsSR7w8j9z5TFLgCAgv22Y7a', 1, NULL, '2025-09-12 23:21:19', '2025-09-16 05:12:45', 90.00, 58.24, 200.00, 0.00, 43.15, 0.00, 0.00, NULL),
+(6, 'RX33169', 'RX17404', 'Rahul', '+91', '8882824199', 'rahul@gmail.com', NULL, '$2y$12$.iKJiQQY4fHHBL3aN6hageXka6F63Q2WnTwlt1kNZJbj9dhCJD6oq', 0, NULL, '2025-09-13 06:45:04', '2025-09-16 05:12:45', 0.00, 17.48, 70.00, 0.00, 15.90, 0.00, 0.00, NULL),
+(7, 'RX17404', 'RX12620', 'Yogesh kapadia', '+91', '7053152217', 'kapadia.yogesh@gmail.com', NULL, '$2y$12$nNu8QzYn8s4ugoelM8fhJeAhSH3GNN8qKxcKncFArNY/XIrHlMQQe', 0, NULL, '2025-09-13 07:56:41', '2025-09-16 05:12:45', 120.00, 61.88, 340.00, 0.00, 61.88, 0.00, 0.00, NULL),
+(8, 'RX17404', 'RX67943', 'Vishu', '+91', '84476756754', 'vishu@gmail.com', NULL, '$2y$12$EmYgpSiQV76AVAUz7oMBs.LvJvqUmqIYtF1nqzGJaDJsqRbJLq8my', 0, NULL, '2025-09-13 07:57:55', '2025-09-16 05:12:45', 0.00, 18.20, 100.00, 0.00, 18.20, 0.00, 0.00, NULL),
+(9, 'RX67943', 'RX26290', 'Kamal', '+91', '23432432432', 'kamal@gmail.com', NULL, '$2y$12$5s0lM3jRZSBQ7.9CyyBzeuAmwc1nprMDptV4b48UKT6yapiyNMRo.', 0, NULL, '2025-09-13 07:58:31', '2025-09-16 05:12:45', 78.00, 38.22, 210.00, 0.00, 38.22, 0.00, 0.00, NULL),
+(11, 'RX26290', 'RX16008', 'Abhishek', '+91', '12345678', 'abhishek@gmail.com', NULL, '$2y$12$3HiJ3mzSkjh8eASX49nTzOGhJfVWGs98fCQ8c2Ny8v9OLPjxOl7KC', 0, NULL, '2025-09-14 08:06:09', '2025-09-16 05:12:45', 5.00, 6.50, 94.00, 0.00, 3.20, 3.30, 0.00, NULL),
+(12, 'RX16008', 'RX48807', 'Bharat', '+91', '213456788', 'bharat@gmail.com', NULL, '$2y$12$yqPyA5qi09cstTCmR2qjeO.fnh9SiEShWD2Fbe6mdo2bsJUBipxsa', 0, NULL, '2025-09-14 08:07:40', '2025-09-16 05:12:45', 0.00, 5.96, 34.00, 0.00, 1.16, 4.80, 0.00, NULL),
+(13, 'RX48807', 'RX57732', 'Chirag', '+91', '3214567898', 'chirag@gmail.com', NULL, '$2y$12$1mTX/bd41F9MUM7wpkLtSO/k2Rmz/GKyEWdOl2Lswkzle5Ya/U6xS', 0, NULL, '2025-09-14 08:08:51', '2025-09-16 05:12:45', 0.00, 12.32, 80.00, 0.00, 2.72, 9.60, 0.00, NULL),
+(14, 'RX57732', 'RX23129', 'Devender', '+91', '5437534875', 'devender@gmail.com', NULL, '$2y$12$6xa2hpcP8mSv7sTQFVONOOSdqnI2hSGfPYR.TfuV8kDRe6jZY9MNy', 0, NULL, '2025-09-14 08:11:57', '2025-09-16 05:12:45', 5.00, 25.43, 42.00, 0.00, 1.43, 24.00, 0.00, NULL),
+(15, 'RX16008', 'RX55895', 'Bahadur', '+91', '453534534', 'bahadur@gmail.com', NULL, '$2y$12$Ixuvpu9fXbQyojiuWyJw7ukx9SajoRnWMAvvELkhSz4tX0m2NEnAS', 0, NULL, '2025-09-14 14:16:31', '2025-09-16 05:12:45', 0.00, 1.84, 54.00, 0.00, 1.84, 0.00, 0.00, NULL),
+(16, 'RX55895', 'RX35712', 'Chetan', '+91', '35635343453', 'chetan@gmail.com', NULL, '$2y$12$qtyzV4mFLAc7ARPiuVCtCu4R2dZJC9N9o1jPApLkFs.2TBl3zoP3C', 0, NULL, '2025-09-14 14:18:34', '2025-09-16 05:12:45', 0.00, 0.95, 28.00, 0.00, 0.95, 0.00, 0.00, NULL),
+(17, 'RX35712', 'RX80281', 'Dharmesh', '+91', '4645645645', 'dharmesh@gmail.com', NULL, '$2y$12$2UGv17UPwWXUfGo7PP2kUeZ.L.FWLCVuEr8PHiMRBKmPKsBI4c7GC', 0, NULL, '2025-09-14 14:19:17', '2025-09-16 05:12:45', 0.00, 0.37, 11.00, 0.00, 0.37, 0.00, 0.00, NULL),
+(18, 'RX16008', 'RX89984', 'Bunny', '+91', '43834354343', 'bunny@gmail.com', NULL, '$2y$12$55wiccFO2t6iHGjMUMJxMeWdGFlFvr0IVuvV/.TO/xd/08tzgPgq2', 0, NULL, '2025-09-14 14:49:45', '2025-09-16 05:12:45', 0.00, 0.78, 23.00, 0.00, 0.78, 0.00, 0.00, NULL),
+(19, 'RX89984', 'RX25873', 'Chang', '+91', '5432423324', 'chang@gmail.com', NULL, '$2y$12$QbtsYNspFP5EhBuBziUREOn8/OcSWhIQOPkrDz6awcl2FpHASvhPe', 0, NULL, '2025-09-14 14:50:37', '2025-09-16 05:12:45', 0.00, 2.21, 65.00, 0.00, 2.21, 0.00, 0.00, NULL),
+(20, 'RX25873', 'RX25458', 'Dennis', '+91', '53453453434', 'dennis@gmail.com', NULL, '$2y$12$OT1NxSzwUR61Q6.tf7i/WelCrxLqKIeFFXeuTdEU4ZFKpVYyw9nla', 0, NULL, '2025-09-14 14:51:33', '2025-09-16 05:12:45', 0.00, 0.54, 16.00, 0.00, 0.54, 0.00, 0.00, NULL),
+(21, 'RX25458', 'RX25056', 'Eren', '+91', '534534534', 'eren@gmail.com', NULL, '$2y$12$udIsrDvgER.dPovCu.H0n.COM3IXedftutReIou/VEW/PXllp/kiW', 0, NULL, '2025-09-14 14:52:15', '2025-09-16 05:12:45', 0.00, 0.71, 21.00, 0.00, 0.71, 0.00, 0.00, NULL),
+(22, 'RX25056', 'RX20290', 'Finn', '+91', '534534534346', 'finn@gmail.com', NULL, '$2y$12$EWHs3PYyp4OV1UIdYqE3XuLmDK.BGNce7FWAIiL/EUL3aL2N/2sTm', 0, NULL, '2025-09-14 14:53:35', '2025-09-16 05:12:45', 0.00, 0.88, 26.00, 0.00, 0.88, 0.00, 0.00, NULL),
+(23, 'RX23129', 'RX43236', 'Erawat', '+91', '3534534756', 'erawat@gmail.com', NULL, '$2y$12$jlODNuUjCrztNl4dUMgwkeSaM3JDbZyjayWSZtjPB3fS.X9zlcqxu', 0, NULL, '2025-09-16 05:07:36', '2025-09-16 05:12:45', 0.00, 4.08, 120.00, 0.00, 4.08, 0.00, 0.00, NULL);
 
 -- --------------------------------------------------------
 
@@ -808,7 +897,14 @@ INSERT INTO `user_purchases` (`id`, `user_id`, `purchase_value`, `purchased_at`,
 (1, 5, 100.00, '2025-09-13 07:30:07', '2025-09-13 07:30:07', '2025-09-13 07:30:07'),
 (2, 9, 210.00, '2025-09-13 08:00:46', '2025-09-13 08:00:46', '2025-09-13 08:00:46'),
 (3, 8, 100.00, '2025-09-13 08:01:08', '2025-09-13 08:01:08', '2025-09-13 08:01:08'),
-(4, 7, 340.00, '2025-09-13 08:01:27', '2025-09-13 08:01:27', '2025-09-13 08:01:27');
+(4, 7, 340.00, '2025-09-13 08:01:27', '2025-09-13 08:01:27', '2025-09-13 08:01:27'),
+(5, 11, 40.00, '2025-09-16 04:08:28', '2025-09-16 04:08:28', '2025-09-16 04:08:28'),
+(6, 11, 10.00, '2025-09-16 04:38:12', '2025-09-16 04:38:12', '2025-09-16 04:38:12'),
+(7, 11, 10.00, '2025-09-16 04:39:52', '2025-09-16 04:39:52', '2025-09-16 04:39:52'),
+(8, 12, 10.00, '2025-09-16 04:41:31', '2025-09-16 04:41:31', '2025-09-16 04:41:31'),
+(9, 13, 50.00, '2025-09-16 04:43:55', '2025-09-16 04:43:55', '2025-09-16 04:43:55'),
+(10, 14, 30.00, '2025-09-16 04:53:40', '2025-09-16 04:53:40', '2025-09-16 04:53:40'),
+(11, 23, 120.00, '2025-09-16 05:10:15', '2025-09-16 05:10:15', '2025-09-16 05:10:15');
 
 --
 -- Indexes for dumped tables
@@ -828,6 +924,14 @@ ALTER TABLE `downlines`
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Indexes for table `level_incomes`
+--
+ALTER TABLE `level_incomes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `level_incomes_from_user_id_foreign` (`from_user_id`),
+  ADD KEY `level_incomes_to_user_id_foreign` (`to_user_id`);
 
 --
 -- Indexes for table `migrations`
@@ -864,6 +968,14 @@ ALTER TABLE `roi_rates`
   ADD KEY `roi_rates_rate_index` (`rate`);
 
 --
+-- Indexes for table `transactions`
+--
+ALTER TABLE `transactions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `transactions_user_id_foreign` (`user_id`),
+  ADD KEY `transactions_approved_by_foreign` (`approved_by`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -888,7 +1000,7 @@ ALTER TABLE `user_purchases`
 -- AUTO_INCREMENT for table `downlines`
 --
 ALTER TABLE `downlines`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -897,10 +1009,16 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `level_incomes`
+--
+ALTER TABLE `level_incomes`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -912,7 +1030,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `roi_incomes`
 --
 ALTER TABLE `roi_incomes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `roi_rates`
@@ -921,16 +1039,22 @@ ALTER TABLE `roi_rates`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `transactions`
+--
+ALTER TABLE `transactions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `user_purchases`
 --
 ALTER TABLE `user_purchases`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables
@@ -944,10 +1068,24 @@ ALTER TABLE `downlines`
   ADD CONSTRAINT `downlines_descendant_id_foreign` FOREIGN KEY (`descendant_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `level_incomes`
+--
+ALTER TABLE `level_incomes`
+  ADD CONSTRAINT `level_incomes_from_user_id_foreign` FOREIGN KEY (`from_user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `level_incomes_to_user_id_foreign` FOREIGN KEY (`to_user_id`) REFERENCES `users` (`id`);
+
+--
 -- Constraints for table `roi_incomes`
 --
 ALTER TABLE `roi_incomes`
   ADD CONSTRAINT `roi_incomes_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `transactions`
+--
+ALTER TABLE `transactions`
+  ADD CONSTRAINT `transactions_approved_by_foreign` FOREIGN KEY (`approved_by`) REFERENCES `users` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `transactions_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `users`
