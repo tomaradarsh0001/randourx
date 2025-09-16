@@ -359,7 +359,7 @@
                 <div class="collapse" id="forms">
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="topup-online">
+                      <a href="{{ route('member.transactions.deposit')}}">
                         <span class="sub-item">Wallet Recharge</span>
                       </a>
                     </li>
@@ -391,7 +391,7 @@
                       </a>
                     </li>
                     <li>
-                      <a href="topup-online-report">
+                      <a href="{{ route('member.transactions.index')}}">
                         <span class="sub-item">Wallet Recharge Report</span>
                       </a>
                     </li>

@@ -103,7 +103,7 @@ class DownlineController extends Controller
         'totalBusinessDownline',
         'user',
         'level1Count',
-        'level1Groups' // Added this variable
+        'level1Groups'
     ));
 }
 }

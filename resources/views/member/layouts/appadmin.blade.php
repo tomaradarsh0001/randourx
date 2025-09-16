@@ -247,6 +247,23 @@
                   </ul>
                 </div>
               </li>
+
+              <li class="nav-item">
+                <a data-bs-toggle="collapse" href="#maps">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <p>Transactions</p>
+                  <span class="caret"></span>
+                </a>
+                <div class="collapse" id="maps">
+                  <ul class="nav nav-collapse">
+                    <li>
+                      <a href="{{route('admin.roi.index')}}">
+                        <span class="sub-item">Manage ROI</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
              
               <li class="nav-item">
                 <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
