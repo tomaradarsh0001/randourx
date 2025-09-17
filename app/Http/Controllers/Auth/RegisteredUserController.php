@@ -16,6 +16,8 @@ use Illuminate\View\View;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
+use App\Mail\RegistrationSuccessMail;
+use Illuminate\Support\Facades\Mail;
 
 
 class RegisteredUserController extends Controller
@@ -35,7 +37,7 @@ class RegisteredUserController extends Controller
         return view('auth.register', compact('countries', 'default'));
     }
 
-  public function store(Request $request): RedirectResponse
+ public function store(Request $request): RedirectResponse
 {
     try {
         // ✅ Step 1: Validation
@@ -100,7 +102,16 @@ class RegisteredUserController extends Controller
             }
         });
 
-        // ✅ Step 6: Login & Redirect
+        // ✅ Step 6: Send Registration Email (Safe)
+        try {
+            Mail::to($user->email)->send(new RegistrationSuccessMail($user, $request->password));
+        } catch (\Exception $mailException) {
+            Log::error('Mail sending failed.', [
+                'error' => $mailException->getMessage(),
+            ]);
+        }
+
+        // ✅ Step 7: Login & Redirect
         event(new Registered($user));
         Auth::login($user);
 
