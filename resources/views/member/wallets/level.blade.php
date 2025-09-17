@@ -6,7 +6,7 @@
 <div class="container">
     <div class="page-inner">
              <!-- Main Content -->
-        <div class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <div class="col-md-12 ml-sm-auto col-lg-12 px-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Level Commission Earnings</h1>
                 <div class="btn-toolbar mb-2 mb-md-0">
@@ -18,7 +18,7 @@
 
             <!-- Stats Cards -->
             <div class="row mb-4">
-                <div class="col-xl-3 col-md-6 mb-4">
+                <div class="col-xl-3 col-md-9 mb-4">
                     <div class="card border-left-primary shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
@@ -145,7 +145,7 @@
             </div>
 
             <!-- Recent Commissions -->
-            <div class="row">
+            <div class="row mb-5">
                 <div class="col-12">
                     <div class="card shadow">
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -229,6 +229,10 @@
 .badge-level-5 { background-color: #f39c12; }
 .badge-level-6, .badge-level-7, .badge-level-8, .badge-level-9, .badge-level-10 { 
     background-color: #34495e; 
+    
+}
+.mb-5 {
+    margin-bottom: 6rem !important;
 }
 </style>
         </div>

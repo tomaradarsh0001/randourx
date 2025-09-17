@@ -126,7 +126,6 @@ class DownlineController extends Controller
         'user',
         'level1Count',
         'level1Groups',
-        'commissionSummary',
         'commissionByLevel',
         'totalCommissions',
         'recentCommissions'

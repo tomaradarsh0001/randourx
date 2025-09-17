@@ -147,11 +147,13 @@ private function distributeLevelCommission(User $user, $amount)
     $uplineUsers = $this->getUplineUsers($user);
     
     \Log::info('Upline users found: ' . count($uplineUsers));
-    
     foreach ($uplineUsers as $depth => $uplineUser) {
         $commissionPercentage = $this->getCommissionPercentage($depth);
-        $commissionAmount = $amount * ($commissionPercentage / 100);
-        
+        $wallet3Upline = $uplineUser->wallet3;
+        $procedBal = min($wallet3Upline, $amount);
+        $commissionAmount = $procedBal * ($commissionPercentage / 100);
+
+
         \Log::info("Level {$depth}: User {$uplineUser->id} gets {$commissionPercentage}% = {$commissionAmount}");
         
         if ($commissionAmount > 0) {
@@ -215,8 +217,8 @@ private function getCommissionPercentage($depth)
         1 => 20.00,  // Level 1: 20%
         2 => 3.00,   // Level 2: 3%
         3 => 2.00,   // Level 3: 2%
-        4 => 2.00,   // Level 4: 2%
-        5 => 3.00,   // Level 5: 3%
+        4 => 1.00,   // Level 4: 2%
+        5 => 1.00,   // Level 5: 3%
         6 => 0.50,   // Level 6: 0.5%
         7 => 0.50,   // Level 7: 0.5%
         8 => 0.50,   // Level 8: 0.5%

@@ -23,7 +23,7 @@
                             <div class="col-8 pe-0">
                                 <h3 class="fw-bold mb-1">My Wallet</h3>
                                 <div class="text-small text-uppercase fw-bold op-8">
-                                    <a href="wallet-statements?wid=<?php echo base64_encode(3);?>" class="text-white size-12">View all Transaction</a>
+                                    <a href="{{route('member.deposit.history')}}" class="text-white size-12">View all Transaction</a>
                                 </div>
                             </div>
                             <div class="col-4 ps-0 text-end"></div>
@@ -111,7 +111,7 @@
             </div>
             
             <div class="col-sm-6 col-md-4">
-                <a href="level-income" class="animated-card-link card-link">
+                <a href="{{route('member.wallets.level')}}" class="animated-card-link card-link">
                     <div class="animated-card card card-stats card-round">
                         <div class="animated-card-body card-body">
                             <div class="row align-items-center">

@@ -20,12 +20,7 @@
                         </option>
                     @endforeach
                 </select>
-                @foreach($level1Groups as $id => $group)
-    <div class="level1-group">
-        <h3 style="color: {{ $group['color'] }}">{{ $group['label'] }} - {{ $group['username'] }}</h3>
-        <p>Total Commission Earned: ${{ number_format($commissionSummary[$id] ?? 0, 2) }}</p>
-    </div>
-@endforeach
+             
             </div>
             @endif
         </div>

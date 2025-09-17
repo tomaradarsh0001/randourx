@@ -3,79 +3,108 @@
 @section('title', 'Deposit Funds')
 
 @section('content')
-<div class="container mb-5"><!-- margin bottom -->
+<div class="container mb-5">
     <div class="page-inner row justify-content-center">
-        <div class="col-12 col-lg-10">
-            <div class="card shadow-sm rounded-3 mb-5"><!-- margin bottom on card too -->
-                <div class="card-header">
-                    <h4 class="mb-0">Deposit Funds</h4>
+        <div class="col-12 col-lg-8 col-xl-6">
+            <div class="card shadow-sm rounded-4 mb-5">
+                <div class="card-header bg-primary text-white py-3 rounded-top-4">
+                    <h4 class="mb-0"><i class="material-icons me-2"></i>Deposit Funds</h4>
                 </div>
-                <!-- scrollable area -->
-                <div class="card-body" style="max-height: 70vh; overflow-y: auto;">
+                
+                <div class="card-body p-4">
                     <form action="{{ route('member.transactions.deposit.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         
-                        <div class="row g-3">
+                        <div class="row g-4">
+                            <!-- Amount Field -->
                             <div class="col-md-6">
-                                <label for="amount" class="form-label">Amount ($)</label>
-                                <input type="number" step="0.01" class="form-control @error('amount') is-invalid @enderror" 
-                                       id="amount" name="amount" value="{{ old('amount') }}" required>
-                                @error('amount')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                <div class="form-group">
+                                    <label for="amount" class="form-label fw-semibold">Amount ($)</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light border-end-0">$</span>
+                                        <input type="number" step="0.01" min="1" class="form-control @error('amount') is-invalid @enderror" 
+                                               id="amount" name="amount" value="{{ old('amount') }}" placeholder="Enter amount" required>
+                                        @error('amount')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
 
+                            <!-- Payment Method Field -->
                             <div class="col-md-6">
-                                <label for="payment_method" class="form-label">Payment Method</label>
-                                <select class="form-select @error('payment_method') is-invalid @enderror" 
-                                        id="payment_method" name="payment_method" required>
-                                    <option value="">Select</option>
-                                    <option value="Bank Transfer" {{ old('payment_method') == 'Bank Transfer' ? 'selected' : '' }}>Bank Transfer</option>
-                                    <option value="PayPal" {{ old('payment_method') == 'PayPal' ? 'selected' : '' }}>PayPal</option>
-                                    <option value="Credit Card" {{ old('payment_method') == 'Credit Card' ? 'selected' : '' }}>Credit Card</option>
-                                    <option value="Cryptocurrency" {{ old('payment_method') == 'Cryptocurrency' ? 'selected' : '' }}>Cryptocurrency</option>
-                                    <option value="Other" {{ old('payment_method') == 'Other' ? 'selected' : '' }}>Other</option>
-                                </select>
-                                @error('payment_method')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                <div class="form-group">
+                                    <label for="payment_method" class="form-label fw-semibold">Payment Method</label>
+                                    <select class="form-select @error('payment_method') is-invalid @enderror" 
+                                            id="payment_method" name="payment_method" required>
+                                        <option value="" disabled selected>Select payment method</option>
+                                        <option value="Bank Transfer" {{ old('payment_method') == 'Bank Transfer' ? 'selected' : '' }}>Bank Transfer</option>
+                                        <option value="PayPal" {{ old('payment_method') == 'PayPal' ? 'selected' : '' }}>PayPal</option>
+                                        <option value="Credit Card" {{ old('payment_method') == 'Credit Card' ? 'selected' : '' }}>Credit Card</option>
+                                        <option value="Cryptocurrency" {{ old('payment_method') == 'Cryptocurrency' ? 'selected' : '' }}>Cryptocurrency</option>
+                                        <option value="Other" {{ old('payment_method') == 'Other' ? 'selected' : '' }}>Other</option>
+                                    </select>
+                                    @error('payment_method')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
 
-                            <div class="col-md-6">
-                                <label for="reference_id" class="form-label">Reference/Transaction ID</label>
-                                <input type="text" class="form-control @error('reference_id') is-invalid @enderror" 
-                                       id="reference_id" name="reference_id" value="{{ old('reference_id') }}" required>
-                                @error('reference_id')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="col-md-6">
-                                <label for="screenshot" class="form-label">Payment Proof (Screenshot)</label>
-                                <input type="file" class="form-control @error('screenshot') is-invalid @enderror" 
-                                       id="screenshot" name="screenshot" accept="image/*" required>
-                                @error('screenshot')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
+                            <!-- Reference ID Field -->
                             <div class="col-12">
-                                <p class="text-muted small mt-1">
-                                    Upload a screenshot of your payment confirmation. Supported formats: JPG, PNG, GIF. Max size: 2MB
-                                </p>
-                                
-                                <!-- Example proof -->
-                                <div class="border p-3 text-center bg-light rounded mb-3">
-                                    <h6 class="text-muted">Example Payment Proof</h6>
-                                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiM5OTkiPlBBWU1FTlQgUFJPT0Y8L3RleHQ+PC9zdmc+" 
-                                         alt="Payment Proof Example" class="img-fluid mt-2" style="max-height: 150px;">
-                                    <p class="small text-muted mt-2">Your screenshot should show transaction details, amount, and reference ID clearly</p>
+                                <div class="form-group">
+                                    <label for="reference_id" class="form-label fw-semibold">Reference/Transaction ID</label>
+                                    <input type="text" class="form-control @error('reference_id') is-invalid @enderror" 
+                                           id="reference_id" name="reference_id" value="{{ old('reference_id') }}" 
+                                           placeholder="Enter your transaction reference ID" required>
+                                    @error('reference_id')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <!-- Screenshot Upload Field -->
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="screenshot" class="form-label fw-semibold">Payment Proof (Screenshot)</label>
+                                    <div class="file-upload-wrapper">
+                                        <input type="file" class="form-control @error('screenshot') is-invalid @enderror" 
+                                               id="screenshot" name="screenshot" accept="image/*" required>
+                                        <div class="form-text">Accepted formats: JPG, PNG, GIF. Max size: 5MB</div>
+                                        @error('screenshot')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Payment Instructions -->
+                            <div class="col-12">
+                                <div class="payment-instructions bg-light p-4 rounded-3">
+                                    <h6 class="fw-semibold mb-3"><i class="material-icons me-2">info</i>Payment Instructions</h6>
+                                    <p class="text-muted mb-2">
+                                        Scan & Pay using the QR Code below and upload the payment screenshot.
+                                    </p>
+                                    
+                                    <!-- QR Code Placeholder -->
+                                    <div class="text-center mt-3">
+                                        <div class="qr-code-placeholder mx-auto bg-white p-3 rounded-3 shadow-sm" style="max-width: 200px;">
+                                            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTQwIDQwSDE2MHYxMjBINDBWNzBINDBWNDBaIiBmaWxsPSIjMzMzIi8+PHJlY3QgeD0iODAiIHk9IjgwIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIGZpbGw9IiMzMzMiLz48L3N2Zz4=" 
+                                                 alt="QR Code" class="img-fluid">
+                                        </div>
+                                        <p class="small text-muted mt-3">
+                                            Your screenshot should clearly show transaction details, amount, and reference ID.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary btn-lg">Submit Deposit Request</button>
+                        <!-- Submit Button -->
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg py-3 fw-semibold">
+                                <i class="material-icons me-2"></i>Submit Deposit Request
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -83,4 +112,85 @@
         </div>
     </div>
 </div>
+
+<style>
+    .mb-5 {
+        margin-bottom: 6rem !important;
+    }
+    
+    .card {
+        border: none;
+        box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.08);
+    }
+    
+    .card-header {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .form-label {
+        margin-bottom: 0.5rem;
+        color: #495057;
+    }
+    
+    .form-control, .form-select {
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid #dee2e6;
+        transition: all 0.2s;
+    }
+    
+    .form-control:focus, .form-select:focus {
+        border-color: #86b7fe;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+    }
+    
+    .input-group-text {
+        background-color: #f8f9fa;
+        border-radius: 0.5rem 0 0 0.5rem;
+    }
+    
+    .payment-instructions {
+        border-left: 4px solid #0d6efd;
+    }
+    
+    .file-upload-wrapper {
+        position: relative;
+    }
+    
+    .file-upload-wrapper .form-control {
+        padding: 0.75rem;
+    }
+    
+    .btn-primary {
+        background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+        border: none;
+        border-radius: 0.5rem;
+        transition: all 0.3s;
+    }
+    
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #0a58ca 0%, #084298 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(13, 110, 253, 0.3);
+    }
+    
+    .qr-code-placeholder {
+        border: 1px dashed #dee2e6;
+    }
+    
+    .material-icons {
+        vertical-align: middle;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        .btn-lg {
+            padding: 0.75rem 1rem;
+        }
+    }
+</style>
 @endsection
