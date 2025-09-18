@@ -25,7 +25,9 @@ class RegistrationSuccessMail extends Mailable
     return $this->subject('Registration Successful')
         ->view('emails.registration_success')
         ->with([
-            'user' => $this->user,
+            'full_user' => $this->user["full_name"],
+            'username' => $this->user["username"],
+            'email' => $this->user["email"],
             'plainPassword' => $this->plainPassword,
         ]);
 }

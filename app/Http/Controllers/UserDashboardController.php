@@ -27,7 +27,6 @@ class UserDashboardController extends Controller
     public function investments()
     {
         $user = Auth::user();
-
         $investments = UserPurchase::where('user_id', $user->id)
             ->orderBy('purchased_at', 'desc')
             ->get();
