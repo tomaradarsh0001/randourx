@@ -9,6 +9,7 @@ use App\Http\Controllers\DownlineController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\UserDashboardController;
+use App\Http\Controllers\ForgotPasswordController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -70,7 +71,8 @@ Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/contact-us', [HomeController::class, 'contact'])->name('contact');
 Route::get('/rules', [HomeController::class, 'rules'])->name('rules');
 Route::get('/faq', [HomeController::class, 'faq'])->name('faq');
-
+Route::post('/forgot-password-now', [ForgotPasswordController::class, 'resetPassword'])
+    ->name('forgot.password');
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/roi', [RoiRateController::class, 'index'])->name('roi.index');

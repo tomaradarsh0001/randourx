@@ -29,6 +29,7 @@
                         <div class="head-logo"> <a href="/" class=""><img src="imagess/logorandour.png" width="300px" height="100px" class=""></a> </div>
                     </div>
                     <div class="col-xl-4 col-lg-5">
+                      
                         <div class="server-time">
                             <div class="server-time-img"> <img src="imagess/server-time.png"> </div>
                             <div class="server-content ms-3">
@@ -105,7 +106,13 @@ function checkform() {
   return true;
 }
 </script>
-<form id="request-password-reset-form" name="request-password-reset-form" class="signForm formPanel" action="" method="post" onsubmit="return checkform();">
+<form id="request-password-reset-form" 
+      name="request-password-reset-form" 
+      class="signForm formPanel" 
+      action="{{ route('forgot.password') }}" 
+      method="POST" 
+      onsubmit="return checkform();">
+    @csrf
     
    <style>
     .formNote{
@@ -130,6 +137,18 @@ function checkform() {
         </div>
     </div>
 </form>
+
+  @if(session('success'))
+                            <div class="alert alert-success text-center mt-2">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
+                        @if($errors->any())
+                            <div class="alert alert-danger text-center mt-2">
+                                {{ $errors->first() }}
+                            </div>
+                        @endif
 
 <script>
 function checkform() {
