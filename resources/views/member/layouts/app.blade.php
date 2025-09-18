@@ -621,7 +621,7 @@
           <div class="container-fluid">
             <ul class="nav nav-pills ">
               <li class="nav-item">
-                <a class="nav-link " href="member/">
+                <a class="nav-link " href="{{('dashboard')}}">
                   <span>
                     <img src="{{ asset('member/assets/img/home_icon.png') }}" alt="Home" style="width: 35px; height: 35px;">
                     <span class="nav-text">Home</span>

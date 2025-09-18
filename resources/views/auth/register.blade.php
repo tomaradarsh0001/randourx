@@ -244,10 +244,13 @@
             <iconify-icon icon="carbon:user-profile"></iconify-icon>
         </div>
         <input type="text" name="sponsor_username" id="sponsor_username"
-               class="form-control"
-               placeholder="Enter Sponsor ID"
-               minlength="5" maxlength="15"
-               autocomplete="off">
+       class="form-control"
+       placeholder="Enter Sponsor ID"
+       minlength="5" maxlength="15"
+       autocomplete="off"
+       value="{{ session('sponsor') ?? '' }}"
+       @if(session('sponsor')) readonly @endif>
+
         <div class="alert alert-info p-2 mt-2" id="showsponsername" style="display:none"></div>
         <!-- <div class="alert alert-danger p-2 mt-2" id="err1" style="display:none"></div> -->
     </div>

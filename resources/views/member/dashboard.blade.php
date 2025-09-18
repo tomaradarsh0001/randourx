@@ -155,84 +155,173 @@
             </div>
         </div>
         
-        <div class="row" style="margin-bottom: 50px;">
-            <!-- Referral Link Card -->
-            <div class="col-12 col-md-6 col-lg-6 col-xl-6 align-self-stretch pb-5">
-                <div class="card text-center p-4 card-secondary bg-info-gradient h-100">
-                    <div class="card-body skew-shadow d-flex flex-column justify-content-between">
-                        <div class="row align-items-center">
-                            <div class="col-8 col-md-6 col-xl-6">
-                                <div class="form-group form-floating is-valid mb-1 mt-4">
-                                    <input type="text" class="form-control" id="url" placeholder="Referral Link" value="https://randour-x.com?username" readonly>
-                                    <label class="form-control-label text-dark" for="url">Referral Link</label>
-                                    <button type="button" class="text-color-theme tooltip-btn" onclick="geturl()">
-                                        <i class="bi bi-files p-3"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="col-4 col-md-3 col-xl-3 ps-0">
-                                <img src="{{ asset('assets/img/linkcopy.png') }}" height="70" alt="Copy Link" class="mw-100">
-                            </div>
-                        </div>
-                        <div class="mt-auto">
-                            <p class="text-white fw-bold mb-3">
-                                Invite your friends and earn rewards! Share your referral link and let them join 
-                                Randour-x. The more you refer, the more you earn!
-                            </p>
-                        </div>
+        <div class="row g-4 mb-5">
+    <!-- Referral Link Card -->
+    <div class="col-12 col-md-6">
+        <div class="referral-card h-100 d-flex flex-column justify-content-between p-4 text-center">
+
+            @php
+                $username = Auth::user()->username;
+                $referralUrl = url('/') . '?ref=' . $username;
+            @endphp
+
+            <!-- Referral Section -->
+            <div class="row g-3 align-items-center">
+                <!-- Input + Copy Button -->
+                <div class="col-12 col-md-8">
+                    <div class="input-group shadow-sm rounded-4 overflow-hidden">
+                        <input type="text" class="form-control border-0 py-3" id="url"
+                               value="{{ $referralUrl }}" readonly>
+                        <button class="btn btn-primary px-3 fs-5" type="button"
+                                onclick="copyReferral()" 
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="Copy to Clipboard">
+                            📋
+                        </button>
                     </div>
+                </div>
+
+                <!-- Image -->
+                <div class="col-12 col-md-4 text-center">
+                    <img src="{{ asset('assets/img/linkcopy.png') }}"
+                         class="img-fluid rounded-circle shadow-lg border pattern-overlay"
+                         style="max-height: 90px;" alt="Copy Link">
                 </div>
             </div>
 
-            <!-- User Info Card -->
-            <div class="col-12 col-md-6 col-lg-6 col-xl-6 align-self-stretch pb-5">
-                <div class="card text-center p-4 card-secondary bg-info-gradient h-100">
-                    <div class="card-body skew-shadow d-flex flex-column justify-content-between">
-                        <!-- User Info Row -->
-                        <div class="d-flex align-items-center justify-content-center mb-3">
-                            <div class="me-2">
-                                <img src="{{ asset('imagess/logorandour.png') }}" class="img-fluid" style="width: 150px; height: 50px;" alt="User Logo">
-                            </div>
-                            <div class="text-start">
-                                <h6 class="mb-0 text-white"><b>UserID : </b> 'username'</h6>
-                                <small class="text-white"><b>SponsorID : </b> 'sponsername'</small>
-                            </div>
-                        </div>
-
-                        <!-- Stats Section -->
-                        <div class="row text-center mt-3">
-                            <div class="col-md-6">
-                                <div class="tile bg-lightblue text-dark p-2 rounded shadow-sm">
-                                    <h6>Total Sponsored <i class="bi bi-person"></i></h6>
-                                    <p class="fw-bold">4</p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="tile bg-lightblue text-dark p-2 rounded shadow-sm">
-                                    <h6>Active Sponsored <i class="bi bi-person"></i></h6>
-                                    <p class="fw-bold">7</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row text-center mt-3">
-                            <div class="col-md-6">
-                                <div class="tile bg-lightblue text-dark p-2 rounded shadow-sm">
-                                    <h6>Total Downline BV <i class="bi bi-bar-chart"></i></h6>
-                                    <p class="fw-bold">54</p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="tile bg-lightblue text-dark p-2 rounded shadow-sm">
-                                    <h6>Total Downline <i class="bi bi-people"></i></h6>
-                                    <p class="fw-bold"></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <!-- Info Text -->
+            <div class="mt-4">
+                <p class="fw-semibold fs-6 text-dark">
+                    🎉 Invite your friends and earn rewards! <br>
+                    Share your referral link and grow with <span class="fw-bold text-white">Randour-x</span>. <br>
+                    The more you refer, the more you earn!
+                </p>
             </div>
         </div>
+    </div>
+
+    <!-- User Info Card -->
+    <div class="col-12 col-md-6">
+        <div class="card text-center p-4 bg-info-gradient h-100 rounded-4 shadow-lg">
+            <div class="card-body d-flex flex-column justify-content-between">
+
+                <!-- User Info Row -->
+                <div class="d-flex align-items-center justify-content-center mb-3">
+                    <div class="me-3">
+                        <img src="{{ asset('imagess/logorandour.png') }}" 
+                             class="img-fluid" style="width: 150px; height: 50px;" alt="User Logo">
+                    </div>
+                    <div class="text-start">
+                        <h6 class="mb-1 text-white"><b>UserID : </b>{{ Auth::user()->username }}</h6>
+                        <small class="text-white"><b>SponsorID : </b>{{ Auth::user()->sponsor_username ?? 'N/A' }}</small>
+                    </div>
+                </div>
+
+                <!-- Stats Section -->
+                <div class="row text-center g-3">
+                    <div class="col-6">
+                        <div class="tile bg-lightblue text-dark p-3 rounded shadow-sm">
+                            <h6>Total Sponsored <i class="bi bi-person"></i></h6>
+                            <p class="fw-bold">{{$downlineCount}}</p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="tile bg-lightblue text-dark p-3 rounded shadow-sm">
+                            <h6>Active Sponsored <i class="bi bi-person-check"></i></h6>
+                            <p class="fw-bold">{{$downlineCount}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row text-center g-3 mt-2">
+                    <div class="col-6">
+                        <div class="tile bg-lightblue text-dark p-3 rounded shadow-sm">
+                            <h6>Total Downline BV <i class="bi bi-bar-chart"></i></h6>
+                            <p class="fw-bold">{{$totalBusinessDownline}}</p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="tile bg-lightblue text-dark p-3 rounded shadow-sm">
+                            <h6>Total Downline <i class="bi bi-people"></i></h6>
+                            <p class="fw-bold">{{$level1Count}}</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Styles -->
+<style>
+    .mb-5 {
+    margin-bottom: 7rem !important;
+}
+    .referral-card {
+        background: linear-gradient(135deg, #42a5f5, #478ed1);
+        border-radius: 1.5rem;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        color: #fff;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .referral-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(rgba(255,255,255,0.12) 1px, transparent 1px);
+        background-size: 25px 25px;
+        pointer-events: none;
+    }
+
+    .referral-card input {
+        font-size: 0.95rem;
+        background: #fff;
+    }
+
+    .referral-card .btn-primary {
+        background-color: #1565c0;
+        border: none;
+        transition: all 0.3s ease;
+    }
+
+    .referral-card .btn-primary:hover {
+        background-color: #0d47a1;
+    }
+
+    .tile {
+        background: #e3f2fd;
+        border-radius: 1rem;
+    }
+</style>
+
+<!-- Copy Script -->
+<script>
+    function copyReferral() {
+        let copyText = document.getElementById("url");
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(copyText.value);
+
+        // Tooltip feedback
+        let tooltipBtn = document.querySelector('[data-bs-toggle="tooltip"]');
+        let tooltip = bootstrap.Tooltip.getInstance(tooltipBtn);
+        tooltip.setContent({ '.tooltip-inner': 'Copied!' });
+        setTimeout(() => {
+            tooltip.setContent({ '.tooltip-inner': 'Copy to Clipboard' });
+        }, 2000);
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+    });
+</script>
+
     </div>
 </div>
 

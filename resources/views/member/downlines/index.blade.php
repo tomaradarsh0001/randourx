@@ -20,11 +20,11 @@
                         </option>
                     @endforeach
                 </select>
-             
             </div>
+            
             @endif
         </div>
-
+                    <p class="text-success text-end">Your Balance is : ${{ number_format($user->wallet3, 2) }}</p>
         @if($downlines->isEmpty())
             <div class="alert alert-info">No downline users yet.</div>
         @else
@@ -80,9 +80,7 @@
                             <tr class="table-dark">
                                 <td class="text-end fw-bold" colspan="5">Total Downline Business</td>
                                 <td class="fw-bold text-success" colspan="2">
-                                    ${{ number_format($totalBusinessDownline, 2) }} + 
-                                    ${{ number_format($user->wallet3, 2) }} (My Wallet Balance) = 
-                                    ${{ number_format($totalBusiness, 2) }}
+                                    ${{ number_format($totalBusinessDownline, 2) }}
                                 </td>
                             </tr>
                         </tfoot>

@@ -10,8 +10,9 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\ForgotPasswordController;
-
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -66,8 +67,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/about', [HomeController::class, 'about'])->name('about');
+Route::get('/', function (Request $request) {
+    if ($request->has('ref')) {
+        // store sponsor username in session
+        session(['sponsor' => $request->get('ref')]);
+        return redirect()->route('register'); // redirect to register page
+    }
+
+    return view('welcome'); // your homepage
+});Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/contact-us', [HomeController::class, 'contact'])->name('contact');
 Route::get('/rules', [HomeController::class, 'rules'])->name('rules');
 Route::get('/faq', [HomeController::class, 'faq'])->name('faq');
