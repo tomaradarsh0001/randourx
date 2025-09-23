@@ -9,6 +9,8 @@ use App\Http\Controllers\DownlineController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\UserDashboardController;
+use App\Http\Controllers\SalaryIncomeController;
+
 use App\Http\Controllers\ForgotPasswordController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -123,4 +125,6 @@ Route::get('/downlines', [DownlineController::class, 'index'])->name('downlines.
 Route::post('/member/buy-package', [MemberController::class, 'buyPackage'])
     ->name('member.buyPackage')
     ->middleware('auth');
+        Route::get('/salary', [SalaryIncomeController::class, 'index'])->name('salary.index');
+
 require __DIR__.'/auth.php';

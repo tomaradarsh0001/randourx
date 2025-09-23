@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Services\SalaryIncomeService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,12 +21,13 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
+    public function boot(SalaryIncomeService $salaryService): void
     {
            // Make authenticated user globally available as $user in all views
         View::composer('*', function ($view) {
             $view->with('user', Auth::user());
         });
+        
         view()->composer(['member.dashboard', 'member.downlines.index'], function ($view) {
             $user = Auth::user();
 
@@ -49,5 +51,6 @@ class AppServiceProvider extends ServiceProvider
                 'user'  
             ));
         });
+      
     }
 }
