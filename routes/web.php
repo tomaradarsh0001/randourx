@@ -128,3 +128,4 @@ Route::post('/member/buy-package', [MemberController::class, 'buyPackage'])
         Route::get('/salary', [SalaryIncomeController::class, 'index'])->name('salary.index');
 
 require __DIR__.'/auth.php';
+
