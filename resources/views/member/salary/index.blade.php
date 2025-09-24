@@ -141,7 +141,7 @@
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Percentage</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Eligible At</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
@@ -175,14 +175,24 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                 {{ $income->eligible_at->format('d M Y') }}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                <button class="text-blue-600 hover:text-blue-900 mr-3">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="text-gray-600 hover:text-gray-900">
-                                    <i class="fas fa-ellipsis-v"></i>
-                                </button>
-                            </td>
+                           <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            @if($income->status == 'paid')
+                                <span class="text-green-600 font-semibold">
+                                    <i class="fas fa-check-circle mr-1"></i>
+                                    Salary Income Received
+                                </span>
+                            @elseif($income->status == 'pending')
+                                <span class="text-yellow-600 font-semibold">
+                                    <i class="fas fa-clock mr-1"></i>
+                                    Your Direct User is pending to Join
+                                </span>
+                            @else
+                                <span class="text-gray-600 font-semibold">
+                                    <i class="fas fa-times-circle mr-1"></i>
+                                    Not Eligible
+                                </span>
+                            @endif
+                        </td>
                         </tr>
                         @endforeach
                     </tbody>

@@ -252,7 +252,134 @@
         </div>
     </div>
 </div>
+@if($showSalaryModal && $isEligibleForSalary)
+<div class="modal fade show" id="salaryEligibilityModal" tabindex="-1" style="display:block; background: rgba(0,0,0,0.5);">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content shadow-lg rounded-3 border-0">
+            
+            <!-- Header -->
+            <div class="modal-header bg-gradient-primary text-white d-flex align-items-center">
+                <h5 class="modal-title fw-bold">
+                    <i class="fa-solid fa-trophy me-2 text-warning"></i> 🎉 Congratulations!
+                </h5>
+                <button type="button" class="btn-close btn-close-white" onclick="closeModal()"></button>
+            </div>
 
+            <!-- Body -->
+            <div class="modal-body">
+                <div class="text-center mb-3">
+                    <h4 class="fw-semibold text-success">
+                        You’ve reached <span class="text-primary">Level {{ $salaryProgress['currentLevel'] }}</span> Eligibility!
+                    </h4>
+                    <p class="text-muted mb-1">
+                        <i class="fa-solid fa-sack-dollar text-success"></i> Total Business: 
+                        <strong class="text-dark">₹{{ number_format($totalBusinessDownline, 2) }}</strong>
+                    </p>
+                    <p class="text-muted">
+                        <i class="fa-regular fa-clock text-primary"></i> Days Elapsed: 
+                        <strong>{{ $salaryProgress['daysElapsed'] }} days</strong>
+                    </p>
+                </div>
+
+                <!-- Progress Levels -->
+                <div class="progress-container mt-4">
+                    @foreach($salaryProgress['levels'] as $level)
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between">
+                            <span class="fw-semibold">
+                                <i class="fa-solid fa-medal me-1 text-warning"></i> 
+                                Level {{ $level['level'] }}
+                            </span>
+                            <span class="small text-muted">
+                                ₹{{ number_format($level['amount']) }}
+                            </span>
+                        </div>
+                        <div class="progress mt-1" style="height: 20px; border-radius: 10px;">
+                            <div class="progress-bar bg-{{ $level['status'] == 'achieved' ? 'success' : 'warning' }} fw-semibold"
+                                role="progressbar"
+                                style="width: {{ $level['percent'] }}%;">
+                                {{ $level['percent'] }}%
+                            </div>
+                        </div>
+                        <small class="text-muted">Status: 
+                            <span class="{{ $level['status'] == 'achieved' ? 'text-success fw-semibold' : 'text-warning fw-semibold' }}">
+                                {{ ucfirst($level['status']) }}
+                            </span>
+                        </small>
+                    </div>
+                    @endforeach
+                </div>
+
+                <!-- Eligibility Condition -->
+                <div class="alert alert-info mt-4 d-flex align-items-center">
+                    <i class="fa-solid fa-user-plus fa-lg me-2 text-primary"></i>
+                    <div>
+                        To be <strong>eligible for Salary Income</strong>, please add a new direct user 
+                        with an investment of <span class="fw-bold text-success">₹{{ number_format($lastDeposit, 2) }}</span> 
+                        or more (based on your last deposit).
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="modal-footer d-flex justify-content-between">
+                <button type="button" class="btn btn-outline-primary" id="claimRewardBtn" onclick="copyReferralCode()">
+                    <i class="fa-solid fa-link me-1"></i> Copy Referral Link
+                </button>
+                <button type="button" class="btn btn-danger" id="claimRewardBtns" onclick="closeModal()">
+                    <i class="fa-solid fa-xmark me-1"></i> Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Font Awesome 6 -->
+<!-- Bootstrap Icons -->
+<!-- Latest Font Awesome 6 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+
+<script>
+function copyReferralCode() {
+    const btn = document.getElementById('claimRewardBtn');
+    const originalText = btn.innerHTML;
+    const copyText = document.getElementById("url");
+
+    // Select and copy text
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); // for mobile devices
+    navigator.clipboard.writeText(copyText.value);
+
+    // Tooltip feedback
+    let tooltipBtn = document.querySelector('[data-bs-toggle="tooltip"]');
+    let tooltip = bootstrap.Tooltip.getInstance(tooltipBtn);
+
+   
+    // Change button state
+    btn.innerHTML = 'Copied!';
+    btn.classList.add('btn-success');
+    btn.classList.remove('btn-primary');
+
+    // Revert back after 2 seconds
+    setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.classList.remove('btn-success');
+        btn.classList.add('btn-primary');
+    }, 2000);
+}
+
+
+function closeModal() {
+    document.getElementById('salaryEligibilityModal').style.display = 'none';
+}
+</script>
+
+<style>
+/* Optional: Add smooth transition for button state change */
+#claimRewardBtn {
+    transition: all 0.3s ease;
+}
+</style>
+@endif
 <!-- Styles -->
 <style>
     .mb-5 {
