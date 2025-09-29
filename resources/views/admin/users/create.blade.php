@@ -3,8 +3,8 @@
 @section('title', 'Create User')
 
 @section('content')
-<div class="container-fluid py-4">
-    <div class="row justify-content-center">
+<div class="container">
+    <div class="page-inner row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header p-3 bg-success text-white">

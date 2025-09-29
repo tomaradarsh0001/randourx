@@ -3,7 +3,7 @@
 @section('title', 'Users')
 
 @section('content')
-<div class="container-fluid py-4">
+<div class="container">
     <div class="page-inner">
         <div class="col-12">
             <div class="card">
@@ -90,11 +90,6 @@
                                         </td>
                                         <td>
                                             <div class="btn-group">
-                                                <a href="{{ route('admin.users.show', $u->id) }}" 
-                                                   class="btn btn-info btn-sm" 
-                                                   title="View Details">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
                                                 <a href="{{ route('admin.users.edit', $u->id) }}" 
                                                    class="btn btn-warning btn-sm" 
                                                    title="Edit User">
