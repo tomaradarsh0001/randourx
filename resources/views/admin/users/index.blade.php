@@ -11,10 +11,18 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <h4 class="mb-0">
                             <i class="fas fa-users me-2"></i>Users Management
+                            @if(session('impersonating'))
+                                <span class="badge bg-warning ms-2">
+                                    <i class="fas fa-user-secret me-1"></i>Impersonating
+                                </span>
+                            @endif
                         </h4>
-                        <a href="{{ route('admin.users.create') }}" class="btn btn-primary">
-                            <i class="fas fa-plus me-1"></i> Add New User
-                        </a>
+                        <div>
+                          
+                            <a href="{{ route('admin.users.create') }}" class="btn btn-primary">
+                                <i class="fas fa-plus me-1"></i> Add New User
+                            </a>
+                        </div>
                     </div>
                 </div>
 
@@ -49,7 +57,7 @@
                                     <th>ID</th>
                                     <th>Username</th>
                                     <th>Full Name</th>
-                                    <th>Sponser</th>
+                                    <th>Sponsor</th>
                                     <th>Mobile</th>
                                     <th>Email</th>
                                     <th>Wallet</th>
@@ -90,6 +98,17 @@
                                         </td>
                                         <td>
                                             <div class="btn-group">
+                                                <!-- Login as User Button -->
+                                                @if($u->id != auth()->id())
+                                                    <form action="{{ route('admin.users.login-as', $u->id) }}" method="POST" class="d-inline">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-success btn-sm" title="Login as this user">
+                                                            <i class="fas fa-sign-in-alt"></i>
+                                                        </button>
+                                                    </form>
+                                                @endif
+
+                                             
                                                 <a href="{{ route('admin.users.edit', $u->id) }}" 
                                                    class="btn btn-warning btn-sm" 
                                                    title="Edit User">
@@ -110,7 +129,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="8" class="text-center py-5">
+                                        <td colspan="9" class="text-center py-5">
                                             <div class="text-muted">
                                                 <i class="fas fa-users fa-3x mb-3"></i>
                                                 <h5>No Users Found</h5>
@@ -170,7 +189,33 @@
     .badge {
         font-size: 0.75em;
     }
+    
+    /* Style for login button */
+    .btn-success.btn-sm {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+    
+    .btn-success.btn-sm:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
 </style>
 @endsection
 
-
+@section('scripts')
+<script>
+    // Confirm before logging in as user
+    document.addEventListener('DOMContentLoaded', function() {
+        const loginForms = document.querySelectorAll('form[action*="login-as"]');
+        
+        loginForms.forEach(form => {
+            form.addEventListener('submit', function(e) {
+                if (!confirm('Are you sure you want to login as this user? You will be redirected to their dashboard.')) {
+                    e.preventDefault();
+                }
+            });
+        });
+    });
+</script>
+@endsection

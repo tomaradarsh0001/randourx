@@ -80,6 +80,11 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function() {
         
         // Delete user
         Route::delete('/delete/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+
+        Route::post('/login-as/{id}', [UserController::class, 'loginAsUser'])->name('admin.users.login-as');
+        
+        // Logout from impersonation
+        Route::post('/logout-as', [UserController::class, 'logoutAsUser'])->name('admin.users.logout-as');
     });
     
 });

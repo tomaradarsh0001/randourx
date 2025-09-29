@@ -8,13 +8,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cache;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of users
      */
-    public function index()
+  public function index()
     {
         try {
             $users = User::select('id', 'username', 'full_name', 'sponsor_username', 'mobile', 'email', 'wallet1', 'is_admin', 'created_at')
@@ -28,6 +31,72 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Login as another user (Impersonate)
+     */
+    public function loginAsUser($id)
+    {
+        try {
+            // Get the original admin user
+            $originalUserId = Auth::id();
+            
+            // Find the target user
+            $targetUser = User::findOrFail($id);
+            
+            // Store original user ID in session for logout back
+            session(['original_user_id' => $originalUserId]);
+            session(['impersonating' => true]);
+            
+            // Log the impersonation
+            Log::info("Admin {$originalUserId} is impersonating user {$targetUser->id} ({$targetUser->username})");
+            
+            // Login as the target user
+            Auth::login($targetUser);
+            
+            return redirect('/dashboard')->with('success', 'You are now logged in as ' . $targetUser->username);
+
+        } catch (\Exception $e) {
+            Log::error('Error impersonating user: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Error logging in as user.');
+        }
+    }
+
+    
+
+   
+    public function logoutAsUser()
+    {
+        try {
+            $currentUserId = Auth::id();
+            $originalUserId = session('original_user_id');
+            
+            if ($originalUserId) {
+                $originalUser = User::find($originalUserId);
+                
+                if ($originalUser) {
+                    // Login back as original admin
+                    Auth::login($originalUser);
+                    
+                    // Clear session data
+                    session()->forget('original_user_id');
+                    session()->forget('impersonating');
+                    
+                    Log::info("Admin {$originalUserId} stopped impersonating user {$currentUserId}");
+                    
+                    return redirect()->route('admin.users.index')->with('success', 'Welcome back, ' . $originalUser->username);
+                }
+            }
+            
+            // If something went wrong, just logout completely
+            Auth::logout();
+            return redirect('/login');
+
+        } catch (\Exception $e) {
+            Log::error('Error logging out from impersonation: ' . $e->getMessage());
+            Auth::logout();
+            return redirect('/login');
+        }
+    }
     /**
      * Show the form for creating a new user
      */
