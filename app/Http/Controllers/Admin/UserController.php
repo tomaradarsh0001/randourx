@@ -62,8 +62,6 @@ class UserController extends Controller
     }
 
     
-
-   
     public function logoutAsUser()
     {
         try {
@@ -97,6 +95,38 @@ class UserController extends Controller
             return redirect('/login');
         }
     }
+    
+    public function generateImpersonationLink($id)
+{
+    $targetUser = User::findOrFail($id);
+
+    // Generate secure random token
+    $token = Str::random(40);
+
+    // Store it in cache for 5 minutes
+    Cache::put('impersonate_'.$token, $targetUser->id, now()->addMinutes(5));
+
+    // Build URL
+    $link = route('impersonate.login', ['id' => $targetUser->id, 'token' => $token]);
+
+    // Show link in flash message (admin can copy & paste into incognito)
+    return redirect()->back()->with('info', "Impersonation link generated. Open in new window/incognito: $link");
+}
+
+public function impersonateLogin($id, $token)
+{
+    $userId = Cache::pull('impersonate_'.$token);
+
+    if ($userId && $userId == $id) {
+        $user = User::findOrFail($id);
+        Auth::login($user);
+
+        return redirect('/dashboard')->with('success', 'You are logged in as ' . $user->username);
+    }
+
+    return redirect('/login')->with('error', 'Invalid or expired impersonation link.');
+}
+
     /**
      * Show the form for creating a new user
      */
@@ -115,7 +145,7 @@ class UserController extends Controller
                 'username' => 'required|string|max:255|unique:users',
                 'full_name' => 'required|string|max:255',
                 'mobile' => 'required|string|max:20|unique:users',
-                'email' => 'required|email|max:255|unique:users',
+                'email' => 'required|email|max:255',
                 'password' => 'required|string|min:8|confirmed',
                 'wallet1' => 'required|numeric|min:0',
                 'is_admin' => 'nullable|boolean',
@@ -197,12 +227,8 @@ class UserController extends Controller
                     'max:20',
                     Rule::unique('users')->ignore($user->id)
                 ],
-                'email' => [
-                    'required',
-                    'email',
-                    'max:255',
-                    Rule::unique('users')->ignore($user->id)
-                ],
+                           'email' => 'required|email|max:255',
+
                 'wallet1' => 'required|numeric|min:0',
                 'is_admin' => 'nullable|boolean',
             ]);

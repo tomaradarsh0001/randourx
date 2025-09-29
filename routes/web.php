@@ -89,6 +89,13 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function() {
     
 });
 
+Route::post('/admin/users/{id}/impersonation-link', [UserController::class, 'generateImpersonationLink'])
+    ->name('admin.users.impersonation-link');
+
+// Use the one-time impersonation link
+Route::get('/impersonate/{id}/{token}', [UserController::class, 'impersonateLogin'])
+    ->name('impersonate.login');
+    
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
