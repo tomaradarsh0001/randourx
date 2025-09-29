@@ -61,8 +61,29 @@ Route::get('/admin/dashboard', function () {
 })->middleware(['auth', 'admin'])->name('admindashboard');
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function() {
-    Route::resource('users', UserController::class);
+    
+    Route::prefix('users')->group(function() {
+        Route::get('/', [UserController::class, 'index'])->name('admin.users.index');
+        Route::get('/create', [UserController::class, 'create'])->name('admin.users.create');
+        
+        // Store new user
+        Route::post('/store', [UserController::class, 'store'])->name('admin.users.store');
+        
+        // Show user details
+        Route::get('/show/{id}', [UserController::class, 'show'])->name('admin.users.show');
+        
+        // Show edit form
+        Route::get('/edit/{id}', [UserController::class, 'edit'])->name('admin.users.edit');
+        
+        // Update user
+        Route::put('/update/{id}', [UserController::class, 'update'])->name('admin.users.update');
+        
+        // Delete user
+        Route::delete('/delete/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+    });
+    
 });
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

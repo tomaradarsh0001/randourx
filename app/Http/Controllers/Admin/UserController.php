@@ -3,116 +3,196 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\User;
-use DataTables;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
-    public function index(Request $request)
+    /**
+     * Display a listing of users
+     */
+    public function index()
     {
-        if ($request->ajax()) {
-            $users = \App\Models\User::latest()->get();
-            return datatables()->of($users)
-                ->addIndexColumn()
-                ->addColumn('action', function($user){
-                $edit = '<a href="'.route('users.edit', $user->id).'" class="btn btn-sm btn-primary me-1 mb-1">Update</a>';
-                    $delete = '<form action="'.route('users.destroy', $user->id).'" method="POST" class="d-inline-block" onsubmit="return confirm(\'Are you sure?\')">'
-                            .csrf_field().method_field('DELETE').
-                            '<button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                            </form>';
-                    return $edit.' '.$delete;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
+        try {
+            $users = User::select('id', 'username', 'full_name', 'sponsor_username', 'mobile', 'email', 'wallet1', 'is_admin', 'created_at')
+                         ->orderBy('created_at', 'desc')
+                         ->paginate(10);
 
-        return view('admin.users.index');
+            return view('admin.users.index', compact('users'));
+        } catch (\Exception $e) {
+            Log::error('Error fetching users: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Error loading users.');
+        }
     }
 
+    /**
+     * Show the form for creating a new user
+     */
     public function create()
     {
         return view('admin.users.create');
     }
 
+    /**
+     * Store a newly created user
+     */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-            'is_admin' => 'required|boolean',
-            'is_active' => 'required|boolean',
-        ]);
+        try {
+            $validated = $request->validate([
+                'username' => 'required|string|max:255|unique:users',
+                'full_name' => 'required|string|max:255',
+                'mobile' => 'required|string|max:20|unique:users',
+                'email' => 'required|email|max:255|unique:users',
+                'password' => 'required|string|min:8|confirmed',
+                'wallet1' => 'required|numeric|min:0',
+                'is_admin' => 'nullable|boolean',
+            ]);
 
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-            'is_admin' => $request->is_admin,
-            'is_active' => $request->is_active,
-        ]);
+            $user = User::create([
+                'username' => $request->username,
+                'full_name' => $request->full_name,
+                'mobile' => $request->mobile,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'wallet1' => (float) $request->wallet1,
+                'is_admin' => $request->has('is_admin') ? 1 : 0,
+                'country_code' => '+91',
+            ]);
 
-        return redirect()->route('admin.users.index')->with('success', 'User created successfully.');
+            Log::info("New user created: {$user->username} (ID: {$user->id})");
+            return redirect()->route('admin.users.index')->with('success', 'User created successfully!');
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            throw $e;
+        } catch (\Exception $e) {
+            Log::error('Error creating user: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Error creating user: ' . $e->getMessage())->withInput();
+        }
     }
 
-    public function edit(User $user)
+    /**
+     * Display the specified user
+     */
+    public function show($id)
     {
-        return view('admin.users.edit', ['editUser' => $user]);
+        try {
+            $user = User::findOrFail($id);
+            return view('admin.users.show', compact('user'));
+        } catch (\Exception $e) {
+            Log::error('Error fetching user: ' . $e->getMessage());
+            return redirect()->route('admin.users.index')->with('error', 'User not found.');
+        }
     }
 
+    /**
+     * Show the form for editing the specified user
+     */
+    public function edit($id)
+    {
+        try {
+            $users = User::findOrFail($id);
+            return view('admin.users.edit', compact('users'));
+        } catch (\Exception $e) {
+            Log::error('Error fetching user for edit: ' . $e->getMessage());
+            return redirect()->route('admin.users.index')->with('error', 'User not found.');
+        }
+    }
 
+    /**
+     * Update the specified user
+     */
     public function update(Request $request, $id)
     {
-        Log::info("Update called for user ID: {$id}");
+        Log::info("=== USER UPDATE STARTED ===");
+        Log::info("Updating user ID: {$id}");
 
-        $user = User::find($id);
+        try {
+            $user = User::findOrFail($id);
+            Log::info("Found user: {$user->username}");
 
-        if (!$user) {
-            Log::error("User with ID {$id} not found.");
-            return redirect()->route('users.index')->with('error', 'User not found.');
+            $validated = $request->validate([
+                'username' => [
+                    'required',
+                    'string',
+                    'max:255',
+                    Rule::unique('users')->ignore($user->id)
+                ],
+                'full_name' => 'required|string|max:255',
+                'mobile' => [
+                    'required',
+                    'string',
+                    'max:20',
+                    Rule::unique('users')->ignore($user->id)
+                ],
+                'email' => [
+                    'required',
+                    'email',
+                    'max:255',
+                    Rule::unique('users')->ignore($user->id)
+                ],
+                'wallet1' => 'required|numeric|min:0',
+                'is_admin' => 'nullable|boolean',
+            ]);
+
+            // Check for changes
+            $changes = false;
+            $updateData = [
+                'username' => $request->username,
+                'full_name' => $request->full_name,
+                'mobile' => $request->mobile,
+                'email' => $request->email,
+                'wallet1' => (float) $request->wallet1,
+                'is_admin' => $request->has('is_admin') ? 1 : 0,
+            ];
+
+            foreach ($updateData as $field => $newValue) {
+                $oldValue = $user->$field;
+                if ((string)$oldValue !== (string)$newValue) {
+                    $user->$field = $newValue;
+                    $changes = true;
+                    Log::info("Changed {$field}: '{$oldValue}' -> '{$newValue}'");
+                }
+            }
+
+            if (!$changes) {
+                Log::info("No changes detected for user ID: {$id}");
+                return redirect()->route('admin.users.index')->with('info', 'No changes were made.');
+            }
+
+            $user->save();
+            Log::info("✅ User updated successfully: {$user->username}");
+
+            return redirect()->route('admin.users.index')->with('success', 'User updated successfully!');
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            Log::warning("Validation failed for user update: " . json_encode($e->errors()));
+            throw $e;
+        } catch (\Exception $e) {
+            Log::error("Error updating user: " . $e->getMessage());
+            return redirect()->back()->with('error', 'Error updating user: ' . $e->getMessage());
         }
-
-        Log::info("User found: ", $user->toArray());
-
-        // Validate input
-        $request->validate([
-            'username'   => 'required|string|max:255|unique:users,username,' . $id,
-            'full_name'  => 'required|string|max:255',
-            'mobile'     => 'required|string|max:20|unique:users,mobile,' . $id,
-            'email'      => 'required|email|max:255|unique:users,email,' . $id,
-            'wallet1'    => 'required|numeric',
-            'is_admin'   => 'nullable|boolean',
-        ]);
-
-        Log::info("Request data: ", $request->all());
-
-        // Assign values explicitly
-        $user->username  = $request->username;
-        $user->full_name = $request->full_name;
-        $user->mobile    = $request->mobile;
-        $user->email     = $request->email;
-        $user->wallet1   = $request->wallet1;
-        $user->is_admin  = $request->boolean('is_admin');
-
-        $saved = $user->save();
-
-        if ($saved) {
-            Log::info("User updated successfully: ", $user->toArray());
-        } else {
-            Log::error("User update failed for ID: {$id}");
-        }
-
-        return redirect()->route('users.index')->with('success', 'User updated successfully.');
     }
 
-
-
-    // Delete user
-    public function destroy(User $user)
+    /**
+     * Remove the specified user
+     */
+    public function destroy($id)
     {
-        $user->delete();
-        return response()->json(['success' => 'User deleted successfully.']);
+        try {
+            $user = User::findOrFail($id);
+            $username = $user->username;
+            $user->delete();
+
+            Log::info("User deleted: {$username} (ID: {$id})");
+            return redirect()->route('admin.users.index')->with('success', 'User deleted successfully!');
+
+        } catch (\Exception $e) {
+            Log::error('Error deleting user: ' . $e->getMessage());
+            return redirect()->route('admin.users.index')->with('error', 'Error deleting user: ' . $e->getMessage());
+        }
     }
 }

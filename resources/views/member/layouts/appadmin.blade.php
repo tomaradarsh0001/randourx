@@ -221,7 +221,7 @@
                 <div class="collapse" id="base">
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="{{route('users.index')}}">
+                      <a href="{{route('admin.users.index')}}">
                         <span class="sub-item">Manage Users</span>
                       </a>
                     </li>
