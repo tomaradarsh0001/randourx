@@ -227,7 +227,7 @@
     <link href="{{ asset('member/assets/css/kaiadmin.min.css') }}" rel="stylesheet">
     <link href="{{ asset('member/assets/css/style.css') }}" rel="stylesheet" id="style">
     <link href="{{ asset('member/assets/css/demo.css') }}" rel="stylesheet">
-    
+
     <!-- Webfont Loader -->
     <script src="{{ asset('member/assets/js/plugin/webfont/webfont.min.js') }}"></script>
     <script>
@@ -471,7 +471,7 @@
         @csrf
     </form>
 </li>
-  
+
               
             </ul>
           </div>
@@ -604,7 +604,15 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Account Setting</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Logout</a>
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+   Logout
+</a>
+
+<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+    @csrf
+</form>
+
                       </li>
                     </div>
                   </ul>

@@ -149,12 +149,19 @@ private function distributeLevelCommission(User $user, $amount)
     \Log::info('Upline users found: ' . count($uplineUsers));
     foreach ($uplineUsers as $depth => $uplineUser) {
         $commissionPercentage = $this->getCommissionPercentage($depth);
-        $wallet3Upline = $uplineUser->wallet3;
-        $procedBal = min($wallet3Upline, $amount);
-        $commissionAmount = $procedBal * ($commissionPercentage / 100);
 
+        // Base commission amount
+        $commissionAmount = $amount * ($commissionPercentage / 100);
 
-        \Log::info("Level {$depth}: User {$uplineUser->id} gets {$commissionPercentage}% = {$commissionAmount}");
+        // Calculate remaining cap (wallet3 - wallet2)
+        $remainingCap = $uplineUser->wallet3 - $uplineUser->wallet2;
+
+        // If commission pushes wallet2 over wallet3, adjust it
+        if ($commissionAmount > $remainingCap) {
+            $commissionAmount = $remainingCap;
+        }
+
+        \Log::info("Level {$depth}: User {$uplineUser->id} gets {$commissionPercentage}% = {$commissionAmount} (capped at wallet3)");
         
         if ($commissionAmount > 0) {
             // Add commission to upline user's wallet2 and income2
@@ -178,10 +185,11 @@ private function distributeLevelCommission(User $user, $amount)
             } catch (\Exception $e) {
                 \Log::error('Error creating level income record: ' . $e->getMessage());
             }
+        } else {
+            \Log::info("Level {$depth}: User {$uplineUser->id} commission skipped (already at cap).");
         }
     }
 }
-
 /**
  * Get all upline users with their depth level
  */

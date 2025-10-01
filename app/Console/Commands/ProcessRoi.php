@@ -28,18 +28,29 @@ class ProcessRoi extends Command
             if ($user->wallet3 > 0) {
                 $roiAmount = ($user->wallet3 * $rate) / 100;
 
-                // Update wallets
-                $user->wallet2 += $roiAmount;
-                $user->income1 += $roiAmount; // ✅ update income1
-                $user->save();
+                // Calculate max possible ROI to avoid exceeding wallet3
+                $remainingCap = $user->wallet3 - $user->wallet2;
 
-                // Log in roi_incomes table
-                RoiIncome::create([
-                    'user_id'      => $user->id,
-                    'from_admin'   => 1,
-                    'wallet_value' => $user->wallet3,
-                    'roi_bonus'    => $roiAmount,
-                ]);
+                // If ROI pushes wallet2 over wallet3, adjust it
+                if ($roiAmount > $remainingCap) {
+                    $roiAmount = $remainingCap;
+                }
+
+                // Only add if there is something left to add
+                if ($roiAmount > 0) {
+                    // Update wallets
+                    $user->wallet2 += $roiAmount;
+                    $user->income1 += $roiAmount;
+                    $user->save();
+
+                    // Log in roi_incomes table
+                    RoiIncome::create([
+                        'user_id'      => $user->id,
+                        'from_admin'   => 1,
+                        'wallet_value' => $user->wallet3,
+                        'roi_bonus'    => $roiAmount,
+                    ]);
+                }
             }
         }
 

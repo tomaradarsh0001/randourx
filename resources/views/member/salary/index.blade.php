@@ -5,206 +5,501 @@
 @section('content')
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body {
+        .salary-progress-container {
             font-family: 'Inter', sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 12px;
         }
-        .progress-bar {
-            transition: width 0.8s ease-in-out;
+        .page-inner {
+            padding: 16px 0;
         }
-        .card-hover {
+        .page-header {
+            margin-bottom: 24px;
+        }
+        .page-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #111827;
+            margin: 0;
+        }
+        .page-subtitle {
+            color: #6b7280;
+            margin-top: 4px;
+            font-size: 14px;
+        }
+        
+        /* Progress Grid - No Scroll */
+        .progress-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        
+        .progress-card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #f3f4f6;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            padding: 12px;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
+            height: 100%;
         }
-        .card-hover:hover {
+        .progress-card:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
-        /* Responsive adjustments for 5-column grid */
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+        .card-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111827;
+            margin-top: 8px;
+        }
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 8px;
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .status-achieved {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+        .status-pending {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+        .status-locked {
+            background-color: #f3f4f6;
+            color: #374151;
+        }
+        .icon-container {
+            background-color: #dbeafe;
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-left: 8px;
+        }
+        .icon-container i {
+            color: #3b82f6;
+            font-size: 12px;
+        }
+        .progress-info {
+            margin-bottom: 8px;
+        }
+        .progress-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #6b7280;
+            margin-bottom: 4px;
+        }
+        .progress-bar-container {
+            width: 100%;
+            background-color: #e5e7eb;
+            border-radius: 9999px;
+            height: 8px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 8px;
+            border-radius: 9999px;
+            transition: width 0.8s ease-in-out;
+        }
+        .progress-achieved { background-color: #10b981; }
+        .progress-pending { background-color: #f59e0b; }
+        .progress-locked { background-color: #d1d5db; }
+        
+        /* Next Target Card */
+        .next-target-card {
+            background: linear-gradient(to right, #3b82f6, #2563eb);
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            padding: 12px;
+            color: white;
+            margin-bottom: 16px;
+        }
+        .target-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+        .target-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .target-subtitle {
+            color: #bfdbfe;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+        .target-badge {
+            background-color: rgba(255, 255, 255, 0.2);
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .target-icon {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 8px;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .target-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: #bfdbfe;
+        }
+        .stat-value {
+            font-size: 14px;
+            font-weight: 700;
+        }
+        
+        /* Salary Records Table */
+        .salary-records {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #f3f4f6;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+        .table-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .table-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+        }
+        .table-container {
+            overflow-x: auto;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .data-table th {
+            background-color: #f9fafb;
+            padding: 8px 12px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 500;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .data-table td {
+            padding: 12px;
+            font-size: 14px;
+            color: #111827;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .data-table tr:hover {
+            background-color: #f9fafb;
+        }
+        .status-paid { background-color: #dcfce7; color: #166534; }
+        .status-pending-table { background-color: #fef3c7; color: #92400e; }
+        .status-not-eligible { background-color: #f3f4f6; color: #374151; }
+        
+        .table-footer {
+            padding: 12px 16px;
+            border-top: 1px solid #e5e7eb;
+            background-color: #f9fafb;
+        }
+        
+        /* Responsive Design */
+        @media (min-width: 640px) {
+            .salary-progress-container {
+                padding: 0 16px;
+            }
+            .page-inner {
+                padding: 20px 0;
+            }
+            .page-header {
+                margin-bottom: 32px;
+            }
+            .page-title {
+                font-size: 30px;
+            }
+            .progress-grid {
+                gap: 16px;
+                margin-bottom: 32px;
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            }
+            .progress-card {
+                padding: 16px;
+            }
+            .next-target-card {
+                padding: 16px;
+                margin-bottom: 24px;
+            }
+            .target-stats {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 12px;
+            }
+            .table-header {
+                padding: 16px 24px;
+            }
+            .data-table th,
+            .data-table td {
+                padding: 12px 24px;
+            }
+            .table-footer {
+                padding: 12px 24px;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .page-title {
+                font-size: 32px;
+            }
+            .progress-grid {
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .progress-grid {
+                margin-bottom: 40px;
+            }
+            .next-target-card {
+                margin-bottom: 32px;
+            }
+            .salary-records {
+                margin-bottom: 32px;
+            }
+        }
+        
+        @media (max-width: 639px) {
+            .data-table {
+                min-width: 800px;
+            }
+        }
+        
+        /* Special layout for exactly 5 items */
         @media (min-width: 1280px) {
-            .grid-cols-5 {
-                grid-template-columns: repeat(5, minmax(0, 1fr));
+            .progress-grid-5 {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) and (max-width: 1279px) {
+            .progress-grid-5 {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .progress-grid-5 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (min-width: 640px) and (max-width: 767px) {
+            .progress-grid-5 {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
-    <div class="container">
-      <div class="page-inner">
-        <!-- Header -->
-        <div class="flex justify-between items-center mb-8">
-            <div>
-                <h1 class="text-3xl font-bold text-gray-900">Salary Progress</h1>
-                <p class="text-gray-600 mt-1">Track your earnings and progression milestones</p>
-            </div>
-         
-        </div>
 
-        <!-- Progress Levels Grid - Updated to 5 columns -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-8">
-            @foreach($progress['levels'] as $level)
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 card-hover">
-                <div class="flex justify-between items-start mb-3">
-                    <div>
-                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium 
-                            @if($level['status']=='achieved') bg-green-100 text-green-800
-                            @elseif($level['status']=='pending') bg-yellow-100 text-yellow-800
-                            @else bg-gray-100 text-gray-800
-                            @endif">
-                            @if($level['status']=='achieved')
-                                <i class="fas fa-check-circle mr-1"></i>
-                            @elseif($level['status']=='pending')
-                                <i class="fas fa-clock mr-1"></i>
-                            @else
-                                <i class="fas fa-lock mr-1"></i>
-                            @endif
-                            {{ ucfirst($level['status']) }}
-                        </span>
-                        <h3 class="text-md font-semibold text-gray-900 mt-2">Level {{ $level['level'] }}</h3>
+    <div class="salary-progress-container">
+        <div class="page-inner">
+            <!-- Header -->
+            <div class="page-header">
+                <h1 class="page-title">Salary Progress</h1>
+                <p class="page-subtitle">Track your earnings and progression milestones</p>
+            </div>
+
+            <!-- Progress Levels Grid - Responsive without scroll -->
+            <div class="progress-grid progress-grid-5">
+                @foreach($progress['levels'] as $level)
+                <div class="progress-card">
+                    <div class="card-header">
+                        <div style="flex: 1; min-width: 0;">
+                            <span class="status-badge 
+                                @if($level['status']=='achieved') status-achieved
+                                @elseif($level['status']=='pending') status-pending
+                                @else status-locked
+                                @endif">
+                                @if($level['status']=='achieved')
+                                    <i class="fas fa-check-circle" style="margin-right: 4px;"></i>
+                                @elseif($level['status']=='pending')
+                                    <i class="fas fa-clock" style="margin-right: 4px;"></i>
+                                @else
+                                    <i class="fas fa-lock" style="margin-right: 4px;"></i>
+                                @endif
+                                {{ ucfirst($level['status']) }}
+                            </span>
+                            <h3 class="card-title">Level {{ $level['level'] }}</h3>
+                        </div>
+                        <div class="icon-container">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
                     </div>
-                    <div class="bg-blue-50 w-8 h-8 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-chart-line text-blue-500 text-sm"></i>
-                    </div>
-                </div>
-                
-                <div class="mb-2">
-                    <div class="flex justify-between text-xs text-gray-600 mb-1">
-                        <span>Progress</span>
-                        <span>{{ $level['percent'] }}%</span>
-                    </div>
-                    <div class="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
-                        <div class="h-2 rounded-full progress-bar
-                            @if($level['status']=='achieved') bg-green-500
-                            @elseif($level['status']=='pending') bg-yellow-500
-                            @else bg-gray-300
-                            @endif"
-                            style="width: {{ $level['percent'] }}%">
+                    
+                    <div class="progress-info">
+                        <div class="progress-labels">
+                            <span>Progress</span>
+                            <span>{{ $level['percent'] }}%</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar 
+                                @if($level['status']=='achieved') progress-achieved
+                                @elseif($level['status']=='pending') progress-pending
+                                @else progress-locked
+                                @endif"
+                                style="width: {{ $level['percent'] }}%">
+                            </div>
                         </div>
                     </div>
                 </div>
+                @endforeach
             </div>
-            @endforeach
-        </div>
 
-        <!-- Next Target Card -->
-        <div class="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl shadow-lg p-4 text-white mb-6">
-    <div class="flex justify-between items-start">
-        <div class="flex-1">
-            <h2 class="text-lg font-bold mb-1">Next Target</h2>
-            <p class="text-blue-100 text-sm mb-3">You're making great progress! Keep it up to reach your next milestone.</p>
-            <div class="bg-blue-400 bg-opacity-30 inline-flex items-center px-3 py-1 rounded-md">
-                <i class="fas fa-bullseye mr-1 text-sm"></i>
-                <span class="font-semibold text-sm">{{ $progress['nextTarget'] }}</span>
-            </div>
-        </div>
-        <div class="bg-white bg-opacity-20 p-2 rounded-full ml-4">
-            <i class="fas fa-trophy text-lg"></i>
-        </div>
-    </div>
-    
-    <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mt-4">
-        <div class="text-center">
-            <p class="text-blue-200 text-xs">Total Business</p>
-            <p class="font-bold text-md">{{ $progress['totalBusiness'] }}</p>
-        </div>
-        <div class="text-center">
-            <p class="text-blue-200 text-xs">Days Elapsed</p>
-            <p class="font-bold text-md">{{ $progress['daysElapsed'] }}</p>
-        </div>
-        <div class="text-center">
-            <p class="text-blue-200 text-xs">30-Day Window</p>
-            <p class="font-bold text-md">{{ $progress['daysLeft30'] }} days left</p>
-        </div>
-        <div class="text-center">
-            <p class="text-blue-200 text-xs">60-Day Window</p>
-            <p class="font-bold text-md">{{ $progress['daysLeft60'] }} days left</p>
-        </div>
-        <div class="text-center">
-            <p class="text-blue-200 text-xs">90-Day Window</p>
-            <p class="font-bold text-md">{{ $progress['daysLeft90'] }} days left</p>
-        </div>
-    </div>
-</div>
-
-        <!-- Salary Records -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-8">
-            <div class="px-6 py-4 border-b border-gray-100">
-                <div class="flex justify-between items-center">
-                    <h2 class="text-xl font-semibold text-gray-900">Salary Records</h2>
+            <!-- Next Target Card -->
+            <div class="next-target-card">
+                <div class="target-header">
+                    <div style="flex: 1; min-width: 0; margin-right: 8px;">
+                        <h2 class="target-title">Next Target</h2>
+                        <p class="target-subtitle">You're making great progress! Keep it up to reach your next milestone.</p>
+                        <div class="target-badge">
+                            <i class="fas fa-bullseye" style="margin-right: 4px; font-size: 10px;"></i>
+                            <span style="font-weight: 600; font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ $progress['nextTarget'] }}</span>
+                        </div>
+                    </div>
+                    <div class="target-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                </div>
+                
+                <div class="target-stats">
+                    <div class="stat-item">
+                        <p class="stat-label">Total Business</p>
+                        <p class="stat-value">{{ $progress['totalBusiness'] }}</p>
+                    </div>
+                    <div class="stat-item">
+                        <p class="stat-label">Days Elapsed</p>
+                        <p class="stat-value">{{ $progress['daysElapsed'] }}</p>
+                    </div>
+                    <div class="stat-item">
+                        <p class="stat-label">30-Day Window</p>
+                        <p class="stat-value">{{ $progress['daysLeft30'] }} days left</p>
+                    </div>
+                    <div class="stat-item">
+                        <p class="stat-label">60-Day Window</p>
+                        <p class="stat-value">{{ $progress['daysLeft60'] }} days left</p>
+                    </div>
+                    <div class="stat-item">
+                        <p class="stat-label">90-Day Window</p>
+                        <p class="stat-value">{{ $progress['daysLeft90'] }} days left</p>
+                    </div>
                 </div>
             </div>
-            
-            <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
-                        <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Threshold</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Percentage</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Eligible At</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
-                        @foreach($salaryIncomes as $income)
-                        <tr class="hover:bg-gray-50 transition-colors duration-150">
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm font-medium text-gray-900">${{ number_format($income->amount, 2) }}</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900">${{ number_format($income->threshold, 2) }}</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900">{{ $income->percentage }}%</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                                    @if($income->status=='paid') bg-green-100 text-green-800
-                                    @elseif($income->status=='pending') bg-yellow-100 text-yellow-800
-                                    @else bg-gray-100 text-gray-800
-                                    @endif">
-                                    @if($income->status=='paid')
-                                        <i class="fas fa-check-circle mr-1"></i>
-                                    @elseif($income->status=='pending')
-                                        <i class="fas fa-clock mr-1"></i>
+
+            <!-- Salary Records -->
+            <div class="salary-records">
+                <div class="table-header">
+                    <h2 class="table-title">Salary Records</h2>
+                </div>
+                
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Amount</th>
+                                <th>Threshold</th>
+                                <th>Percentage</th>
+                                <th>Status</th>
+                                <th>Eligible At</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($salaryIncomes as $income)
+                            <tr>
+                                <td>${{ number_format($income->amount, 2) }}</td>
+                                <td>${{ number_format($income->threshold, 2) }}</td>
+                                <td>{{ $income->percentage }}%</td>
+                                <td>
+                                    <span class="status-badge 
+                                        @if($income->status=='paid') status-paid
+                                        @elseif($income->status=='pending') status-pending-table
+                                        @else status-not-eligible
+                                        @endif" style="font-size: 11px;">
+                                        @if($income->status=='paid')
+                                            <i class="fas fa-check-circle" style="margin-right: 4px;"></i>
+                                        @elseif($income->status=='pending')
+                                            <i class="fas fa-clock" style="margin-right: 4px;"></i>
+                                        @else
+                                            <i class="fas fa-times-circle" style="margin-right: 4px;"></i>
+                                        @endif
+                                        {{ ucfirst($income->status) }}
+                                    </span>
+                                </td>
+                                <td>{{ $income->eligible_at->format('d M Y') }}</td>
+                                <td>
+                                    @if($income->status == 'paid')
+                                        <span style="color: #166534; font-weight: 600;">
+                                            <i class="fas fa-check-circle" style="margin-right: 4px;"></i>
+                                            Salary Income Received
+                                        </span>
+                                    @elseif($income->status == 'pending')
+                                        <span style="color: #92400e; font-weight: 600;">
+                                            <i class="fas fa-clock" style="margin-right: 4px;"></i>
+                                            Your Direct User is pending to Join
+                                        </span>
                                     @else
-                                        <i class="fas fa-times-circle mr-1"></i>
+                                        <span style="color: #374151; font-weight: 600;">
+                                            <i class="fas fa-times-circle" style="margin-right: 4px;"></i>
+                                            Not Eligible
+                                        </span>
                                     @endif
-                                    {{ ucfirst($income->status) }}
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                {{ $income->eligible_at->format('d M Y') }}
-                            </td>
-                           <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            @if($income->status == 'paid')
-                                <span class="text-green-600 font-semibold">
-                                    <i class="fas fa-check-circle mr-1"></i>
-                                    Salary Income Received
-                                </span>
-                            @elseif($income->status == 'pending')
-                                <span class="text-yellow-600 font-semibold">
-                                    <i class="fas fa-clock mr-1"></i>
-                                    Your Direct User is pending to Join
-                                </span>
-                            @else
-                                <span class="text-gray-600 font-semibold">
-                                    <i class="fas fa-times-circle mr-1"></i>
-                                    Not Eligible
-                                </span>
-                            @endif
-                        </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-            
-            <div class="px-6 py-4 border-t border-gray-200 bg-gray-50">
-                {{ $salaryIncomes->links() }}
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="table-footer">
+                    {{ $salaryIncomes->links() }}
+                </div>
             </div>
         </div>
     </div>
-</div>
+
     <script>
         // Simple animation for progress bars on page load
         document.addEventListener('DOMContentLoaded', function() {

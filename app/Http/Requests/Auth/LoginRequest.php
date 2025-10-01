@@ -33,31 +33,31 @@ class LoginRequest extends FormRequest
     }
 
     public function authenticate(): void
-    {
-        $this->ensureIsNotRateLimited();
+{
+    $this->ensureIsNotRateLimited();
 
-        $login = $this->input('login');
+    $login = $this->input('login');
 
-        // Detect field type
-        if (filter_var($login, FILTER_VALIDATE_EMAIL)) {
-            $field = 'email';
-        } elseif (preg_match('/^[0-9]{6,15}$/', $login)) {
-            // 6–15 digit phone numbers
-            $field = 'mobile';
-        } else {
-            $field = 'username';
-        }
-
-        if (! Auth::attempt([$field => $login, 'password' => $this->input('password')], $this->boolean('remember'))) {
-            RateLimiter::hit($this->throttleKey());
-
-            throw ValidationException::withMessages([
-                'login' => trans('auth.failed'),
-            ]);
-        }
-
-        RateLimiter::clear($this->throttleKey());
+    // Only allow username or mobile for login
+    if (preg_match('/^[0-9]{6,15}$/', $login)) {
+        // 6–15 digit phone numbers
+        $field = 'mobile';
+    } else {
+        // Anything else treated as username
+        $field = 'username';
     }
+
+    if (! Auth::attempt([$field => $login, 'password' => $this->input('password')], $this->boolean('remember'))) {
+        RateLimiter::hit($this->throttleKey());
+
+        throw ValidationException::withMessages([
+            'login' => trans('auth.failed'),
+        ]);
+    }
+
+    RateLimiter::clear($this->throttleKey());
+}
+
 
     /**
      * Prevent brute force login attempts

@@ -394,7 +394,131 @@
         </div>
     </div>
 </form>
+{{-- Success Registration Popup --}}
+@if(session('registration_success'))
+<div id="registrationSuccessModal" class="modal fade show" style="display: block; background: rgba(0,0,0,0.5);">
+    <div class="modal-dialog modal-lg" style="max-width: 800px;"> {{-- Wider modal --}}
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white py-2"> {{-- Reduced header height --}}
+                <h5 class="modal-title mb-0">
+                    <i class="fas fa-check-circle"></i> Registration Successful!
+                </h5>
+            </div>
+            <div class="modal-body p-3"> {{-- Reduced padding --}}
+                <div class="alert alert-success py-2 mb-2"> {{-- Compact alert --}}
+                    <strong class="h6 mb-0">Congratulations!</strong> You are successfully registered in our portal.
+                </div>
+                
+                <div class="registration-details">
+                    <h6 class="mb-2">Your Login Credentials:</h6>
+                    <div class="row"> {{-- Using grid layout to reduce height --}}
+                        <div class="col-md-6">
+                            <table class="table table-sm table-bordered mb-2"> {{-- Smaller table --}}
+                                <tr>
+                                    <th width="45%" class="p-1">Full Name:</th>
+                                    <td class="p-1">{{ session('registration_success.user_data.full_name') }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="p-1">Username:</th>
+                                    <td class="p-1 text-primary font-weight-bold">{{ session('registration_success.user_data.username') }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="p-1">Email:</th>
+                                    <td class="p-1">{{ session('registration_success.user_data.email') }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table table-sm table-bordered mb-2">
+                                <tr>
+                                    <th width="45%" class="p-1">Password:</th>
+                                    <td class="p-1 text-warning font-weight-bold">{{ session('registration_success.user_data.password') }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="p-1">Mobile:</th>
+                                    <td class="p-1">{{ session('registration_success.user_data.mobile') }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="p-1">Sponsor:</th>
+                                    <td class="p-1">{{ session('registration_success.user_data.sponsor') }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-sm table-bordered mb-2">
+                                <tr>
+                                    <th width="20%" class="p-1">Registration Date:</th>
+                                    <td class="p-1">{{ session('registration_success.user_data.registration_date') }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="alert alert-info py-2 mt-2 mb-0"> {{-- Compact info alert --}}
+                    <small class="d-flex align-items-center">
+                        <i class="fas fa-info-circle me-2"></i> 
+                        Save your username and password securely for login.
+                    </small>
+                </div>
+            </div>
+            <div class="modal-footer py-2"> {{-- Reduced footer height --}}
+                <button type="button" class="btn btn-success btn-sm" onclick="closeModal()">
+                    <i class="fas fa-thumbs-up"></i> Got it!
+                </button>
+                <a href="{{ route('login') }}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-sign-in-alt"></i> Login Now
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 
+<script>
+function closeModal() {
+    document.getElementById('registrationSuccessModal').style.display = 'none';
+}
+
+// Close modal when clicking outside
+document.getElementById('registrationSuccessModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeModal();
+    }
+});
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeModal();
+    }
+});
+</script>
+
+<style>
+.modal {
+    backdrop-filter: blur(5px);
+}
+.registration-details table th {
+    background-color: #f8f9fa;
+    font-size: 0.85rem;
+}
+.registration-details table td {
+    font-size: 0.85rem;
+}
+.modal-body {
+    max-height: 60vh; /* Limit maximum height */
+    overflow-y: auto; /* Add scroll if needed */
+}
+.modal-lg {
+    max-width: 800px !important; /* Force wider modal */
+}
+.table-sm th, .table-sm td {
+    padding: 0.25rem !important; /* Reduced table padding */
+}
+</style>
+@endif
 
  <script>
 $(document).ready(function() {
@@ -466,12 +590,12 @@ $(document).ready(function() {
         }
     });
 
-    $('#email').on('blur', function() {
-        let email = $(this).val().trim();
-        if(email.length > 0){
-            checkExists('email', email, 'err_email');
-        }
-    });
+    // $('#email').on('blur', function() {
+    //     let email = $(this).val().trim();
+    //     if(email.length > 0){
+    //         checkExists('email', email, 'err_email');
+    //     }
+    // });
 });
 </script>
 

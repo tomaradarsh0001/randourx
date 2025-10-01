@@ -227,7 +227,7 @@ public function impersonateLogin($id, $token)
                     'max:20',
                     Rule::unique('users')->ignore($user->id)
                 ],
-                           'email' => 'required|email|max:255',
+                            'email' => 'required|email|max:255',
 
                 'wallet1' => 'required|numeric|min:0',
                 'is_admin' => 'nullable|boolean',

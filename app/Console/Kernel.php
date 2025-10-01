@@ -13,10 +13,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
     $schedule->command('roi:process')->daily(); // runs once a day
-    $schedule->command('salary:check-eligibility')->dailyAt('00:10');
+    $schedule->command('salary:check-eligibility')->cron('* * * * *');
 
     // run payment command every 15 days at midnight (cron expression)
-    $schedule->command('salary:pay')->cron('0 0 */15 * *');
+    $schedule->command('salary:pay')->cron('* * * * *');
     }
 
     /**

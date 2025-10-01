@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use App\Mail\RegistrationSuccessMail;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Validation\Rules\Password;
 
 
 class RegisteredUserController extends Controller
@@ -46,8 +47,8 @@ class RegisteredUserController extends Controller
             'full_name'        => ['required', 'string', 'max:255'],
             'country_code'     => ['required', 'string', 'max:10'],
             'mobile'           => ['required', 'string', 'max:15', 'unique:users,mobile'],
-            'email'            => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'password'         => ['required', 'confirmed', Rules\Password::defaults()],
+            'email'            => ['required', 'string', 'email', 'max:255'],
+            'password'         => ['required', 'confirmed', Password::min(4)],
         ]);
 
         // ✅ Step 2: Get Sponsor
@@ -85,7 +86,7 @@ class RegisteredUserController extends Controller
             ]);
 
             if ($sponsor) {
-                // Inherit all sponsor’s ancestors
+                // Inherit all sponsor's ancestors
                 $ancestors = DB::table('downlines')
                     ->where('descendant_id', $sponsor->id)
                     ->get();
@@ -111,12 +112,25 @@ class RegisteredUserController extends Controller
             ]);
         }
 
-        // ✅ Step 7: Login & Redirect
-        event(new Registered($user));
-        Auth::login($user);
+        // ✅ Step 7: Store registration data in session for popup display
+        $registrationData = [
+            'success' => true,
+            'message' => 'You are successfully registered in our portal!',
+            'user_data' => [
+                'full_name' => $user->full_name,
+                'username' => $user->username,
+                'email' => $user->email,
+                'password' => $request->password, // Display plain password for user reference
+                'mobile' => $user->country_code . $user->mobile,
+                'sponsor' => $user->sponsor_username ?? 'None',
+                'registration_date' => now()->format('F j, Y \a\t g:i A'),
+            ]
+        ];
 
-        return redirect(RouteServiceProvider::HOME)
-            ->with('success', 'Registration successful!');
+        // ✅ Step 8: Redirect back to registration page with success data
+        return redirect()->route('register') // Change 'register' to your actual registration route name
+            ->with('registration_success', $registrationData);
+
     } catch (\Exception $e) {
         Log::error('Error during user registration.', [
             'error'   => $e->getMessage(),

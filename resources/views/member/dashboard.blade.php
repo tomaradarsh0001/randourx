@@ -133,7 +133,7 @@
             </div>
             
             <div class="col-sm-6 col-md-4">
-                <a href="rank-income" class="animated-card-link card-link">
+                <a href="/salary" class="animated-card-link card-link">
                     <div class="animated-card card card-stats card-round">
                         <div class="animated-card-body card-body">
                             <div class="row align-items-center">
