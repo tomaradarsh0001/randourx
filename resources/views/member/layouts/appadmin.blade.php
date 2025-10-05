@@ -200,7 +200,7 @@
                   <ul class="nav nav-collapse">
                     <li>
                       <a href="{{route('admindashboard')}}">
-                        <span class="sub-item">Dashboard 1</span>
+                        <span class="sub-item">Admin Dashboard</span>
                       </a>
                     </li>
                   </ul>
@@ -249,16 +249,16 @@
               </li>
 
               <li class="nav-item">
-                <a data-bs-toggle="collapse" href="#maps">
+                <a data-bs-toggle="collapse" href="#tran">
                   <i class="fas fa-map-marker-alt"></i>
                   <p>Transactions</p>
                   <span class="caret"></span>
                 </a>
-                <div class="collapse" id="maps">
+                <div class="collapse" id="tran">
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="{{route('admin.roi.index')}}">
-                        <span class="sub-item">Manage ROI</span>
+                      <a href="{{route('member.transactions.index')}}">
+                        <span class="sub-item">View Transactions</span>
                       </a>
                     </li>
                   </ul>

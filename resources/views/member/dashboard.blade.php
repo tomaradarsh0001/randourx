@@ -273,7 +273,7 @@
                     </h4>
                     <p class="text-muted mb-1">
                         <i class="fa-solid fa-sack-dollar text-success"></i> Total Business: 
-                        <strong class="text-dark">₹{{ number_format($totalBusinessDownline, 2) }}</strong>
+                        <strong class="text-dark">${{ number_format($totalBusinessDownline, 2) }}</strong>
                     </p>
                     <p class="text-muted">
                         <i class="fa-regular fa-clock text-primary"></i> Days Elapsed: 
@@ -291,7 +291,7 @@
                                 Level {{ $level['level'] }}
                             </span>
                             <span class="small text-muted">
-                                ₹{{ number_format($level['amount']) }}
+                                ${{ number_format($level['amount']) }}
                             </span>
                         </div>
                         <div class="progress mt-1" style="height: 20px; border-radius: 10px;">
@@ -315,7 +315,7 @@
                     <i class="fa-solid fa-user-plus fa-lg me-2 text-primary"></i>
                     <div>
                         To be <strong>eligible for Salary Income</strong>, please add a new direct user 
-                        with an investment of <span class="fw-bold text-success">₹{{ number_format($lastDeposit, 2) }}</span> 
+                        with an investment of <span class="fw-bold text-success">${{ number_format($lastDeposit, 2) }}</span> 
                         or more (based on your last deposit).
                     </div>
                 </div>

@@ -38,10 +38,10 @@ public function handle()
 
                 // allow new entry if:
                 // 1. no entry exists
-                // 2. OR last entry is older than 15 days
+                // 2. OR last entry is older than 30 days
                 if (
                     !$lastEntry ||
-                    $lastEntry->eligible_at->lte(now()->subDays(15))
+                    $lastEntry->eligible_at->lte(now()->subDays(30))
                 ) {
                     SalaryIncome::create($payload);
                     $this->info("Created pending salary for user {$user->id} amount {$payload['amount']}");

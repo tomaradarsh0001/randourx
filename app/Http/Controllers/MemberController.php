@@ -150,8 +150,11 @@ private function distributeLevelCommission(User $user, $amount)
     foreach ($uplineUsers as $depth => $uplineUser) {
         $commissionPercentage = $this->getCommissionPercentage($depth);
 
+        // Calculate available amount for commission (amount that doesn't exceed wallet3)
+        $availableAmount = min($amount, $uplineUser->wallet3);
+        
         // Base commission amount
-        $commissionAmount = $amount * ($commissionPercentage / 100);
+        $commissionAmount = $availableAmount * ($commissionPercentage / 100);
 
         // Calculate remaining cap (wallet3 - wallet2)
         $remainingCap = $uplineUser->wallet3 - $uplineUser->wallet2;
@@ -161,7 +164,7 @@ private function distributeLevelCommission(User $user, $amount)
             $commissionAmount = $remainingCap;
         }
 
-        \Log::info("Level {$depth}: User {$uplineUser->id} gets {$commissionPercentage}% = {$commissionAmount} (capped at wallet3)");
+        \Log::info("Level {$depth}: User {$uplineUser->id} gets {$commissionPercentage}% of {$availableAmount} = {$commissionAmount} (capped at wallet3)");
         
         if ($commissionAmount > 0) {
             // Add commission to upline user's wallet2 and income2
@@ -222,7 +225,7 @@ private function getUplineUsers(User $user, $maxDepth = 15)
 private function getCommissionPercentage($depth)
 {
     $commissionStructure = [
-        1 => 20.00,  // Level 1: 20%
+        1 => 50.00,  // Level 1: 20%
         2 => 3.00,   // Level 2: 3%
         3 => 2.00,   // Level 3: 2%
         4 => 1.00,   // Level 4: 2%
