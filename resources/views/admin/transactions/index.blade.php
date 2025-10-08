@@ -53,11 +53,7 @@
                                 @endphp
                                 @forelse($transactions as $transaction)
                                 <tr>
-<<<<<<< HEAD
                                     <td class="ps-3 fw-semibold">{{ $startNumber++ }}</td>
-=======
-                                    <td class="ps-3 fw-semibold">{{ $loop->iteration }}</td>
->>>>>>> d3931b7ff65e1d8af97a42e6939a50bf070fbaaf
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div class="avatar-sm bg-primary rounded-circle me-2 d-flex align-items-center justify-content-center text-white fw-bold small">
@@ -134,12 +130,9 @@
 
                     <!-- Mobile Cards -->
                     <div class="d-lg-none">
-<<<<<<< HEAD
                         @php
                             $mobileStartNumber = ($transactions->currentPage() - 1) * $transactions->perPage() + 1;
                         @endphp
-=======
->>>>>>> d3931b7ff65e1d8af97a42e6939a50bf070fbaaf
                         @forelse($transactions as $transaction)
                         <div class="border-bottom p-3 transaction-card">
                             <div class="d-flex justify-content-between align-items-start mb-2">
@@ -149,11 +142,7 @@
                                     </div>
                                     <div>
                                         <div class="fw-medium">{{ $transaction->user->username }}</div>
-<<<<<<< HEAD
                                         <small class="text-muted">#{{ $mobileStartNumber++ }}</small>
-=======
-                                        <small class="text-muted">{{ $transaction->user->email }}</small>
->>>>>>> d3931b7ff65e1d8af97a42e6939a50bf070fbaaf
                                     </div>
                                 </div>
                                 <div class="text-end">
@@ -181,11 +170,7 @@
                                 </div>
                                 <div class="col-6">
                                     <span class="text-muted">Reference ID</span>
-<<<<<<< HEAD
                                     <div class="font-monospace small">{{ $transaction->reference_id ?? 'N/A' }}</div>
-=======
-                                    <div class="font-monospace">{{ $transaction->reference_id ?? 'N/A' }}</div>
->>>>>>> d3931b7ff65e1d8af97a42e6939a50bf070fbaaf
                                 </div>
                                 <div class="col-6">
                                     <span class="text-muted">Date</span>
@@ -199,11 +184,7 @@
                                 </div>
                                 <div class="d-flex gap-1">
                                     <a href="{{ route('admin.transactions.show', $transaction) }}" class="btn btn-sm btn-outline-primary">
-<<<<<<< HEAD
                                         <i class="fas fa-eye me-1 d-none d-sm-inline"></i>View
-=======
-                                        <i class="fas fa-eye me-1"></i>View
->>>>>>> d3931b7ff65e1d8af97a42e6939a50bf070fbaaf
                                     </a>
                                     @if($transaction->status == 'pending')
                                     <form action="{{ route('admin.transactions.approve', $transaction) }}" method="POST" class="d-inline">
@@ -233,11 +214,7 @@
                         @endforelse
                     </div>
 
-<<<<<<< HEAD
                     <!-- Laravel Pagination -->
-=======
-                    <!-- Pagination -->
->>>>>>> d3931b7ff65e1d8af97a42e6939a50bf070fbaaf
                     @if($transactions->hasPages())
                     <div class="card-footer">
                         <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
@@ -247,7 +224,6 @@
                                 <strong>{{ $transactions->total() }}</strong> transactions
                             </div>
                             <div class="mobile-pagination">
-<<<<<<< HEAD
                                 <nav aria-label="Transaction pagination">
                                     <ul class="pagination pagination-sm mb-0 justify-content-center">
                                         {{-- Previous Page Link --}}
@@ -338,9 +314,6 @@
                             {{-- Mobile page info --}}
                             <div class="d-md-none text-center small text-muted">
                                 Page <strong>{{ $current }}</strong> of <strong>{{ $last }}</strong>
-=======
-                                {{ $transactions->onEachSide(1)->links() }}
->>>>>>> d3931b7ff65e1d8af97a42e6939a50bf070fbaaf
                             </div>
                         </div>
                     </div>
@@ -404,7 +377,6 @@
         font-size: 0.75rem;
     }
     
-<<<<<<< HEAD
     /* Pagination Styles */
     .pagination {
         margin-bottom: 0;
@@ -436,8 +408,6 @@
         border-color: #dee2e6;
     }
     
-=======
->>>>>>> d3931b7ff65e1d8af97a42e6939a50bf070fbaaf
     /* Mobile optimizations */
     @media (max-width: 768px) {
         .container-fluid {
@@ -483,15 +453,12 @@
             height: 28px;
             font-size: 0.7rem;
         }
-<<<<<<< HEAD
         
         .page-link {
             min-width: 36px;
             padding: 0.375rem 0.5rem;
             font-size: 0.75rem;
         }
-=======
->>>>>>> d3931b7ff65e1d8af97a42e6939a50bf070fbaaf
     }
     
     @media (max-width: 360px) {
@@ -512,35 +479,12 @@
             padding: 0.35rem 0.5rem;
             font-size: 0.75rem;
         }
-<<<<<<< HEAD
         
         .page-link {
             min-width: 32px;
             padding: 0.25rem 0.375rem;
             font-size: 0.7rem;
             margin: 0 1px;
-=======
-    }
-    
-    /* Pagination mobile styles */
-    .mobile-pagination .pagination {
-        margin-bottom: 0;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    
-    .mobile-pagination .page-link {
-        padding: 0.375rem 0.75rem;
-        font-size: 0.875rem;
-        border-radius: 6px;
-        margin: 1px;
-    }
-    
-    @media (max-width: 576px) {
-        .mobile-pagination .page-link {
-            padding: 0.25rem 0.5rem;
-            font-size: 0.8rem;
->>>>>>> d3931b7ff65e1d8af97a42e6939a50bf070fbaaf
         }
     }
     
@@ -624,7 +568,6 @@
                 }
             });
         });
-<<<<<<< HEAD
         
         // Pagination loading state
         const paginationLinks = document.querySelectorAll('.pagination a');
@@ -637,8 +580,6 @@
                 }
             });
         });
-=======
->>>>>>> d3931b7ff65e1d8af97a42e6939a50bf070fbaaf
     });
 </script>
 @endsection

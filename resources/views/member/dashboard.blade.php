@@ -273,11 +273,7 @@
                         You've reached <span class="text-primary">Level {{ $salaryProgress['currentLevel'] }}</span> Eligibility!
                     </h4>
                     <p class="text-muted mb-1">
-<<<<<<< HEAD
                         <i class="fas fa-chart-line text-success me-1"></i> Total Business: 
-=======
-                        <i class="fa-solid fa-sack-dollar text-success"></i> Total Business: 
->>>>>>> d3931b7ff65e1d8af97a42e6939a50bf070fbaaf
                         <strong class="text-dark">${{ number_format($totalBusinessDownline, 2) }}</strong>
                     </p>
                     <p class="text-muted">
