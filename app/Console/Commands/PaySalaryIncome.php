@@ -36,8 +36,8 @@ class PaySalaryIncome extends Command
 
                 // Check if there's any paid record for same user with same amount and percentage
                 $paidRecordExists = SalaryIncome::where('user_id', $user->id)
-                    ->where('amount', $item->amount)
-                    ->where('percentage', $item->percentage)
+                    // ->where('amount', $item->amount)
+                    // ->where('percentage', $item->percentage)
                     ->where('status', 'paid')
                     ->exists();
 
