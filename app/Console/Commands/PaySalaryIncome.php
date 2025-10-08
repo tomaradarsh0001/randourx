@@ -34,6 +34,27 @@ class PaySalaryIncome extends Command
                     return; 
                 }
 
+                // Check if there's any paid record for same user with same amount and percentage
+                $paidRecordExists = SalaryIncome::where('user_id', $user->id)
+                    ->where('amount', $item->amount)
+                    ->where('percentage', $item->percentage)
+                    ->where('status', 'paid')
+                    ->exists();
+
+                // If paid record exists, automatically pay this pending record
+                if ($paidRecordExists) {
+                    $user->income3 = (float)$user->income3 + (float)$item->amount;
+                    $user->wallet2 = (float)$user->wallet2 + (float)$item->amount;
+                    $user->save();
+
+                    $item->status = 'paid';
+                    $item->paid_at = now();
+                    $item->save();
+
+                    $this->info("✅ Auto-paid salary id {$item->id} for user {$user->id} (previous paid record exists), amount={$item->amount}");
+                    return;
+                }
+
                 $lastTransaction = Transaction::where('user_id', $user->id)
                     ->where('status', 'approved')
                     ->latest('created_at')
@@ -66,6 +87,7 @@ class PaySalaryIncome extends Command
 
                 if ($newDownlinesCount > 0 && $walletCheck) {
                     $user->income3 = (float)$user->income3 + (float)$item->amount;
+                    $user->wallet2 = (float)$user->wallet2 + (float)$item->amount;
                     $user->save();
 
                     $item->status = 'paid';

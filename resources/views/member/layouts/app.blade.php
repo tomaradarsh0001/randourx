@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Kaiadmin - Bootstrap 5 Admin Dashboard</title>
+    <title>randour-x Online Portal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <link rel="icon" href="{{ asset('member/assets/img/kaiadmin/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">
     
     <!-- CSS Styles -->
     <style>
@@ -227,7 +227,7 @@
     <link href="{{ asset('member/assets/css/kaiadmin.min.css') }}" rel="stylesheet">
     <link href="{{ asset('member/assets/css/style.css') }}" rel="stylesheet" id="style">
     <link href="{{ asset('member/assets/css/demo.css') }}" rel="stylesheet">
-
+    
     <!-- Webfont Loader -->
     <script src="{{ asset('member/assets/js/plugin/webfont/webfont.min.js') }}"></script>
     <script>
@@ -255,12 +255,12 @@
         <div class="sidebar-logo">
           <!-- Logo Header -->
           <div class="logo-header" data-background-color="dark">
-            <a href="index.html" class="logo">
+            <a href="{{ route('dashboard') }}" class="logo">
               <img
                 src="{{ asset('member/assets/img/kaiadmin/logo_light.svg') }}"
                 alt="navbar brand"
                 class="navbar-brand"
-                height="20"
+                height="35"
               />
             </a>
             <div class="nav-toggle">
@@ -484,12 +484,12 @@
           <div class="main-header-logo">
             <!-- Logo Header -->
             <div class="logo-header" data-background-color="dark">
-              <a href="index.html" class="logo">
+              <a href="{{ route('dashboard') }}" class="logo">
                 <img
                   src="{{ asset('member/assets/img/kaiadmin/logo_light.svg') }}"
                   alt="navbar brand"
                   class="navbar-brand"
-                  height="20"
+                  height="35"
                 />
               </a>
               <div class="nav-toggle">
@@ -571,7 +571,7 @@
                     </div>
                     <span class="profile-username">
                       <span class="op-7">Hi,</span>
-                      <span class="fw-bold">Hizrian</span>
+                      <span class="fw-bold">{{ Auth::user()->full_name }}, {{ $user->username }}</span>
                     </span>
                   </a>
                   <ul class="dropdown-menu dropdown-user animated fadeIn">
@@ -586,8 +586,8 @@
                             />
                           </div>
                           <div class="u-text">
-                            <h4>Hizrian</h4>
-                            <p class="text-muted">hello@example.com</p>
+                            <h4>{{ Auth::user()->full_name }}</h4>
+                            <p class="text-muted">{{ Auth::user()->email }}</p>
                             <a
                               href="profile.html"
                               class="btn btn-xs btn-secondary btn-sm"

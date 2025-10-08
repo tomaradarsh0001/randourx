@@ -33,9 +33,9 @@ class SalaryIncomeService
 
         if ($days <= 30) {
             return [
-                ['amount' => 10000, 'percentage' => 16, 'level' => 3],
+                ['amount' => 10000, 'percentage' => 20, 'level' => 3],
                 ['amount' => 5000,  'percentage' => 10, 'level' => 2],
-                ['amount' => 2500,  'percentage' => 4,  'level' => 1],
+                ['amount' => 2500,  'percentage' => 5,  'level' => 1],
             ];
         } elseif ($days <= 60) {
             return [
@@ -43,7 +43,7 @@ class SalaryIncomeService
             ];
         } elseif ($days <= 90) {
             return [
-                ['amount' => 17500, 'percentage' => 16, 'level' => 3],
+                ['amount' => 17500, 'percentage' => 20, 'level' => 3],
             ];
         }
 
@@ -82,9 +82,9 @@ class SalaryIncomeService
         $totalBusiness = $this->computeTotalBusinessDownline($user);
 
         $firstWindow = [
-            ['amount' => 2500, 'percentage' => 4, 'level' => 1],
+            ['amount' => 2500, 'percentage' => 5, 'level' => 1],
             ['amount' => 5000, 'percentage' => 10, 'level' => 2],
-            ['amount' => 10000, 'percentage' => 16, 'level' => 3],
+            ['amount' => 10000, 'percentage' => 20, 'level' => 3],
         ];
 
         $progress = [];
@@ -127,7 +127,7 @@ class SalaryIncomeService
             $progress[] = [
                 'level' => 3,
                 'amount' => 17500,
-                'percentage' => 16,
+                'percentage' => 20,
                 'status' => $status,
                 'percent' => min(100, round(($totalBusiness / 17500) * 100, 2)),
                 'target' => 17500,

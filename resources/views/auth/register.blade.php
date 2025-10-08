@@ -25,9 +25,11 @@
 
 </head>
 <style>
-    .btn-primary {
-        margin-left: 410px;
-    }
+  
+    .left-btn {
+    float: left;
+}
+
 </style>
 
 <body>
@@ -386,13 +388,14 @@
     </div>
 
     <!-- Submit -->
-    <div class="btnContainer d-flex justify-content-center">
-        <div class="innerpage-btn text-center mt-3 mb-3">
-            <button type="submit" class="btn btn-primary btn-primary1">
-                Register Now
-            </button>
-        </div>
+    <div class="btnContainer">
+    <div class="innerpage-btn mt-3 mb-3">
+        <button type="submit" class="btn btn-primary btn-primary1 left-btn">
+            Register Now
+        </button>
     </div>
+</div>
+
 </form>
 {{-- Success Registration Popup --}}
 @if(session('registration_success'))

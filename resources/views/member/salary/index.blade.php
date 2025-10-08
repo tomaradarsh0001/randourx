@@ -1,6 +1,6 @@
 @extends('member.layouts.app')
 
-@section('title', 'Deposit Funds')
+@section('title', 'Salary Progress')
 
 @section('content')
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -238,7 +238,62 @@
             border-top: 1px solid #e5e7eb;
             background-color: #f9fafb;
         }
-        
+
+        /* Mobile Card View for Salary Records */
+        .mobile-salary-cards {
+            display: none;
+        }
+        .salary-card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #f3f4f6;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+        .salary-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+        .salary-amount {
+            font-size: 18px;
+            font-weight: 700;
+            color: #111827;
+        }
+        .salary-details {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 0;
+        }
+        .detail-label {
+            font-size: 12px;
+            color: #6b7280;
+            font-weight: 500;
+        }
+        .detail-value {
+            font-size: 14px;
+            color: #111827;
+            font-weight: 600;
+        }
+        .salary-description {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #f3f4f6;
+        }
+        .desc-text {
+            font-size: 14px;
+            color: #374151;
+            line-height: 1.4;
+        }
+
         /* Responsive Design */
         @media (min-width: 640px) {
             .salary-progress-container {
@@ -288,6 +343,12 @@
             .progress-grid {
                 grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             }
+            .mobile-salary-cards {
+                display: none !important;
+            }
+            .table-container {
+                display: block !important;
+            }
         }
         
         @media (min-width: 1024px) {
@@ -302,7 +363,17 @@
             }
         }
         
-        @media (max-width: 639px) {
+        @media (max-width: 767px) {
+            .table-container {
+                display: none;
+            }
+            .mobile-salary-cards {
+                display: block;
+                padding: 16px;
+            }
+            .target-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
             .data-table {
                 min-width: 800px;
             }
@@ -332,10 +403,42 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
+
+        @media (max-width: 639px) {
+            .progress-grid-5 {
+                grid-template-columns: 1fr;
+            }
+            .page-title {
+                font-size: 22px;
+            }
+            .target-title {
+                font-size: 16px;
+            }
+            .target-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .stat-value {
+                font-size: 12px;
+            }
+        }
+
+        /* Pagination Styling for Mobile */
+        .custom-pagination-mobile .pagination {
+            margin-bottom: 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .custom-pagination-mobile .page-link {
+            padding: 0.4rem 0.6rem;
+            font-size: 0.8rem;
+            border-radius: 4px;
+            margin: 1px;
+        }
     </style>
 
     <div class="salary-progress-container">
-        <div class="page-inner">
+        <div class="page-inner" >
             <!-- Header -->
             <div class="page-header">
                 <h1 class="page-title">Salary Progress</h1>
@@ -428,8 +531,8 @@
                 </div>
             </div>
 
-            <!-- Salary Records -->
-            <div class="salary-records">
+            <!-- Salary Records - Desktop Table -->
+            <div class="salary-records" style="margin-bottom: 65px !important;">
                 <div class="table-header">
                     <h2 class="table-title">Salary Records</h2>
                 </div>
@@ -494,7 +597,78 @@
                 </div>
                 
                 <div class="table-footer">
-                    {{ $salaryIncomes->links() }}
+                    <div class="custom-pagination-mobile">
+                        {{ $salaryIncomes->links('pagination::bootstrap-4') }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Salary Records - Mobile Cards -->
+            <div class="mobile-salary-cards"  style="margin-bottom: 65px !important;">
+                <div class="table-header">
+                    <h2 class="table-title">Salary Records</h2>
+                </div>
+                
+                <div class="mobile-cards-container">
+                    @foreach($salaryIncomes as $income)
+                    <div class="salary-card">
+                        <div class="salary-card-header">
+                            <div class="salary-amount">
+                                ${{ number_format($income->amount, 2) }}
+                            </div>
+                            <span class="status-badge 
+                                @if($income->status=='paid') status-paid
+                                @elseif($income->status=='pending') status-pending-table
+                                @else status-not-eligible
+                                @endif" style="font-size: 11px;">
+                                @if($income->status=='paid')
+                                    <i class="fas fa-check-circle" style="margin-right: 4px;"></i>
+                                @elseif($income->status=='pending')
+                                    <i class="fas fa-clock" style="margin-right: 4px;"></i>
+                                @else
+                                    <i class="fas fa-times-circle" style="margin-right: 4px;"></i>
+                                @endif
+                                {{ ucfirst($income->status) }}
+                            </span>
+                        </div>
+                        
+                        <div class="salary-details">
+                            <div class="detail-row">
+                                <span class="detail-label">Threshold:</span>
+                                <span class="detail-value">${{ number_format($income->threshold, 2) }}</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Percentage:</span>
+                                <span class="detail-value">{{ $income->percentage }}%</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Eligible At:</span>
+                                <span class="detail-value">{{ $income->eligible_at->format('d M Y') }}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="salary-description">
+                            <p class="desc-text">
+                                @if($income->status == 'paid')
+                                    <i class="fas fa-check-circle" style="color: #166534; margin-right: 6px;"></i>
+                                    Salary Income Received
+                                @elseif($income->status == 'pending')
+                                    <i class="fas fa-clock" style="color: #92400e; margin-right: 6px;"></i>
+                                    Your Direct User is pending to Join
+                                @else
+                                    <i class="fas fa-times-circle" style="color: #374151; margin-right: 6px;"></i>
+                                    Not Eligible
+                                @endif
+                            </p>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+                
+                <div class="table-footer">
+                    <div class="custom-pagination-mobile">
+                        {{ $salaryIncomes->links('pagination::bootstrap-4') }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -510,6 +684,16 @@
                 setTimeout(() => {
                     bar.style.width = width;
                 }, 300);
+            });
+        });
+
+        // Mobile card click feedback
+        document.querySelectorAll('.salary-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.backgroundColor = '#f8f9fa';
+                setTimeout(() => {
+                    this.style.backgroundColor = '';
+                }, 200);
             });
         });
     </script>

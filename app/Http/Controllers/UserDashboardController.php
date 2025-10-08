@@ -17,9 +17,9 @@ class UserDashboardController extends Controller
     public function roiHistory()
     {
         $user = Auth::user();
-        $roiIncomes = RoiIncome::where('user_id', $user->id)
-            ->orderBy('timing', 'desc')
-            ->get();
+         $roiIncomes = RoiIncome::where('user_id', $user->id)
+        ->orderBy('timing', 'desc')
+        ->paginate(10); // Add pagination
 
         return view('member.roi.view', compact('roiIncomes'));
     }
@@ -34,59 +34,54 @@ class UserDashboardController extends Controller
         return view('member.wallets.invest', compact('investments'));
     }
 
-     public function wallet2Incomes()
-   {
+   public function wallet2Incomes()
+{
     $user = Auth::user();
-    
-    // Get ROI incomes
-    $roiIncomes = RoiIncome::where('user_id', $user->id)
-        ->orderBy('timing', 'desc')
-        ->get()
-        ->map(function ($income) {
-            $income->type = 'ROI Income';
-            $income->source = 'Daily Process';
-            $income->amount = $income->roi_bonus;
-            $income->investment = $income->wallet_value;
-            return $income;
-        });
-        // dd( $roiIncomes );
-    // Get level incomes (assuming you have a LevelIncome model)
-    $levelIncomes = LevelIncome::where('to_user_id', $user->id)
-        ->orderBy('created_at', 'desc')
-        ->get()
-        ->map(function ($income) {
-            $income->type = 'Level Income';
-            $income->source = 'Level ' . $income->level . ' Commission';
-            $income->amount = $income->amount;
-            
-            // Calculate pack value based on percentage and amount
-            // If percentage is 10% and amount is $10, then pack value = $100
-            if ($income->percentage > 0) {
-                $income->investment = ($income->amount / $income->percentage) * 100;
-            } else {
-                $income->investment = 0;
-            }
-            
-            $income->timing = $income->created_at;
-            $income->percentage_display = $income->percentage . '%';
-            
-            // Add details about the referrer
-            $referrer = User::find($income->from_user_id);
-            if ($referrer) {
-                $income->details = 'From: ' . $referrer->username . ' (' . $referrer->name . ')';
-            } else {
-                $income->details = 'From: Unknown user';
-            }
-            
-            return $income;
-        });
-    
-    $allIncomes = $roiIncomes
-    ->concat($levelIncomes)   
-    ->sortByDesc('timing')
-    ->values();              
+    $type = request()->get('type', 'roi');
+    $perPage = 10;
 
-    return view('member.wallets.income', compact('allIncomes'));
+    if ($type === 'level') {
+        $incomes = LevelIncome::where('to_user_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->paginate($perPage)
+            ->through(function ($income) {
+                $income->type = 'Level Income';
+                $income->source = 'Level ' . $income->level . ' Commission';
+                $income->amount = $income->amount;
+                
+                if ($income->percentage > 0) {
+                    $income->investment = ($income->amount / $income->percentage) * 100;
+                } else {
+                    $income->investment = 0;
+                }
+                
+                $income->timing = $income->created_at;
+                $income->percentage_display = $income->percentage . '%';
+                
+                $referrer = User::find($income->from_user_id);
+                if ($referrer) {
+                    $income->details = 'From: ' . $referrer->username . ' (' . $referrer->name . ')';
+                } else {
+                    $income->details = 'From: Unknown user';
+                }
+                
+                return $income;
+            });
+    } else {
+        $incomes = RoiIncome::where('user_id', $user->id)
+            ->orderBy('timing', 'desc')
+            ->paginate($perPage)
+            ->through(function ($income) {
+                $income->type = 'ROI Income';
+                $income->source = 'Daily Process';
+                $income->amount = $income->roi_bonus;
+                $income->investment = $income->wallet_value;
+                $income->timing = $income->timing;
+                return $income;
+            });
+    }
+
+    return view('member.wallets.income', compact('incomes', 'type'));
 }
     public function depositHistory()
 {
