@@ -3,16 +3,16 @@
 @section('title', 'My Downlines')
 
 @section('content')
-<div class="container">
+<div class="container ">
     <div class="page-inner">
         <!-- Heading and Filter in a single row -->
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="mb-0">My Downline Users</h2>
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center ">
+            <h2 class="mb-3 mb-md-0">My Downline Users</h2>
             
             @if(!$downlines->isEmpty())
-            <div class="d-flex align-items-center">
-                <label for="downline-filter" class="form-label me-2 mb-0">Filter by:</label>
-                <select id="downline-filter" class="form-select" style="width: auto;">
+            <div class="d-flex align-items-center w-50 w-md-auto">
+                <label for="downline-filter" class="form-label">Filter:&nbsp;&nbsp;</label>
+                <select id="downline-filter" class="form-select w-100 w-md-auto">
                     <option value="">All Downlines</option>
                     @foreach($level1Groups as $id => $group)
                         <option value="{{ $group['label'] }}">
@@ -28,64 +28,124 @@
             <div class="alert alert-info">No downline users yet.</div>
         @else
             <div class="card shadow-sm rounded-3">
-                <div class="card-body">
-                    <table id="downlines-table" class="table table-striped table-bordered table-hover align-middle text-center">
-                        <thead class="table-dark">
-                            <tr>
-                                <th style="width: 50px;">#</th>
-                                <th>Username</th>
-                                <th>Full Name</th>
-                                <th>Email</th>
-                                <th>Depth</th>
-                                <th>Wallet3 ($)</th>
-                                <th>Date Joined</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($downlines as $index => $downline)
-                                <tr data-downline="{{ $downline->downline_name }}">
-                                    <td>{{ $index + 1 }}</td>
-                                    <td>
-                                        <span class="me-1"
-                                              style="display:inline-block; width:10px; height:10px; border-radius:50%; background-color: {{ $downline->color }};">
-                                        </span>
-                                        <span class="fw-bold text-primary">{{ $downline->username }}</span>
-                                        <br>
-                                        <small class="text-muted">{{ $downline->downline_name }}</small>
-                                    </td>
-                                    <td>{{ $downline->full_name }}</td>
-                                    <td>{{ $downline->email }}</td>
-                                    <td>
-                                        <span class="badge bg-info text-white">
-                                            Level {{ $downline->depth >= 15 ? 15 : $downline->depth }}
-                                        </span>
-                                    </td>
-                                    <td class="fw-bold text-success">
-                                        ${{ number_format($downline->wallet3, 2) }}
-                                    </td>
-                                    <td>{{ \Carbon\Carbon::parse($downline->created_at)->format('d M Y, h:i A') }}</td>
+                <div class="card-body p-0 p-md-3">
+                    <div class="table-responsive">
+                        <table id="downlines-table" class="table table-striped table-bordered table-hover align-middle text-center w-100">
+                            <thead class="table-dark d-none d-md-table-header-group">
+                                <tr>
+                                    <th style="width: 50px;">#</th>
+                                    <th>Username</th>
+                                    <th>Full Name</th>
+                                    <th>Email</th>
+                                    <th>Depth</th>
+                                    <th>Wallet3 ($)</th>
+                                    <th>Date Joined</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                        <tfoot>
-                            <tr class="table-dark">
-                                <td class="text-end fw-bold" colspan="5">Total Level-1 Downlines</td>
-                                <td class="fw-bold text-success" colspan="2">{{ $level1Count }}</td>
-                            </tr>
-                            <tr class="table-dark">
-                                <td class="text-end fw-bold" colspan="5">Total Downline Members</td>
-                                <td class="fw-bold text-success" colspan="2">{{ $downlineCount }}</td>
-                            </tr>
-                            <tr class="table-dark">
-                                <td class="text-end fw-bold" colspan="5">Total Downline Business</td>
-                                <td class="fw-bold text-success" colspan="2">
-                                    ${{ number_format($totalBusinessDownline, 2) }} + 
-                                    ${{ number_format($user->wallet3, 2) }} (My Wallet Balance) = 
-                                    ${{ number_format($totalBusiness, 2) }}
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach($downlines as $index => $downline)
+                                    <tr data-downline="{{ $downline->downline_name }}" class="downline-row">
+                                        <td class="d-none d-md-table-cell">{{ $index + 1 }}</td>
+                                        <td>
+                                            <!-- Mobile view -->
+                                            <div class="d-md-none">
+                                                <div class="d-flex align-items-center mb-2">
+                                                    <span class="me-2"
+                                                          style="display:inline-block; width:10px; height:10px; border-radius:50%; background-color: {{ $downline->color }};">
+                                                    </span>
+                                                    <span class="fw-bold text-primary">{{ $downline->username }}</span>
+                                                </div>
+                                                <div class="small text-muted mb-2">{{ $downline->downline_name }}</div>
+                                                <div class="d-flex justify-content-between">
+                                                    <span class="fw-bold">Full Name:</span>
+                                                    <span>{{ $downline->full_name }}</span>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <span class="fw-bold">Email:</span>
+                                                    <span class="text-truncate" style="max-width: 150px;">{{ $downline->email }}</span>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <span class="fw-bold">Depth:</span>
+                                                    <span class="badge bg-info text-white">
+                                                        Level {{ $downline->depth >= 15 ? 15 : $downline->depth }}
+                                                    </span>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <span class="fw-bold">Wallet3:</span>
+                                                    <span class="fw-bold text-success">
+                                                        ${{ number_format($downline->wallet3, 2) }}
+                                                    </span>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <span class="fw-bold">Date Joined:</span>
+                                                    <span>{{ \Carbon\Carbon::parse($downline->created_at)->format('d M Y') }}</span>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Desktop view -->
+                                            <div class="d-none d-md-block">
+                                                <span class="me-1"
+                                                      style="display:inline-block; width:10px; height:10px; border-radius:50%; background-color: {{ $downline->color }};">
+                                                </span>
+                                                <span class="fw-bold text-primary">{{ $downline->username }}</span>
+                                                <br>
+                                                <small class="text-muted">{{ $downline->downline_name }}</small>
+                                            </div>
+                                        </td>
+                                        <td class="d-none d-md-table-cell">{{ $downline->full_name }}</td>
+                                        <td class="d-none d-md-table-cell">{{ $downline->email }}</td>
+                                        <td class="d-none d-md-table-cell">
+                                            <span class="badge bg-info text-white">
+                                                Level {{ $downline->depth >= 15 ? 15 : $downline->depth }}
+                                            </span>
+                                        </td>
+                                        <td class="d-none d-md-table-cell fw-bold text-success">
+                                            ${{ number_format($downline->wallet3, 2) }}
+                                        </td>
+                                        <td class="d-none d-md-table-cell">{{ \Carbon\Carbon::parse($downline->created_at)->format('d M Y, h:i A') }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                            <tfoot class="d-none d-md-table-footer-group">
+                                <tr class="table-dark">
+                                    <td class="text-end fw-bold" colspan="5">Total Level-1 Downlines</td>
+                                    <td class="fw-bold text-success" colspan="2">{{ $level1Count }}</td>
+                                </tr>
+                                <tr class="table-dark">
+                                    <td class="text-end fw-bold" colspan="5">Total Downline Members</td>
+                                    <td class="fw-bold text-success" colspan="2">{{ $downlineCount }}</td>
+                                </tr>
+                                <tr class="table-dark">
+                                    <td class="text-end fw-bold" colspan="5">Total Downline Business</td>
+                                    <td class="fw-bold text-success" colspan="2">
+                                        ${{ number_format($totalBusinessDownline, 2) }} + 
+                                        ${{ number_format($user->wallet3, 2) }} (My Wallet Balance) = 
+                                        ${{ number_format($totalBusiness, 2) }}
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    
+                    <!-- Mobile footer summary -->
+                    <div class="d-md-none card-footer bg-dark text-white p-3">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Total Level-1 Downlines:</span>
+                            <span class="fw-bold text-success">{{ $level1Count }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Total Downline Members:</span>
+                            <span class="fw-bold text-success">{{ $downlineCount }}</span>
+                        </div>
+                        <div class="d-flex flex-column">
+                            <span class="mb-1">Total Downline Business:</span>
+                            <div class="text-success fw-bold">
+                                <div>${{ number_format($totalBusinessDownline, 2) }} (Downline)</div>
+                                <div>+ ${{ number_format($user->wallet3, 2) }} (My Wallet)</div>
+                                <div>= ${{ number_format($totalBusiness, 2) }} (Total)</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         @endif
@@ -187,25 +247,62 @@
         min-width: 300px;
     }
     
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-        .d-flex.justify-content-between.align-items-center.mb-4 {
-            flex-direction: column;
-            align-items: flex-start !important;
+    /* Mobile-specific styles */
+    @media (max-width: 767.98px) {
+        .container-fluid {
+            padding-left: 10px;
+            padding-right: 10px;
         }
         
-        .d-flex.justify-content-between.align-items-center.mb-4 > * {
-            margin-bottom: 10px;
+        .card-body {
+            padding: 0.75rem !important;
         }
         
-        .d-flex.align-items-center {
-            width: 100%;
-            justify-content: flex-end;
+        .downline-row {
+            border-bottom: 1px solid #dee2e6;
+            padding: 10px 0;
         }
         
+        .downline-row:last-child {
+            border-bottom: none;
+        }
+        
+        /* Hide table borders on mobile */
+        .table-responsive .table {
+            border: none;
+        }
+        
+        /* Adjust DataTables elements for mobile */
+        .dataTables_wrapper .dataTables_info,
+        .dataTables_wrapper .dataTables_paginate {
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            padding: 0.3em 0.6em;
+            font-size: 0.875rem;
+        }
+        
+        /* Make filter dropdown full width on mobile */
         #downline-filter {
-            min-width: 200px;
+            min-width: 100%;
             width: 100% !important;
+        }
+    }
+    
+    /* Tablet and desktop adjustments */
+    @media (min-width: 768px) {
+        .d-md-table-header-group {
+            display: table-header-group !important;
+        }
+        
+        .d-md-table-cell {
+            display: table-cell !important;
+        }
+        
+        .d-md-table-footer-group {
+            display: table-footer-group !important;
         }
     }
 </style>

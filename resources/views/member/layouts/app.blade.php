@@ -333,18 +333,18 @@
                 <div class="collapse" id="sidebarLayouts">
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="daily-income">
+                      <a href="{{ route('roi.history')}}">
                         <span class="sub-item">ROI Bonus</span>
                       </a>
                     </li>
                     <li>
-                      <a href="rank-income">
-                        <span class="sub-item">Royalty Income</span>
+                      <a href="{{ route('member.wallets.level')}}">
+                        <span class="sub-item">Level Bonus</span>
                       </a>
                     </li>
                     <li>
-                      <a href="level-income">
-                        <span class="sub-item">Level Bonus</span>
+                      <a href="{{ route('salary.index')}}">
+                        <span class="sub-item">Salary Income</span>
                       </a>
                     </li>
                   </ul>
@@ -363,14 +363,10 @@
                         <span class="sub-item">Wallet Recharge</span>
                       </a>
                     </li>
-                    <li>
-                      <a href="fund-transfer">
-                        <span class="sub-item">Fund Transfer</span>
-                      </a>
-                    </li>
+                   
                    
                     <li>
-                      <a href="withdrawal">
+                      <a href="{{ route('member.transactions.withdraw')}}">
                         <span class="sub-item">Withdrawal Request</span>
                       </a>
                     </li>
@@ -422,17 +418,17 @@
                 <div class="collapse" id="maps">
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="my-profile">
+                      <a href="{{route('profile.edit')}}">
                         <span class="sub-item">My Profile</span>
                       </a>
                     </li>
                     <li>
-                      <a href="my-account">
+                      <a href="{{route('profile.edit')}}">
                         <span class="sub-item">My Account</span>
                       </a>
                     </li>
                     <li>
-                      <a href="change-password">
+                      <a href="{{route('profile.edit')}}">
                         <span class="sub-item">Change Password</span>
                       </a>
                     </li>
