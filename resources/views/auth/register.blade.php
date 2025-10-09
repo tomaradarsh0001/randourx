@@ -253,9 +253,9 @@
        value="{{ session('sponsor') ?? '' }}"
        @if(session('sponsor')) readonly @endif>
 
-        <div class="alert alert-info p-2 mt-2" id="showsponsername" style="display:none"></div>
-        <!-- <div class="alert alert-danger p-2 mt-2" id="err1" style="display:none"></div> -->
+       <!-- <div class="alert alert-danger p-2 mt-2" id="err1" style="display:none"></div> -->
     </div>
+    <div class="alert alert-info p-2 mt-2" id="showsponsername" style="display:none"></div>
 </div>
 
 
@@ -330,8 +330,8 @@
                autocomplete="off" required>
                
             </div>
-            <div class="alert alert-danger p-2 mt-2" id="err_mobile" style="display:none"></div>
-</div>
+        </div>
+        <div class="alert alert-danger p-2 mt-2" id="err_mobile" style="display:none"></div>
 
 
     <!-- Email -->
@@ -345,13 +345,12 @@
                placeholder="Enter Email ID"
                maxlength="40"
                autocomplete="off" required>
-        <div class="alert alert-danger p-2 mt-2" id="err_email" style="display:none"></div>
         </div>
     </div>
    
 
     <!-- Password & Confirm -->
-    <div class="row">
+    <div class="row">~
         <div class="col-lg-6">
             <div class="form-block position-relative">
                 <div class="form-ico">

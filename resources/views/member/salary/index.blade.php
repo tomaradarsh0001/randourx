@@ -581,7 +581,7 @@
                                     @elseif($income->status == 'pending')
                                         <span style="color: #92400e; font-weight: 600;">
                                             <i class="fas fa-clock" style="margin-right: 4px;"></i>
-                                            Your Direct User is pending to Join
+                                            Your Direct User is pending to Join or You are not eligbile anymore
                                         </span>
                                     @else
                                         <span style="color: #374151; font-weight: 600;">
