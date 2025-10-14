@@ -324,7 +324,7 @@
                                                 <small class="text-muted">{{ $commission->fromUser->full_name }}</small>
                                             </td>
                                             <td>
-                                                <span class="badge badge-level-{{ $commission->level }}">
+                                                <span class="badge badge-success">
                                                     Level {{ $commission->level }}
                                                 </span>
                                             </td>

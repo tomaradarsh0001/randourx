@@ -684,7 +684,7 @@
                 setTimeout(() => {
                     bar.style.width = width;
                 }, 300);
-            });
+            });walle
         });
 
         // Mobile card click feedback
