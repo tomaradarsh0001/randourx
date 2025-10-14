@@ -152,19 +152,20 @@ private function distributeLevelCommission(User $user, $amount)
 
         // Calculate available amount for commission (amount that doesn't exceed wallet3)
         $availableAmount = min($amount, $uplineUser->wallet3);
-        
+
         // Base commission amount
         $commissionAmount = $availableAmount * ($commissionPercentage / 100);
 
-        // Calculate remaining cap (wallet3 - wallet2)
-        $remainingCap = $uplineUser->wallet3 - $uplineUser->wallet2;
+        // New: wallet2 can grow up to 3x wallet3
+        $maxWallet2 = $uplineUser->wallet3 * 3;
+        $remainingCap = $maxWallet2 - $uplineUser->wallet2;
 
-        // If commission pushes wallet2 over wallet3, adjust it
+        // If commission pushes wallet2 over 3x wallet3, adjust it
         if ($commissionAmount > $remainingCap) {
             $commissionAmount = $remainingCap;
         }
 
-        \Log::info("Level {$depth}: User {$uplineUser->id} gets {$commissionPercentage}% of {$availableAmount} = {$commissionAmount} (capped at wallet3)");
+        \Log::info("Level {$depth}: User {$uplineUser->id} gets {$commissionPercentage}% of {$availableAmount} = {$commissionAmount} (capped at 3x wallet3)");
         
         if ($commissionAmount > 0) {
             // Add commission to upline user's wallet2 and income2
@@ -189,10 +190,11 @@ private function distributeLevelCommission(User $user, $amount)
                 \Log::error('Error creating level income record: ' . $e->getMessage());
             }
         } else {
-            \Log::info("Level {$depth}: User {$uplineUser->id} commission skipped (already at cap).");
+            \Log::info("Level {$depth}: User {$uplineUser->id} commission skipped (already at 3x wallet3 cap).");
         }
     }
 }
+
 /**
  * Get all upline users with their depth level
  */

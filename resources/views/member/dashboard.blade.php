@@ -305,111 +305,104 @@
         
         @if($showSalaryModal && $isEligibleForSalary)
         <!-- Salary Eligibility Modal -->
-        <div class="modal fade" id="salaryEligibilityModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content">
-                    
-                    <!-- Header -->
-                    <div class="modal-header bg-gradient-primary text-white">
-                        <div class="d-flex align-items-center">
-                            <div class="modal-icon me-3">
-                                <i class="fas fa-trophy"></i>
-                            </div>
-                            <div>
-                                <h5 class="modal-title fw-bold mb-0">Congratulations!</h5>
-                                <p class="mb-0 small">You've reached a new milestone</p>
-                            </div>
-                        </div>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+       <div class="modal fade" id="salaryEligibilityModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4">
+
+            <!-- Header -->
+            <div class="modal-header bg-gradient-primary text-white rounded-top-4 py-2">
+                <div class="d-flex align-items-center">
+                    <div class="modal-icon me-2 fs-4">
+                        <i class="fas fa-trophy"></i>
                     </div>
+                    <div>
+                        <h6 class="modal-title fw-bold mb-0">Congratulations!</h6>
+                        <small class="text-white-50">You've reached a new milestone</small>
+                    </div>
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
 
-                    <!-- Body -->
-                    <div class="modal-body">
-                        <div class="text-center mb-4">
-                            <h4 class="fw-semibold text-success mb-2">
-                                Level {{ $salaryProgress['currentLevel'] }} Achieved!
-                            </h4>
-                            <div class="row justify-content-center">
-                                <div class="col-auto">
-                                    <div class="achievement-badge">
-                                        <i class="fas fa-medal"></i>
-                                        <span>Level {{ $salaryProgress['currentLevel'] }}</span>
-                                    </div>
-                                </div>
-                            </div>
+            <!-- Body -->
+            <div class="modal-body py-3 px-4">
+                <div class="text-center mb-3">
+                    <h5 class="fw-semibold text-success mb-2">
+                        Level {{ $salaryProgress['currentLevel'] }} Achieved!
+                    </h5>
+                    <div class="achievement-badge mx-auto mb-2 bg-light border rounded-pill py-1 px-3 d-inline-flex align-items-center shadow-sm">
+                        <i class="fas fa-medal text-warning me-2"></i>
+                        <span class="fw-semibold">Level {{ $salaryProgress['currentLevel'] }}</span>
+                    </div>
+                </div>
+
+                <div class="row text-center mb-3">
+                    <div class="col-6">
+                        <div class="p-2 bg-light rounded-3 shadow-sm">
+                            <i class="fas fa-chart-line text-primary mb-1"></i>
+                            <h6 class="mb-0">${{ number_format($totalBusinessDownline, 2) }}</h6>
+                            <small class="text-muted">Total Business</small>
                         </div>
-
-                        <div class="achievement-stats mb-4">
-                            <div class="row text-center">
-                                <div class="col-6">
-                                    <div class="stat-box">
-                                        <i class="fas fa-chart-line text-primary"></i>
-                                        <h5 class="mb-0">${{ number_format($totalBusinessDownline, 2) }}</h5>
-                                        <small class="text-muted">Total Business</small>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="stat-box">
-                                        <i class="far fa-clock text-info"></i>
-                                        <h5 class="mb-0">{{ $salaryProgress['daysElapsed'] }}</h5>
-                                        <small class="text-muted">Days Elapsed</small>
-                                    </div>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-2 bg-light rounded-3 shadow-sm">
+                            <i class="far fa-clock text-info mb-1"></i>
+                            <h6 class="mb-0">{{ $salaryProgress['daysElapsed'] }}</h6>
+                            <small class="text-muted">Days Elapsed</small>
                         </div>
+                    </div>
+                </div>
 
-                        <!-- Progress Levels -->
-                        <div class="progress-levels mb-4">
-                            <h6 class="section-title mb-3">Your Progress</h6>
-                            @foreach($salaryProgress['levels'] as $level)
-                            <div class="level-progress-item mb-3">
-                                <div class="d-flex justify-content-between mb-1">
-                                    <span class="level-name">
-                                        <i class="fas fa-star me-1 text-warning"></i> 
-                                        Level {{ $level['level'] }}
-                                    </span>
-                                    <span class="level-amount">${{ number_format($level['amount']) }}</span>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar bg-{{ $level['status'] == 'achieved' ? 'success' : 'warning' }}"
-                                        role="progressbar"
-                                        style="width: {{ $level['percent'] }}%;"
-                                        aria-valuenow="{{ $level['percent'] }}" aria-valuemin="0" aria-valuemax="100">
-                                        {{ $level['percent'] }}%
-                                    </div>
-                                </div>
-                                <div class="level-status mt-1">
-                                    <small class="text-{{ $level['status'] == 'achieved' ? 'success' : 'warning' }}">
-                                        <i class="fas fa-{{ $level['status'] == 'achieved' ? 'check-circle' : 'clock' }} me-1"></i>
-                                        {{ ucfirst($level['status']) }}
-                                    </small>
-                                </div>
-                            </div>
-                            @endforeach
+                <!-- Progress Levels -->
+                <div class="progress-levels mb-3">
+                    <h6 class="fw-semibold text-secondary mb-2">Your Progress</h6>
+                    @foreach($salaryProgress['levels'] as $level)
+                    <div class="level-progress-item mb-2">
+                        <div class="d-flex justify-content-between small mb-1">
+                            <span class="level-name">
+                                <i class="fas fa-star me-1 text-warning"></i> 
+                                Level {{ $level['level'] }}
+                            </span>
+                            <span class="level-amount fw-semibold">${{ number_format($level['amount']) }}</span>
                         </div>
-
-                        <!-- Eligibility Info -->
-                        <div class="alert alert-info d-flex align-items-center">
-                            <i class="fas fa-info-circle fa-lg me-3"></i>
-                            <div>
-                                <strong>Next Step:</strong> To claim your salary income, add a new direct user 
-                                with an investment of <strong>${{ number_format($lastDeposit, 2) }}</strong> or more.
+                        <div class="progress" style="height: 6px;">
+                            <div class="progress-bar bg-{{ $level['status'] == 'achieved' ? 'success' : 'warning' }}"
+                                role="progressbar"
+                                style="width: {{ $level['percent'] }}%;"
+                                aria-valuenow="{{ $level['percent'] }}" aria-valuemin="0" aria-valuemax="100">
                             </div>
                         </div>
                     </div>
+                    @endforeach
+                </div>
 
-                    <!-- Footer -->
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                            <i class="fas fa-times me-1"></i> Close
-                        </button>
-                        <button type="button" class="btn btn-primary" id="claimRewardBtn" onclick="copyReferralCode()">
-                            <i class="fas fa-link me-1"></i> Copy Referral Link
-                        </button>
+                <!-- Eligibility Info -->
+                <div class="alert alert-info shadow-sm rounded-3 py-2 px-3 small d-flex align-items-start mb-0">
+                    <div class="me-3 mt-1 text-info">
+                        <i class="fas fa-info-circle fa-lg"></i>
+                    </div>
+                    <div>
+                        <div class="fw-semibold text-dark mb-1">Next Step</div>
+                        <div class="text-muted">
+                            Add a new <strong>direct user</strong> with an investment of 
+                            <strong>${{ number_format($lastDeposit, 2) }}</strong> or more to claim your salary income.
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Footer -->
+            <div class="modal-footer border-0 pt-0 pb-3">
+                <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i> Close
+                </button>
+                <button type="button" class="btn btn-primary btn-sm" id="claimRewardBtn" onclick="copyReferralCode()">
+                    <i class="fas fa-link me-1"></i> Copy Referral Link
+                </button>
+            </div>
         </div>
+    </div>
+</div>
+
 
         <script>
         // Show the modal when conditions are met

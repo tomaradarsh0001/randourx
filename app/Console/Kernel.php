@@ -12,7 +12,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-                $schedule->command('business:update')->cron('* * * * *');
+    $schedule->command('business:update')->cron('* * * * *');
     $schedule->command('roi:process')->daily(); // runs once a day
     $schedule->command('salary:check-eligibility')->cron('* * * * *');
 

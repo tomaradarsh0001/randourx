@@ -391,7 +391,7 @@
     <!-- Submit -->
     <div class="btnContainer">
     <div class="innerpage-btn mt-3 mb-3">
-        <button type="submit" class="btn btn-primary btn-primary1 left-btn">
+        <button type="submit" class="btn btn-primary btn-primary1">
             Register Now
         </button>
     </div>
@@ -587,12 +587,12 @@ $(document).ready(function() {
         });
     }
 
-    $('#mobile').on('blur', function() {
-        let mobile = $(this).val().trim();
-        if(mobile.length > 0){
-            checkExists('mobile', mobile, 'err_mobile');
-        }
-    });
+    // $('#mobile').on('blur', function() {
+    //     let mobile = $(this).val().trim();
+    //     if(mobile.length > 0){
+    //         checkExists('mobile', mobile, 'err_mobile');
+    //     }
+    // });
 
     // $('#email').on('blur', function() {
     //     let email = $(this).val().trim();

@@ -46,7 +46,7 @@ class RegisteredUserController extends Controller
             'sponsor_username' => ['nullable', 'exists:users,username'],
             'full_name'        => ['required', 'string', 'max:255'],
             'country_code'     => ['required', 'string', 'max:10'],
-            'mobile'           => ['required', 'string', 'max:15', 'unique:users,mobile'],
+            'mobile'           => ['required', 'string', 'max:15', 'regex:/^[0-9]{6,15}$/'],
             'email'            => ['required', 'string', 'email', 'max:255'],
             'password'         => ['required', 'confirmed', Password::min(4)],
         ]);

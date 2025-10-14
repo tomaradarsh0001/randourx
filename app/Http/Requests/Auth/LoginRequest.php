@@ -41,7 +41,7 @@ class LoginRequest extends FormRequest
     // Only allow username or mobile for login
     if (preg_match('/^[0-9]{6,15}$/', $login)) {
         // 6–15 digit phone numbers
-        $field = 'mobile';
+        $field = 'username';
     } else {
         // Anything else treated as username
         $field = 'username';

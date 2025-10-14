@@ -136,61 +136,63 @@
             </div>
 
             <!-- Commission by Level - Desktop -->
-            <div class="row mb-4 d-none d-md-block">
-                <div class="col-12">
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-primary">Commissions by Level</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-hover">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th>Level</th>
-                                            <th>Commission Rate</th>
-                                            <th>Total Earned</th>
-                                            <th>Number of Transactions</th>
-                                            <th>Last Commission</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @for($i = 1; $i <= 15; $i++)
-                                            @php
-                                                $percentage = 0;
-                                                if($i == 1) $percentage = 20;
-                                                elseif($i == 2) $percentage = 3;
-                                                elseif($i == 3 || $i == 4) $percentage = 2;
-                                                elseif($i == 5) $percentage = 3;
-                                                elseif($i >= 6 && $i <= 10) $percentage = 0.5;
-                                                else $percentage = 1;
-                                                
-                                                $levelData = $commissionByLevel->get($i);
-                                                $total = $levelData->total_commission ?? 0;
-                                                $count = $levelData->transaction_count ?? 0;
-                                                $lastDate = $levelData->last_commission ?? null;
-                                            @endphp
-                                            <tr>
-                                                <td><strong>Level {{ $i }}</strong></td>
-                                                <td><span class="badge badge-primary">{{ $percentage }}%</span></td>
-                                                <td class="font-weight-bold text-success">${{ number_format($total, 2) }}</td>
-                                                <td>{{ $count }} transactions</td>
-                                                <td>
-                                                    @if($lastDate)
-                                                        {{ \Carbon\Carbon::parse($lastDate)->format('M d, Y') }}
-                                                    @else
-                                                        No commissions yet
-                                                    @endif
-                                                </td>
-                                            </tr>
-                                        @endfor
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+           <div class="row mb-4 d-none d-md-block">
+    <div class="col-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Commissions by Level</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Level</th>
+                                <th>Commission Rate</th>
+                                <th>Total Earned</th>
+                                <th>Number of Transactions</th>
+                                <th>Last Commission</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($commissionByLevel as $level => $levelData)
+                                @if($levelData && $levelData->transaction_count > 0)
+                                    @php
+                                        $percentage = 0;
+                                        if($level == 1) $percentage = 20;
+                                        elseif($level == 2) $percentage = 3;
+                                        elseif($level == 3 || $level == 4) $percentage = 2;
+                                        elseif($level == 5) $percentage = 3;
+                                        elseif($level >= 6 && $level <= 10) $percentage = 0.5;
+                                        else $percentage = 1;
+
+                                        $total = $levelData->total_commission ?? 0;
+                                        $count = $levelData->transaction_count ?? 0;
+                                        $lastDate = $levelData->last_commission ?? null;
+                                    @endphp
+                                    <tr>
+                                        <td><strong>Level {{ $level }}</strong></td>
+                                        <td><span class="badge badge-primary">{{ $percentage }}%</span></td>
+                                        <td class="font-weight-bold text-success">${{ number_format($total, 2) }}</td>
+                                        <td>{{ $count }} transactions</td>
+                                        <td>
+                                            @if($lastDate)
+                                                {{ \Carbon\Carbon::parse($lastDate)->format('M d, Y') }}
+                                            @else
+                                                No commissions yet
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endif
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
 
             <!-- Commission by Level - Mobile -->
             <div class="row mb-4 d-block d-md-none">
