@@ -118,129 +118,147 @@
                 </div>
             </header>
 
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="innerpages text-center">
+                        <div class="title mt-5 mb-4">
+                            <h2 class="text-white fw-normal mb-0">Contact Support</h2>
+                        </div>
 
-<div class="row">
-    <div class="col-lg-6">
-        <div class="innerpages text-center">
+                        <script language=javascript>
+                        function checkform() {
+                            if (document.mainform.name.value == '') {
+                                alert("Please type your full name!");
+                                document.mainform.name.focus();
+                                return false;
+                            }
+                            if (document.mainform.email.value == '') {
+                                alert("Please enter your e-mail address!");
+                                document.mainform.email.focus();
+                                return false;
+                            }
+                            if (document.mainform.message.value == '') {
+                                alert("Please type your message!");
+                                document.mainform.message.focus();
+                                return false;
+                            }
+                            return true;
+                        }
+                        </script>
 
+                        <!-- Contact Form -->
+                        <form method="POST" name="mainform" onsubmit="return checkform()" action="{{ route('contact.submit') }}">
+                            @csrf
+                            <input type="hidden" name="form_id" value="17226835894470">
+                            <input type="hidden" name="form_token" value="0cea44f4a175d032ce40795296be90ea">
+                            <input type="hidden" name="a" value="support">
+                            <input type="hidden" name="action" value="send">
 
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-block position-relative">
+                                        <div class="form-ico">
+                                            <iconify-icon icon="iconamoon:profile"></iconify-icon>
+                                        </div>
+                                        <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Enter your Name" required>
+                                        @error('name')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
 
-            <div class="title mt-5 mb-4">
-                <h2 class="text-white fw-normal mb-0">Contact Support</h2>
+                                <div class="col-lg-6">
+                                    <div class="form-block position-relative">
+                                        <div class="form-ico">
+                                            <iconify-icon icon="ic:outline-lock"></iconify-icon>
+                                        </div>
+                                        <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Enter your Email" required>
+                                        @error('email')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="form-block position-relative">
+                                        <textarea class="form-control" name="message" placeholder="Enter your Message" style="height: 180px;" required>{{ old('message') }}</textarea>
+                                        @error('message')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="innerpage-btn text-center mt-3">
+                                        <button type="submit" class="btn btn-primary">Submit Now</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <!-- Success Message -->
+                        @if(session('success'))
+                            <div class="alert alert-success alert-dismissible fade show mt-3">
+                                {{ session('success') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+
+                        <!-- Error Messages -->
+                        @if($errors->any())
+                            <div class="alert alert-danger alert-dismissible fade show mt-3">
+                                <strong>Please fix the following errors:</strong>
+                                <ul class="mb-0">
+                                    @foreach($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="banner-img"> <img src="{{ asset('imagess/banner-img.png') }}"> </div>
+                </div>
             </div>
 
-
-
-<script language=javascript>
-
-function checkform() {
-  if (document.mainform.name.value == '') {
-    alert("Please type your full name!");
-    document.mainform.name.focus();
-    return false;
-  }
-  if (document.mainform.email.value == '') {
-    alert("Please enter your e-mail address!");
-    document.mainform.email.focus();
-    return false;
-  }
-  if (document.mainform.message.value == '') {
-    alert("Please type your message!");
-    document.mainform.message.focus();
-    return false;
-  }
-  return true;
-}
-
-</script>
-
-<form method=post name=mainform onsubmit="return checkform()"><input type="hidden" name="form_id" value="17226835894470"><input type="hidden" name="form_token" value="0cea44f4a175d032ce40795296be90ea">
-<input type=hidden name=a value=support>
-<input type=hidden name=action value=send>
-
- <div class="row ">
-
-<div class="col-lg-6">
-    <div class=" form-block position-relative">
-        <div class="form-ico ">
-            <iconify-icon icon="iconamoon:profile"></iconify-icon>
-        </div>
-        <input type="text" class="form-control" name="name" value="" placeholder="Enter your Name">
-    </div>
-
-</div>
-
-<div class="col-lg-6">
-    <div class=" form-block position-relative">
-        <div class="form-ico ">
-            <iconify-icon icon="ic:outline-lock"></iconify-icon>
-        </div>
-
-        <input type="text" class="form-control " name="email" value="" placeholder="Enter your Email">
-    </div>
-</div>
-
-<div class="col-lg-12">
-    <div class="form-block position-relative">
-
-        <textarea class="form-control" name="message" placeholder="Enter your Message" style="height: 180px;"></textarea>
-
-    </div>
-</div>
-</div>
-
-
-
-<div class="row">
-    <div class="col-lg-12">
-        <div class="innerpage-btn text-center mt-3">
-            <button type="submit" class="btn btn-primary">Submit Now</button>
+            <div class="row py-4">
+                <div class="col-lg-12">
+                    <div class="copy-rights text-center"> 
+                        <span class="text-white fw-normal">
+                            <a href="#" class="text-white text-decoration-none">randour-x.com </a> | 
+                            @ Copyright <script>document.write(new Date().getFullYear())</script>. All Rights Reserved.
+                        </span> 
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+    <!-- banner end -->
 
-</form>
-
-
-</div>
-</div>
-
-      <div class="col-lg-6">
-        <div class="banner-img"> <img src="{{ asset('imagess/banner-img.png') }}"> </div>
-      </div>
-    </div>
-    <div class="row py-4">
-      <div class="col-lg-12">
-        <div class="copy-rights  text-center"> <span class="text-white fw-normal"><a href="#" class="text-white text-decoration-none">randour-x.com </a> | @ Copyright <script>document.write(new Date().getFullYear())</script>. All Rights Reserved.</span> </div>
-      </div>
-      
-    </div>
-    
-  
-</div>
-
-<!-- banner end -->
-
-
-
-
-<!-- Modal -->
-<div class="modal fade  modal-fullscreen" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body">
-        <button type="button"    class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="float: right;"></button>
-        <div class="embed-responsive embed-responsive-16by9">
-          <iframe  class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
+    <!-- Modal -->
+    <div class="modal fade modal-fullscreen" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="float: right;"></button>
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-</div>
-<script src="{{ asset('js/jquery.min.js') }}"></script>
-<script src="{{ asset('js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('js/script.js') }}"></script>
-<script src="{{ asset('js/owl.carousel.min.js') }}"></script>
-<script src="https://cdn.jsdelivr.net/npm/iconify-icon@2.0.0/dist/iconify-icon.min.js"></script>
+
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
+    <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@2.0.0/dist/iconify-icon.min.js"></script>
 </body>
 </html>

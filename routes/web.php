@@ -10,6 +10,8 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\SalaryIncomeController;
+use App\Http\Controllers\TicketController;
+use App\Http\Controllers\ContactController;
 
 use App\Http\Controllers\ForgotPasswordController;
 use Illuminate\Support\Facades\Route;
@@ -133,6 +135,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         Route::delete('/transactions/withdraw/{id}/cancel', [TransactionController::class, 'cancelWithdrawal'])->name('member.transactions.cancel-withdrawal');
     });
 
+
     // Admin routes
 Route::prefix('admin')->middleware([ 'admin'])->group(function () {
     // Transactions
@@ -144,7 +147,6 @@ Route::prefix('admin')->middleware([ 'admin'])->group(function () {
         Route::post('/{transaction}/reject', [App\Http\Controllers\Admin\TransactionController::class, 'reject'])->name('admin.transactions.reject');
     });
 });
-
 Route::get('/roi-history', [UserDashboardController::class, 'roiHistory'])
     ->name('roi.history');
 Route::get('/my-investments', [UserDashboardController::class, 'investments'])
@@ -160,6 +162,30 @@ Route::post('/member/buy-package', [MemberController::class, 'buyPackage'])
     ->name('member.buyPackage')
     ->middleware('auth');
         Route::get('/salary', [SalaryIncomeController::class, 'index'])->name('salary.index');
+        
+        
+        Route::middleware(['auth'])->group(function () {
+    // Ticket routes accessible to both users and admins
+    Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index');
+    Route::get('/tickets/create', [TicketController::class, 'create'])->name('tickets.create');
+    Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
+    Route::get('/tickets/{ticket}', [TicketController::class, 'show'])->name('tickets.show');
+    
+    // Admin-only routes
+    Route::post('/tickets/{ticket}/resolve', [TicketController::class, 'resolve'])
+        ->name('tickets.resolve')
+        ->middleware('admin');
+});
+
+Route::get('/contact', [ContactController::class, 'showForm'])->name('contact.form');
+Route::post('/contact', [ContactController::class, 'submitForm'])->name('contact.submit');
+
+// Admin contact management routes
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/contacts', [ContactController::class, 'adminIndex'])->name('contacts.index');
+    Route::get('/contacts/{id}', [ContactController::class, 'show'])->name('contacts.show');
+    Route::delete('/contacts/{id}', [ContactController::class, 'destroy'])->name('contacts.destroy');
+});
 
 require __DIR__.'/auth.php';
 

@@ -69,4 +69,18 @@ class User extends Authenticatable
     {
         return $this->hasMany(LevelIncome::class, 'from_user_id');
     }
+     public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
+    public function resolvedTickets()
+    {
+        return $this->hasMany(Ticket::class, 'admin_id');
+    }
+
+    public function isAdmin()
+    {
+        return $this->is_admin === 1;
+    }
 }

@@ -257,8 +257,42 @@
                 <div class="collapse" id="tran">
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="{{route('member.transactions.index')}}">
+                      <a href="{{route('admin.transactions.index')}}">
                         <span class="sub-item">View Transactions</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+
+               <li class="nav-item">
+                <a data-bs-toggle="collapse" href="#con">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <p>Contact Form</p>
+                  <span class="caret"></span>
+                </a>
+                <div class="collapse" id="con">
+                  <ul class="nav nav-collapse">
+                    <li>
+                      <a href="{{route('admin.contacts.index')}}">
+                        <span class="sub-item">View Collections</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+
+              <li class="nav-item">
+                <a data-bs-toggle="collapse" href="#tick">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <p>Tickets</p>
+                  <span class="caret"></span>
+                </a>
+                <div class="collapse" id="tick">
+                  <ul class="nav nav-collapse">
+                    <li>
+                      <a href="{{route('tickets.index')}}">
+                        <span class="sub-item">View Tickets</span>
                       </a>
                     </li>
                   </ul>

@@ -444,12 +444,12 @@
                 <div class="collapse" id="charts">
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="add-ticket">
-                        <span class="sub-item">New Ticket</span>
+                      <a href="{{ route('tickets.create')}}">
+                        <span class="sub-item">Generate Ticket</span>
                       </a>
                     </li>
                     <li>
-                      <a href="contact-us">
+                      <a href="{{ route('tickets.index')}}">
                         <span class="sub-item">Ticket List</span>
                       </a>
                     </li>
