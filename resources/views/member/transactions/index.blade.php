@@ -30,6 +30,7 @@
                                     <th>Reference ID</th>
                                     <th>Status</th>
                                     <th>Date</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -43,17 +44,30 @@
                                     </td>
                                     <td>${{ number_format($transaction->amount, 2) }}</td>
                                     <td>{{ $transaction->payment_method }}</td>
-                                    <td>{{ $transaction->reference_id ?? 'N/A' }}</td>
+                                    <td>{{ $transaction->reference_id ?? 'No actions allowed' }}</td>
                                     <td>
-                                        <span class="badge bg-{{ $transaction->status == 'approved' ? 'success' : ($transaction->status == 'pending' ? 'warning' : 'danger') }}">
+                                        <span class="badge bg-{{ $transaction->status == 'approved' ? 'success' : ($transaction->status == 'pending' ? 'warning' : ($transaction->status == 'cancelled' ? 'secondary' : 'danger')) }}">
                                             {{ ucfirst($transaction->status) }}
                                         </span>
                                     </td>
                                     <td>{{ $transaction->created_at->format('M d, Y h:i A') }}</td>
+                                    <td>
+                                        @if($transaction->type == 'withdrawal' && $transaction->status == 'pending')
+                                        <form action="{{ route('member.transactions.cancel-withdrawal', $transaction->id) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-warning btn-sm" onclick="return confirm('Are you sure you want to cancel this withdrawal request?')">
+                                                <i class="fas fa-times"></i> Cancel
+                                            </button>
+                                        </form>
+                                        @else
+                                        <span class="text-muted">No actions allowed</span>
+                                        @endif
+                                    </td>
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td colspan="7" class="text-center">No transactions found.</td>
+                                    <td colspan="8" class="text-center">No transactions found.</td>
                                 </tr>
                                 @endforelse
                             </tbody>

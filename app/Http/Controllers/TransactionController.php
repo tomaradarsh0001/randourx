@@ -7,6 +7,7 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
@@ -66,21 +67,52 @@ class TransactionController extends Controller
             'account_details' => 'required|string|max:500',
         ]);
 
-        // Check if user has sufficient balance
-        if (Auth::user()->wallet1 < $validated['amount']) {
-            return back()->withErrors(['amount' => 'Insufficient balance in your wallet.']);
+        $user = Auth::user();
+
+        // Check if user has sufficient balance in wallet2
+        if ($user->wallet2 < $validated['amount']) {
+            return back()->withErrors(['amount' => 'Insufficient balance in your wallet2.']);
         }
 
-        // Create withdrawal request
-        Auth::user()->transactions()->create([
-            'type' => 'withdrawal',
-            'amount' => $validated['amount'],
-            'payment_method' => $validated['payment_method'],
-            'reference_id' => $validated['account_details'],
-            'status' => 'pending',
-        ]);
+        DB::transaction(function () use ($validated, $user) {
+            $user->transactions()->create([
+                'type' => 'withdrawal',
+                'amount' => $validated['amount'],
+                'payment_method' => $validated['payment_method'],
+                'reference_id' => $validated['account_details'],
+                'status' => 'pending',
+            ]);
+
+            $user->decrement('wallet2', $validated['amount']);
+            $user->increment('wallet4', $validated['amount']);
+        });
 
         return redirect()->route('member.transactions.index')
             ->with('success', 'Withdrawal request submitted successfully. Waiting for admin approval.');
+    }
+
+    public function cancelWithdrawal($id)
+    {
+        $user = Auth::user();
+        $transaction = $user->transactions()
+            ->where('id', $id)
+            ->where('type', 'withdrawal')
+            ->where('status', 'pending')
+            ->firstOrFail();
+
+        DB::transaction(function () use ($transaction, $user) {
+            // Update transaction status to cancelled
+            $transaction->update([
+                'status' => 'rejected',
+                'cancelled_at' => now(),
+            ]);
+
+            // Revert the amount: subtract from wallet4 and add back to wallet2
+            $user->decrement('wallet4', $transaction->amount);
+            $user->increment('wallet2', $transaction->amount);
+        });
+
+        return redirect()->route('member.transactions.index')
+            ->with('success', 'Withdrawal request cancelled successfully. Amount has been returned to your wallet.');
     }
 }

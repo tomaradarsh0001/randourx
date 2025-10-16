@@ -130,6 +130,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         Route::post('/deposit', [TransactionController::class, 'storeDeposit'])->name('member.transactions.deposit.store');
         Route::get('/withdraw', [TransactionController::class, 'createWithdrawal'])->name('member.transactions.withdraw');
         Route::post('/withdraw', [TransactionController::class, 'storeWithdrawal'])->name('member.transactions.withdraw.store');
+        Route::delete('/transactions/withdraw/{id}/cancel', [TransactionController::class, 'cancelWithdrawal'])->name('member.transactions.cancel-withdrawal');
     });
 
     // Admin routes

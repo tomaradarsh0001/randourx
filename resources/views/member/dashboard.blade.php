@@ -30,7 +30,7 @@
         <!-- Wallet Cards -->
         <div class="row mb-4">
             <div class="col-md-3 mb-3">
-                <div class="card wallet-card wallet-primary">
+                <div class="card wallet-card wallet-warning">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-start mb-3">
                             <div class="wallet-icon">
@@ -53,7 +53,7 @@
             </div>
             
             <div class="col-md-3 mb-3">
-                <div class="card wallet-card wallet-secondary">
+                <div class="card wallet-card wallet-warning">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-start mb-3">
                             <div class="wallet-icon">
@@ -76,7 +76,7 @@
             </div>
             
             <div class="col-md-3 mb-3">
-                <div class="card wallet-card wallet-info">
+                <div class="card wallet-card wallet-warning">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-start mb-3">
                             <div class="wallet-icon">
@@ -110,8 +110,8 @@
                                     <i class="fas fa-ellipsis-v"></i>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="withdrawal-report">View Transactions</a></li>
-                                    <li><a class="dropdown-item" href="#">Request Withdrawal</a></li>
+                                    <li><a class="dropdown-item" href="{{route('member.transactions.index')}}">View Transactions</a></li>
+                                    <li><a class="dropdown-item" href="{{route('member.transactions.withdraw')}}">Request Withdrawal</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -124,69 +124,69 @@
         
         <!-- Income Stats -->
         <div class="row mb-4">
-            <div class="col-sm-6 col-md-4 mb-3">
-                <a href="{{ route('roi.history')}}" class="stats-card-link">
-                    <div class="card stats-card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="stats-icon bg-primary">
-                                    <i class="fas fa-users"></i>
-                                </div>
-                                <div class="ms-3">
-                                    <h4 class="stats-value">${{ $user->income1 }} USD</h4>
-                                    <p class="stats-label">ROI Bonus</p>
-                                </div>
-                            </div>
-                            <div class="stats-footer">
-                                <span>View Details <i class="fas fa-arrow-right"></i></span>
-                            </div>
+    <div class="col-sm-6 col-md-4 mb-3">
+        <a href="{{ route('roi.history')}}" class="stats-card-link">
+            <div class="card stats-card stats-roi">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="stats-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="ms-3">
+                            <h4 class="stats-value">${{ $user->income1 }} USD</h4>
+                            <p class="stats-label">ROI Bonus</p>
                         </div>
                     </div>
-                </a>
+                    <div class="stats-footer">
+                        <span>View Details <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
             </div>
-            
-            <div class="col-sm-6 col-md-4 mb-3">
-                <a href="{{route('member.wallets.level')}}" class="stats-card-link">
-                    <div class="card stats-card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="stats-icon bg-success">
-                                    <i class="far fa-check-circle"></i>
-                                </div>
-                                <div class="ms-3">
-                                    <h4 class="stats-value">${{ $user->income2 }} USD</h4>
-                                    <p class="stats-label">Level Bonus</p>
-                                </div>
-                            </div>
-                            <div class="stats-footer">
-                                <span>View Details <i class="fas fa-arrow-right"></i></span>
-                            </div>
+        </a>
+    </div>
+    
+    <div class="col-sm-6 col-md-4 mb-3">
+        <a href="{{route('member.wallets.level')}}" class="stats-card-link">
+            <div class="card stats-card stats-level">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="stats-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="ms-3">
+                            <h4 class="stats-value">${{ $user->income2 }} USD</h4>
+                            <p class="stats-label">Level Bonus</p>
                         </div>
                     </div>
-                </a>
+                    <div class="stats-footer">
+                        <span>View Details <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
             </div>
-            
-            <div class="col-sm-6 col-md-4 mb-3">
-                <a href="/salary" class="stats-card-link">
-                    <div class="card stats-card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="stats-icon bg-info">
-                                    <i class="fas fa-user-check"></i>
-                                </div>
-                                <div class="ms-3">
-                                    <h4 class="stats-value">${{ $user->income3 }} USD</h4>
-                                    <p class="stats-label">Royalty Income</p>
-                                </div>
-                            </div>
-                            <div class="stats-footer">
-                                <span>View Details <i class="fas fa-arrow-right"></i></span>
-                            </div>
+        </a>
+    </div>
+    
+    <div class="col-sm-6 col-md-4 mb-3">
+        <a href="/salary" class="stats-card-link">
+            <div class="card stats-card stats-royalty">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="stats-icon">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <div class="ms-3">
+                            <h4 class="stats-value">${{ $user->income3 }} USD</h4>
+                            <p class="stats-label">Royalty Income</p>
                         </div>
                     </div>
-                </a>
+                    <div class="stats-footer">
+                        <span>View Details <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
             </div>
-        </div>
+        </a>
+    </div>
+</div>
         
         <!-- Referral & User Info Section -->
         <div class="row g-4 mb-10">
@@ -254,8 +254,8 @@
 
                         <div class="row g-3">
                             <div class="col-6">
-                                <div class="stat-tile">
-                                    <div class="tile-icon bg-primary">
+                                <div class="stat-tile tile-primary">
+                                    <div class="tile-icon">
                                         <i class="fas fa-users"></i>
                                     </div>
                                     <div class="tile-content">
@@ -265,8 +265,8 @@
                                 </div>
                             </div>
                             <div class="col-6">
-                                <div class="stat-tile">
-                                    <div class="tile-icon bg-success">
+                                <div class="stat-tile tile-success">
+                                    <div class="tile-icon">
                                         <i class="fas fa-user-check"></i>
                                     </div>
                                     <div class="tile-content">
@@ -276,8 +276,8 @@
                                 </div>
                             </div>
                             <div class="col-6">
-                                <div class="stat-tile">
-                                    <div class="tile-icon bg-info">
+                                <div class="stat-tile tile-info">
+                                    <div class="tile-icon">
                                         <i class="fas fa-chart-bar"></i>
                                     </div>
                                     <div class="tile-content">
@@ -287,8 +287,8 @@
                                 </div>
                             </div>
                             <div class="col-6">
-                                <div class="stat-tile">
-                                    <div class="tile-icon bg-warning">
+                                <div class="stat-tile tile-warning">
+                                    <div class="tile-icon">
                                         <i class="fas fa-user-friends"></i>
                                     </div>
                                     <div class="tile-content">
@@ -464,7 +464,7 @@
         justify-content: center;
     }
     
-    /* Wallet Cards */
+    /* Wallet Cards - Enhanced with gradients */
     .wallet-card {
         border: none;
         border-radius: 16px;
@@ -472,36 +472,32 @@
         transition: all 0.3s ease;
         overflow: hidden;
         position: relative;
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
     }
     
     .wallet-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     }
     
-    .wallet-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
+    .wallet-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
     }
     
-    .wallet-primary::before {
-        background: linear-gradient(90deg, #42a5f5, #478ed1);
+    .wallet-secondary {
+        background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        color: white;
     }
     
-    .wallet-secondary::before {
-        background: linear-gradient(90deg, #66bb6a, #4caf50);
+    .wallet-info {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        color: white;
     }
     
-    .wallet-info::before {
-        background: linear-gradient(90deg, #26c6da, #00acc1);
-    }
-    
-    .wallet-warning::before {
-        background: linear-gradient(90deg, #ffa726, #ff9800);
+    .wallet-warning {
+        background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        color: white;
     }
     
     .wallet-icon {
@@ -512,23 +508,8 @@
         align-items: center;
         justify-content: center;
         font-size: 24px;
-        color: white;
-    }
-    
-    .wallet-primary .wallet-icon {
-        background: linear-gradient(135deg, #42a5f5, #478ed1);
-    }
-    
-    .wallet-secondary .wallet-icon {
-        background: linear-gradient(135deg, #66bb6a, #4caf50);
-    }
-    
-    .wallet-info .wallet-icon {
-        background: linear-gradient(135deg, #26c6da, #00acc1);
-    }
-    
-    .wallet-warning .wallet-icon {
-        background: linear-gradient(135deg, #ffa726, #ff9800);
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
     }
     
     .wallet-amount {
@@ -538,68 +519,152 @@
     }
     
     .wallet-label {
-        color: #6c757d;
+        opacity: 0.9;
         margin-bottom: 0;
         font-weight: 500;
     }
     
     .btn-icon {
-        background: transparent;
+        background: rgba(255, 255, 255, 0.2);
         border: none;
-        color: #6c757d;
-        padding: 4px 8px;
-    }
-    
-    /* Stats Cards */
-    .stats-card-link {
-        text-decoration: none;
-        color: inherit;
-    }
-    
-    .stats-card {
-        border: none;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        transition: all 0.3s ease;
-        height: 100%;
-    }
-    
-    .stats-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-    }
-    
-    .stats-icon {
-        width: 50px;
-        height: 50px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 24px;
         color: white;
+        padding: 4px 8px;
+        border-radius: 6px;
     }
     
-    .stats-value {
-        font-size: 1.5rem;
-        font-weight: 700;
-        margin-bottom: 5px;
-    }
-    
-    .stats-label {
-        color: #6c757d;
-        margin-bottom: 0;
-        font-weight: 500;
-    }
-    
-    .stats-footer {
-        margin-top: 15px;
-        padding-top: 10px;
-        border-top: 1px solid #e9ecef;
-        color: #42a5f5;
-        font-weight: 500;
-        font-size: 0.9rem;
-    }
+    /* Stats Cards - Colorful variants */
+   /* Income Stats Cards - Different Style from Wallet Cards */
+.stats-card {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s ease;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    background: #ffffff;
+    border-left: 5px solid transparent;
+}
+
+.stats-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* ROI Bonus Card - Gold Theme */
+.stats-roi {
+    border-left-color: #FFD700;
+    background: linear-gradient(135deg, #fff9e6 0%, #fff0c2 100%);
+}
+
+.stats-roi .stats-icon {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: white;
+    box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+}
+
+.stats-roi .stats-value {
+    color: #B8860B;
+}
+
+.stats-roi .stats-label {
+    color: #8B6914;
+}
+
+.stats-roi .stats-footer {
+    border-top: 1px solid rgba(255, 215, 0, 0.2);
+    color: #B8860B;
+}
+
+/* Level Bonus Card - Emerald Theme */
+.stats-level {
+    border-left-color: #10B981;
+    background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+}
+
+.stats-level .stats-icon {
+    background: linear-gradient(135deg, #10B981, #059669);
+    color: white;
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+}
+
+.stats-level .stats-value {
+    color: #047857;
+}
+
+.stats-level .stats-label {
+    color: #065F46;
+}
+
+.stats-level .stats-footer {
+    border-top: 1px solid rgba(16, 185, 129, 0.2);
+    color: #047857;
+}
+
+/* Royalty Income Card - Purple Theme */
+.stats-royalty {
+    border-left-color: #8B5CF6;
+    background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+}
+
+.stats-royalty .stats-icon {
+    background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+    color: white;
+    box-shadow: 0 4px 10px rgba(139, 92, 246, 0.3);
+}
+
+.stats-royalty .stats-value {
+    color: #7C3AED;
+}
+
+.stats-royalty .stats-label {
+    color: #6D28D9;
+}
+
+.stats-royalty .stats-footer {
+    border-top: 1px solid rgba(139, 92, 246, 0.2);
+    color: #7C3AED;
+}
+
+/* Stats Icon */
+.stats-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    transition: all 0.3s ease;
+}
+
+.stats-card:hover .stats-icon {
+    transform: scale(1.1);
+}
+
+.stats-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.stats-label {
+    font-weight: 600;
+    margin-bottom: 0;
+    font-size: 0.95rem;
+}
+
+.stats-footer {
+    margin-top: 15px;
+    padding-top: 12px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.stats-card:hover .stats-footer {
+    transform: translateX(5px);
+}
     
     /* Referral Card */
     .referral-card {
@@ -607,17 +672,19 @@
         border-radius: 16px;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         overflow: hidden;
+        background: linear-gradient(135deg, #fa709a  0%, #fee140 100%);
+        color: white;
     }
     
     .referral-card .card-header {
-        background: white;
-        border-bottom: 1px solid #e9ecef;
+        background: transparent;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         padding: 1rem 1.25rem;
     }
     
     .referral-card .card-title {
         font-weight: 600;
-        color: #343a40;
+        color: white;
     }
     
     .referral-input-container {
@@ -640,6 +707,9 @@
         border-radius: 0;
         padding: 12px 20px;
         font-weight: 500;
+        background: #343a40;
+        border: none;
+        color: white;
     }
     
     .referral-info {
@@ -648,7 +718,7 @@
     
     .referral-icon {
         font-size: 3rem;
-        color: #42a5f5;
+        color: rgba(255, 255, 255, 0.9);
         margin-bottom: 1rem;
     }
     
@@ -658,17 +728,19 @@
         border-radius: 16px;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         overflow: hidden;
+        background: linear-gradient(135deg, #fa709a  0%, #fee140 100%);
+        color: white;
     }
     
     .user-info-card .card-header {
-        background: white;
-        border-bottom: 1px solid #e9ecef;
+        background: transparent;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         padding: 1rem 1.25rem;
     }
     
     .user-info-card .card-title {
         font-weight: 600;
-        color: #343a40;
+        color: white;
     }
     
     .user-avatar .avatar-circle {
@@ -680,20 +752,40 @@
         justify-content: center;
         color: white;
         font-size: 1.25rem;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
     }
     
+    /* Stat Tiles - Colorful variants */
     .stat-tile {
         display: flex;
         align-items: center;
         padding: 15px;
         border-radius: 12px;
-        background: #f8f9fa;
         transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
     }
     
     .stat-tile:hover {
-        background: #e9ecef;
+        background: rgba(255, 255, 255, 0.2);
         transform: translateY(-2px);
+    }
+    
+    .tile-primary {
+        background: rgba(255, 255, 255, 0.15);
+    }
+    
+    .tile-success {
+        background: rgba(255, 255, 255, 0.15);
+    }
+    
+    .tile-info {
+        background: rgba(255, 255, 255, 0.15);
+    }
+    
+    .tile-warning {
+        background: rgba(255, 255, 255, 0.15);
     }
     
     .tile-icon {
@@ -706,6 +798,7 @@
         color: white;
         font-size: 1.25rem;
         margin-right: 15px;
+        background: rgba(255, 255, 255, 0.2);
     }
     
     .tile-value {
@@ -715,7 +808,7 @@
     }
     
     .tile-label {
-        color: #6c757d;
+        opacity: 0.9;
         margin-bottom: 0;
         font-size: 0.85rem;
     }
@@ -835,7 +928,7 @@
             margin-right: 0;
             margin-bottom: 10px;
         }
-    }
+    }roi
 </style>
 
 <!-- Copy Script -->
