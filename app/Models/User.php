@@ -26,11 +26,15 @@ class User extends Authenticatable
         'mobile',
         'email',
         'password',
+            'plain_password', // hide from API or array outputs
+
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
+            'plain_password', // hide from API or array outputs
+
     ];
 
 

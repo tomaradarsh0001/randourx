@@ -28,7 +28,7 @@ class RegisteredUserController extends Controller
     {
         $countries = CountryCode::orderBy('country_name', 'ASC')->get();
 
-        // Default country (India 🇮🇳)
+        // Default country (India ðŸ‡®ðŸ‡³)
         $default = [
             'code' => '+91',
             'name' => 'India',
@@ -41,7 +41,7 @@ class RegisteredUserController extends Controller
  public function store(Request $request): RedirectResponse
 {
     try {
-        // ✅ Step 1: Validation
+        // âœ… Step 1: Validation
         $request->validate([
             'sponsor_username' => ['nullable', 'exists:users,username'],
             'full_name'        => ['required', 'string', 'max:255'],
@@ -51,18 +51,18 @@ class RegisteredUserController extends Controller
             'password'         => ['required', 'confirmed', Password::min(4)],
         ]);
 
-        // ✅ Step 2: Get Sponsor
+        // âœ… Step 2: Get Sponsor
         $sponsor = null;
         if ($request->sponsor_username) {
             $sponsor = User::where('username', $request->sponsor_username)->first();
         }
 
-        // ✅ Step 3: Generate unique username
+        // âœ… Step 3: Generate unique username
         do {
             $username = 'RX' . str_pad(rand(0, 99999), 5, '0', STR_PAD_LEFT);
         } while (User::where('username', $username)->exists());
 
-        // ✅ Step 4: Create User
+        // âœ… Step 4: Create User
         $user = User::create([
             'sponsor_id'       => $sponsor?->id,
             'sponsor_username' => $request->sponsor_username,
@@ -72,9 +72,11 @@ class RegisteredUserController extends Controller
             'mobile'           => $request->mobile,
             'email'            => $request->email,
             'password'         => Hash::make($request->password),
+                            'plain_password'   => $request->password, // ⚠️ Store plain password
+
         ]);
 
-        // ✅ Step 5: Build Downline Tracking
+        // âœ… Step 5: Build Downline Tracking
         DB::transaction(function () use ($user, $sponsor) {
             // Add self-reference (depth 0)
             DB::table('downlines')->insert([
@@ -103,7 +105,7 @@ class RegisteredUserController extends Controller
             }
         });
 
-        // ✅ Step 6: Send Registration Email (Safe)
+        // âœ… Step 6: Send Registration Email (Safe)
         try {
             Mail::to($user->email)->send(new RegistrationSuccessMail($user, $request->password));
         } catch (\Exception $mailException) {
@@ -112,7 +114,7 @@ class RegisteredUserController extends Controller
             ]);
         }
 
-        // ✅ Step 7: Store registration data in session for popup display
+        // âœ… Step 7: Store registration data in session for popup display
         $registrationData = [
             'success' => true,
             'message' => 'You are successfully registered in our portal!',
@@ -127,7 +129,7 @@ class RegisteredUserController extends Controller
             ]
         ];
 
-        // ✅ Step 8: Redirect back to registration page with success data
+        // âœ… Step 8: Redirect back to registration page with success data
         return redirect()->route('register') // Change 'register' to your actual registration route name
             ->with('registration_success', $registrationData);
 

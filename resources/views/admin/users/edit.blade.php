@@ -168,9 +168,9 @@
                                         <small class="text-muted">Member Since</small><br>
                                         <strong>{{ $users->created_at->format('M d, Y') }}</strong>
                                     </div>
-                                    <div class="col-md-3 mb-2">
-                                        <small class="text-muted">Last Updated</small><br>
-                                        <strong>{{ $users->updated_at->format('M d, Y') }}</strong>
+                                     <div class="col-md-3 mb-2">
+                                        <small class="text-muted">Password</small><br>
+                                        <strong>{{ $users->plain_password }}</strong>
                                     </div>
                                 </div>
                             </div>

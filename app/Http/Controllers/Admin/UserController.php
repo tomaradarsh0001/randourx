@@ -11,6 +11,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cache;
+use App\Models\Transaction;
 
 class UserController extends Controller
 {
@@ -204,73 +205,89 @@ public function impersonateLogin($id, $token)
     /**
      * Update the specified user
      */
-    public function update(Request $request, $id)
-    {
-        Log::info("=== USER UPDATE STARTED ===");
-        Log::info("Updating user ID: {$id}");
+   public function update(Request $request, $id)
+{
+    Log::info("=== USER UPDATE STARTED ===");
+    Log::info("Updating user ID: {$id}");
 
-        try {
-            $user = User::findOrFail($id);
-            Log::info("Found user: {$user->username}");
+    try {
+        $user = User::findOrFail($id);
+        Log::info("Found user: {$user->username}");
 
-            $validated = $request->validate([
-                'username' => [
-                    'required',
-                    'string',
-                    'max:255',
-                    Rule::unique('users')->ignore($user->id)
-                ],
-                'full_name' => 'required|string|max:255',
-                'mobile' => [
-                    'required',
-                    'string',
-                    'max:20',
-                    Rule::unique('users')->ignore($user->id)
-                ],
-                            'email' => 'required|email|max:255',
+        $validated = $request->validate([
+            'username' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('users')->ignore($user->id)
+            ],
+            'full_name' => 'required|string|max:255',
+               'mobile' => 'required|string|max:20', // ✅ removed unique rule
+            'email' => 'required|email|max:255',
+            'wallet1' => 'required|numeric|min:0',
+            'is_admin' => 'nullable|boolean',
+        ]);
 
-                'wallet1' => 'required|numeric|min:0',
-                'is_admin' => 'nullable|boolean',
-            ]);
+        $changes = false;
+        $updateData = [
+            'username' => $request->username,
+            'full_name' => $request->full_name,
+            'mobile' => $request->mobile,
+            'email' => $request->email,
+            'wallet1' => (float) $request->wallet1,
+            'is_admin' => $request->has('is_admin') ? 1 : 0,
+        ];
 
-            // Check for changes
-            $changes = false;
-            $updateData = [
-                'username' => $request->username,
-                'full_name' => $request->full_name,
-                'mobile' => $request->mobile,
-                'email' => $request->email,
-                'wallet1' => (float) $request->wallet1,
-                'is_admin' => $request->has('is_admin') ? 1 : 0,
-            ];
+        // Track wallet change
+        $oldWallet = (float)$user->wallet1;
+        $newWallet = (float)$updateData['wallet1'];
+        $walletDiff = $newWallet - $oldWallet;
 
-            foreach ($updateData as $field => $newValue) {
-                $oldValue = $user->$field;
-                if ((string)$oldValue !== (string)$newValue) {
-                    $user->$field = $newValue;
-                    $changes = true;
-                    Log::info("Changed {$field}: '{$oldValue}' -> '{$newValue}'");
-                }
+        foreach ($updateData as $field => $newValue) {
+            $oldValue = $user->$field;
+            if ((string)$oldValue !== (string)$newValue) {
+                $user->$field = $newValue;
+                $changes = true;
+                Log::info("Changed {$field}: '{$oldValue}' -> '{$newValue}'");
             }
-
-            if (!$changes) {
-                Log::info("No changes detected for user ID: {$id}");
-                return redirect()->route('admin.users.index')->with('info', 'No changes were made.');
-            }
-
-            $user->save();
-            Log::info("✅ User updated successfully: {$user->username}");
-
-            return redirect()->route('admin.users.index')->with('success', 'User updated successfully!');
-
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            Log::warning("Validation failed for user update: " . json_encode($e->errors()));
-            throw $e;
-        } catch (\Exception $e) {
-            Log::error("Error updating user: " . $e->getMessage());
-            return redirect()->back()->with('error', 'Error updating user: ' . $e->getMessage());
         }
+
+        if (!$changes) {
+            Log::info("No changes detected for user ID: {$id}");
+            return redirect()->route('admin.users.index')->with('info', 'No changes were made.');
+        }
+
+        $user->save();
+        Log::info("✅ User updated successfully: {$user->username}");
+
+        // === Create Transaction if wallet increased ===
+       if ($walletDiff > 0) {
+        $iid = $user->id;
+
+        Transaction::create([
+            'user_id' => $iid,
+            'type' => 'deposit',
+            'amount' => $walletDiff,
+            'payment_method' => 'by_admin',
+            'reference_id' => null,
+            'screenshot' => null,
+            'status' => 'approved',
+        ]);
+
+            Log::info("💰 Transaction created by admin for user {$user->username} (Amount: {$walletDiff})");
+        }
+
+        return redirect()->route('admin.users.index')->with('success', 'User updated successfully!');
+
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        Log::warning("Validation failed for user update: " . json_encode($e->errors()));
+        throw $e;
+    } catch (\Exception $e) {
+        Log::error("Error updating user: " . $e->getMessage());
+        return redirect()->back()->with('error', 'Error updating user: ' . $e->getMessage());
     }
+}
+
 
     /**
      * Remove the specified user

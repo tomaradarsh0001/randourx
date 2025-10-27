@@ -267,7 +267,7 @@
                                 <h6 class="text-white fw-semibold text-uppercase mb-0">PLAN A</h6>
                             </div>
                             <div class="plan-percentage">
-                                <h3 class="text-white fw-semibold">2% <span class="text-white"> - for 100 Days</span>
+                                <h3 class="text-white fw-semibold">0.20%-0.90% <span class="text-white"> - till 2.5x</span>
                                 </h3>
                             </div>
                             <div class="table-height">
@@ -280,8 +280,8 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>$10</td>
-                                            <td>$20</td>
+                                            <td>$5</td>
+                                            <td>$12.5</td>
                                         </tr>
                                        
                                        
@@ -310,7 +310,7 @@
                                     <tbody>
                                         <tr>
                                             <td>1 </td>
-                                            <td>10% </td>
+                                            <td>20% </td>
                                         </tr>
                                         <tr>
                                             <td>2</td>
@@ -344,7 +344,7 @@
                             </div>
 
                             <div class="plan-percentage">
-                                <h3 class="text-white fw-semibold">Royalty Income<span class="text-white"> </span> </h3>
+                                <h3 class="text-white fw-semibold">Salary Income<span class="text-white"> </span> </h3>
                             </div>
                             <div class="table-height">
                                 <table class="plan-detail text-center ">
@@ -360,11 +360,11 @@
                                             <td>5% </td>
                                         </tr>
                                         <tr>
-                                            <td>$7500</td>
+                                            <td>$5000</td>
                                             <td>10% </td>
                                         </tr>
                                         <tr>
-                                            <td>$17500</td>
+                                            <td>$10000</td>
                                             <td>20% </td>
                                         </tr>
                                     </tbody>
@@ -402,7 +402,7 @@
                         <div class="ref-img"> <img src="{{ asset('imagess/ref-ico.png') }}"> </div>
                         <div class="ref-value ms-3">
                             <h5 class="text-white fw-semibold mb-0">Level 1</h5>
-                            <span class="text-white fw-medium">10%</span>
+                            <span class="text-white fw-medium">20%</span>
                         </div>
                     </div>
                 </div>
