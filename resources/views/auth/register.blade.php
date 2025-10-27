@@ -1,7 +1,5 @@
-
 <!doctype html>
 <html lang="en">
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,26 +12,19 @@
 <link href="{{ asset('css/owl.theme.default.min.css') }}" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet">
 <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css">
-
 <!-- jQuery & Select2 -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-
 <!-- SweetAlert2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 </head>
-<style>
-  
+<style> 
     .left-btn {
     float: left;
 }
-
 </style>
-
 <body>
-   
     <!-- banner start-->
     <div class="banner-bg py-lg-4 position-relative">
         <div class="container">
@@ -42,15 +33,7 @@
                     <div class="col-xl-4 col-lg-3">
                         <div class="head-logo"> <a href="/" class=""><img
                                     src="imagess/logorandour.png" width="300px" height="100px" class=""></a> </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-5">
-                        <div class="server-time">
-                            <div class="server-time-img"> <img src="imagess/server-time.png"> </div>
-                            <div class="server-content ms-3">
-                                <h6 class="text-white fw-normal">Servertime : 19:13:07 PM</h6>
-                            </div>
-                        </div>
-                    </div>
+                    </div>        
                     <div class="col-lg-4">
                         <div class="nav-btn">
                             <a href="login" class="btn btn-outline-primary">Login</a>
@@ -139,7 +122,6 @@
                     </div>
                 </div>
             </header>
-
             <div class="row">
                 <div class="col-lg-6">
                     <div class="innerpages text-center">
@@ -154,8 +136,6 @@
                                     document.regform.fullname.focus();
                                     return false;
                                 }
-
-
                                 if (document.regform.username.value == '') {
                                     alert("Please enter your username!");
                                     document.regform.username.focus();
@@ -176,8 +156,6 @@
                                     document.regform.password2.focus();
                                     return false;
                                 }
-
-
                                 if (document.regform.email.value == '') {
                                     alert("Please enter your e-mail address!");
                                     document.regform.email.focus();
@@ -283,43 +261,46 @@
 
         <!-- Custom Country Dropdown -->
         <div class="custom-dropdown" style="position: relative; width: 200px; margin-right: 10px;">
-            <!-- Selected Option -->
-            <div class="form-control d-flex align-items-center justify-content-between"
-                 id="selected-option" style="cursor: pointer;">
-                <span class="d-flex align-items-center">
-                    <img src="{{ $default['flag'] }}" id="selected-flag" alt="Flag" width="24" class="me-2">
-                    <span id="selected-code">{{ $default['code'] }}</span>
-                </span>
-                <span class="ms-1">&#x25BC;</span>
-            </div>
+    <!-- Selected Option -->
+    <div class="form-control d-flex align-items-center justify-content-between"
+         id="selected-option" style="cursor: pointer;">
+        <span class="d-flex align-items-center">
+            @if($default['flag'])
+                <img src="{{ $default['flag'] }}" id="selected-flag" alt="Flag" width="24" class="me-2">
+            @endif
+            <span id="selected-code">{{ $default['code'] }}</span>
+        </span>
+        <span class="ms-1">&#x25BC;</span>
+    </div>
 
-            <!-- Options List -->
-            <div class="options-list border bg-white shadow-sm mt-1"
-                 id="options-list"
-                 style="display:none; max-height:200px; overflow-y:auto; position:absolute; width:100%; z-index:999;">
-                @foreach($countries as $country)
-                    @php
-                        $countryFlag = "https://flagcdn.com/w40/" . strtolower($country->country_code_name_in_short) . ".png";
-                    @endphp
-                    <div class="option d-flex align-items-center p-2"
-                         style="cursor:pointer;"
-                         onclick="selectCountry('{{ $country->country_code_with_plus }}', '{{ $countryFlag }}')">
-                        <img src="{{ $countryFlag }}" alt="Flag" width="24" class="me-2">
-                        <span>{{ $country->country_code_with_plus }} - {{ $country->country_name }}</span>
-                    </div>
-                @endforeach
+    <!-- Options List -->
+    <div class="options-list border bg-white shadow-sm mt-1"
+         id="options-list"
+         style="display:none; max-height:200px; overflow-y:auto; position:absolute; width:100%; z-index:999;">
+        @foreach($countries as $country)
+            @php
+                $countryFlag = "https://flagcdn.com/w40/" . strtolower($country->country_code_name_in_short) . ".png";
+            @endphp
+            <div class="option d-flex align-items-center p-2"
+                 style="cursor:pointer;"
+                 onclick="selectCountry('{{ $country->country_code_with_plus }}', '{{ $countryFlag }}')">
+                <img src="{{ $countryFlag }}" alt="Flag" width="24" class="me-2">
+                <span>{{ $country->country_code_with_plus }} - {{ $country->country_name }}</span>
             </div>
+        @endforeach
+    </div>
 
-            <!-- Hidden Select for Form Submission -->
-            <select name="country_code" id="hidden-country-code" class="d-none">
-                @foreach($countries as $country)
-                    <option value="{{ $country->country_code_with_plus }}"
-                        {{ $country->country_code_with_plus == $default['code'] ? 'selected' : '' }}>
-                        {{ $country->country_code_with_plus }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
+    <!-- Hidden Select for Form Submission -->
+    <select name="country_code" id="hidden-country-code" class="d-none" required>
+        <option value="">Select Code</option>
+        @foreach($countries as $country)
+            <option value="{{ $country->country_code_with_plus }}">
+                {{ $country->country_code_with_plus }}
+            </option>
+        @endforeach
+    </select>
+</div>
+
 
         <!-- Mobile -->
         <div class="form-ico form-icoo">
@@ -484,14 +465,12 @@
 function closeModal() {
     document.getElementById('registrationSuccessModal').style.display = 'none';
 }
-
 // Close modal when clicking outside
 document.getElementById('registrationSuccessModal').addEventListener('click', function(e) {
     if (e.target === this) {
         closeModal();
     }
 });
-
 // Close modal with Escape key
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
@@ -499,7 +478,6 @@ document.addEventListener('keydown', function(e) {
     }
 });
 </script>
-
 <style>
 .modal {
     backdrop-filter: blur(5px);
@@ -523,7 +501,6 @@ document.addEventListener('keydown', function(e) {
 }
 </style>
 @endif
-
  <script>
 $(document).ready(function() {
     $('#sponsor_username').on('blur', function() {
@@ -586,30 +563,14 @@ $(document).ready(function() {
             }
         });
     }
-
-    // $('#mobile').on('blur', function() {
-    //     let mobile = $(this).val().trim();
-    //     if(mobile.length > 0){
-    //         checkExists('mobile', mobile, 'err_mobile');
-    //     }
-    // });
-
-    // $('#email').on('blur', function() {
-    //     let email = $(this).val().trim();
-    //     if(email.length > 0){
-    //         checkExists('email', email, 'err_email');
-    //     }
-    // });
 });
 </script>
-
-            </div>
-           <script>
+</div>
+<script>
 function selectCountry(code, flag) {
     // Update selected display
     document.getElementById("selected-flag").src = flag;
     document.getElementById("selected-code").innerText = code;
-
     // Update hidden select
     let select = document.getElementById("hidden-country-code");
     for (let i = 0; i < select.options.length; i++) {
@@ -618,17 +579,14 @@ function selectCountry(code, flag) {
             break;
         }
     }
-
     // Close dropdown
     document.getElementById("options-list").style.display = "none";
 }
-
 // Toggle dropdown
 document.getElementById("selected-option").addEventListener("click", function () {
     let list = document.getElementById("options-list");
     list.style.display = (list.style.display === "block") ? "none" : "block";
 });
-
 // Close dropdown if clicked outside
 document.addEventListener("click", function (event) {
     if (!document.querySelector(".custom-dropdown").contains(event.target)) {
@@ -636,7 +594,6 @@ document.addEventListener("click", function (event) {
     }
 });
 </script>
-
 <style>
 /* Custom dropdown styling */
 .custom-dropdown {
@@ -787,7 +744,7 @@ document.addEventListener("click", function (event) {
                     .custom-checkbox input:checked + .checkmark::after {
                         opacity: 1;
                     }`
-</style>
+            </style>
             <script>
                 function AvoidSpace(event) {
                     var k = event ? event.which : window.event.keyCode;
@@ -798,33 +755,29 @@ document.addEventListener("click", function (event) {
                     } else {
                         return false
                     }
-
                 }
+                function selectCountry(code, flagUrl) {
+    document.getElementById('selected-code').textContent = code;
 
-            
+    let selectedFlag = document.getElementById('selected-flag');
+    if (!selectedFlag) {
+        selectedFlag = document.createElement('img');
+        selectedFlag.id = 'selected-flag';
+        selectedFlag.width = 24;
+        selectedFlag.classList.add('me-2');
+        document.querySelector('#selected-option span.d-flex').prepend(selectedFlag);
+    }
+    selectedFlag.src = flagUrl;
+
+    document.getElementById('hidden-country-code').value = code;
+    document.getElementById('options-list').style.display = 'none';
+}
+
             </script>
-
             <script>
-                function getDistrict(val) {
-                    $.ajax({
-
-                        type: "POST",
-                        url: "ajax_get_district.php",
-                        data: {
-                            val: val
-                        },
-                        success: function (msg) {
-                            $('#district').find('option').remove().end().append(msg);
-                        }
-                    });
-                }
-
                 function checkpsw(repsw) {
-
                     var psw = $('#password').val();
-
                     if (psw != repsw) {
-
                         $('#errpsw').html('**Password Does Not Match');
                         $('#errpsw').show();
                         document.getElementById('submit').disabled = true;
@@ -834,25 +787,11 @@ document.addEventListener("click", function (event) {
                     }
 
                 }
-
-                function checkPhone(phone) {
-
-                    intRegex = /[0-9 -()+]+$/;
-                    if ((phone.length != 10) || (!intRegex.test(phone))) {
-                        $('#err2').html('** Please enter 10 digit mobile no.!');
-                        $('#err2').show();
-                    } else {
-                        $('#err2').html('');
-                        $('#err2').hide();
-                    }
-                }
             </script>
-              <!-- JS Scripts -->
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('js/script.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@2.0.0/dist/iconify-icon.min.js"></script>
 </body>
-
 </html>

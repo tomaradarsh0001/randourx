@@ -24,19 +24,20 @@ use Illuminate\Validation\Rules\Password;
 class RegisteredUserController extends Controller
 {
    
-   public function create(): View
-    {
-        $countries = CountryCode::orderBy('country_name', 'ASC')->get();
+public function create(): View
+{
+    $countries = CountryCode::orderBy('country_name', 'ASC')->get();
 
-        // Default country (India ðŸ‡®ðŸ‡³)
-        $default = [
-            'code' => '+91',
-            'name' => 'India',
-            'flag' => 'https://flagcdn.com/w40/in.png',
-        ];
+    $default = [
+        'code' => 'Select Code',
+        'name' => '',
+        'flag' => asset('assets/img/code.png'), // ✅ Proper asset path
+    ];
 
-        return view('auth.register', compact('countries', 'default'));
-    }
+    return view('auth.register', compact('countries', 'default'));
+}
+
+
 
  public function store(Request $request): RedirectResponse
 {
