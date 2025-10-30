@@ -316,7 +316,9 @@
                                             <i class="fas fa-chart-bar"></i>
                                         </div>
                                         <div class="tile-content">
-                                            <h5 class="tile-value">{{$totalBusinessDownline}}</h5>
+                                        <h5 class="tile-value">
+                                            {{ $totalBusinessDownline - $user->wallet3 }}
+                                        </h5>
                                             <p class="tile-label">Total Downline BV</p>
                                         </div>
                                     </div>
@@ -394,7 +396,9 @@
                                     <i class="fas fa-chart-bar"></i>
                                 </div>
                                 <div class="tile-content">
-                                    <h5 class="tile-value">{{$totalBusinessDownline}}</h5>
+                                    <h5 class="tile-value">
+                                        {{ $totalBusinessDownline - $user->wallet3 }}
+                                    </h5>
                                     <p class="tile-label">Total Downline BV</p>
                                 </div>
                             </div>

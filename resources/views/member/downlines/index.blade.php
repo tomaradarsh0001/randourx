@@ -118,9 +118,9 @@
                                 <tr class="table-dark">
                                     <td class="text-end fw-bold" colspan="5">Total Downline Business</td>
                                     <td class="fw-bold text-success" colspan="2">
-                                        ${{ number_format($totalBusinessDownline, 2) }} + 
+                                        ${{ number_format($totalBusinessDownline  - $user->wallet3, 2) }} + 
                                         ${{ number_format($user->wallet3, 2) }} (My Wallet Balance) = 
-                                        ${{ number_format($totalBusiness, 2) }}
+                                        ${{ number_format($totalBusiness - $user->wallet3, 2) }}
                                     </td>
                                 </tr>
                             </tfoot>
@@ -140,9 +140,9 @@
                         <div class="d-flex flex-column">
                             <span class="mb-1">Total Downline Business:</span>
                             <div class="text-success fw-bold">
-                                <div>${{ number_format($totalBusinessDownline, 2) }} (Downline)</div>
+                                <div>${{ number_format($totalBusinessDownline - $user->wallet3, 2) }} (Downline)</div>
                                 <div>+ ${{ number_format($user->wallet3, 2) }} (My Wallet)</div>
-                                <div>= ${{ number_format($totalBusiness, 2) }} (Total)</div>
+                                <div>= ${{ number_format($totalBusiness - $user->wallet3, 2) }} (Total)</div>
                             </div>
                         </div>
                     </div>

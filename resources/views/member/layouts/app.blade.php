@@ -283,7 +283,7 @@
               <li class="nav-item active">
                 <a
                   data-bs-toggle="collapse"
-                  href="#dashboard"
+                  href="{{ route('dashboard') }}"
                   class="collapsed"
                   aria-expanded="false"
                 >
@@ -291,15 +291,7 @@
                   <p>Dashboard</p>
                   <span class="caret"></span>
                 </a>
-                <div class="collapse" id="dashboard">
-                  <ul class="nav nav-collapse">
-                    <li>
-                      <a href="{{ route('dashboard')}}">
-                        <span class="sub-item">Dashboard</span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+                
               </li>
               <li class="nav-section">
                 <span class="sidebar-mini-icon">
@@ -382,8 +374,13 @@
                 <div class="collapse" id="tables">
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="purchase">
+                      <a href="{{ route('user.investments')}}">
                         <span class="sub-item">Investment History</span>
+                      </a>
+                    </li>
+                     <li>
+                      <a href="{{ route('user.income')}}">
+                        <span class="sub-item">All Income History</span>
                       </a>
                     </li>
                     <li>
@@ -391,18 +388,9 @@
                         <span class="sub-item">Wallet Recharge Report</span>
                       </a>
                     </li>
+                   
                     <li>
-                      <a href="fund-transfer-report">
-                        <span class="sub-item">Fund Transfer Report</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="self-transfer-report">
-                        <span class="sub-item">Self Transfer Report</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="withdrawal-report">
+                      <a href="{{ route('member.transactions.index')}}">
                         <span class="sub-item">Fund Withdrawal Report</span>
                       </a>
                     </li>
