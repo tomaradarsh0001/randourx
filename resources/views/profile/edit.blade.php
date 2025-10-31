@@ -5,106 +5,84 @@
 @section('content')
 <div class="container">
     <!-- Header Section -->
-    <div class="row mb-4">
+    <div class="page-inner row mb-4">
         <div class="col-12">
             <div class="d-flex align-items-center mb-3">
                 <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
                     <i class="fas fa-user text-white"></i>
                 </div>
                 <div>
-                    <h1 class="h3 mb-0">Profile Settings</h1>
-                    <p class="text-muted mb-0">Manage your account information and security</p>
+                    <h1 class="h3 mb-0">My Profile</h1>
+                    <p class="text-muted mb-0">View your account information</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="row g-4">
+    <div class="row justify-content-center">
         <!-- Profile Information Card -->
-        <div class="col-12 col-lg-8 mx-auto">
+        <div class="col-12 col-md-8 col-lg-6">
             <div class="card border-0 shadow-lg rounded-3 overflow-hidden">
                 <div class="card-header bg-primary text-white py-3">
                     <div class="d-flex align-items-center">
                         <i class="fas fa-id-card me-2"></i>
-                        <h5 class="card-title mb-0">Personal Information</h5>
+                        <h5 class="card-title mb-0 text-white">Personal Information</h5>
                     </div>
                 </div>
-                <div class="card-body p-0">
-                    <div class="p-4">
-                        @include('profile.partials.update-profile-information-form')
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Password Update Card -->
-        <div class="col-12 col-lg-8 mx-auto">
-            <div class="card border-0 shadow-lg rounded-3 overflow-hidden">
-                <div class="card-header bg-warning text-dark py-3">
-                    <div class="d-flex align-items-center">
-                        <i class="fas fa-lock me-2"></i>
-                        <h5 class="card-title mb-0">Security Settings</h5>
-                    </div>
-                </div>
-                <div class="card-body p-0">
-                    <div class="p-4">
-                        @include('profile.partials.update-password-form')
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Account Actions Card -->
-        <div class="col-12 col-lg-8 mx-auto">
-            <div class="card border-0 shadow-lg rounded-3 overflow-hidden">
-                <div class="card-header bg-danger text-white py-3">
-                    <div class="d-flex align-items-center">
-                        <i class="fas fa-exclamation-triangle me-2"></i>
-                        <h5 class="card-title mb-0">Account Actions</h5>
-                    </div>
-                </div>
-                <div class="card-body p-0">
-                    <div class="p-4">
-                        @include('profile.partials.delete-user-form')
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Quick Stats Section (Optional decorative element) -->
-    <div class="row mt-5">
-        <div class="col-12">
-            <div class="card bg-light border-0 rounded-3">
-                <div class="card-body py-4">
-                    <div class="row text-center g-3">
-                        <div class="col-6 col-md-3">
-                            <div class="p-3">
-                                <i class="fas fa-calendar-check fa-2x text-primary mb-2"></i>
-                                <h4 class="fw-bold text-primary">{{ \Carbon\Carbon::parse(auth()->user()->created_at)->format('M Y') }}</h4>
-                                <p class="text-muted mb-0">Member Since</p>
-                            </div>
+                <div class="card-body p-4">
+                      <!-- Username -->
+                    <div class="mb-4">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fas fa-user text-primary me-2"></i>
+                            <label class="form-label fw-semibold text-muted mb-0">Username</label>
                         </div>
-                        <div class="col-6 col-md-3">
-                            <div class="p-3">
-                                <i class="fas fa-clock fa-2x text-info mb-2"></i>
-                                <h4 class="fw-bold text-info">{{ \Carbon\Carbon::parse(auth()->user()->last_login_at ?? auth()->user()->created_at)->diffForHumans() }}</h4>
-                                <p class="text-muted mb-0">Last Active</p>
-                            </div>
+                        <div class="p-3 bg-light rounded-2 border">
+                            <p class="mb-0 fw-semibold text-dark">{{ auth()->user()->username ?? 'Not provided' }}</p>
                         </div>
-                        <div class="col-6 col-md-3">
-                            <div class="p-3">
-                                <i class="fas fa-shield-alt fa-2x text-success mb-2"></i>
-                                <h4 class="fw-bold text-success">Active</h4>
-                                <p class="text-muted mb-0">Account Status</p>
-                            </div>
+                    </div>
+                    <!-- Full Name -->
+                    <div class="mb-4">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fas fa-user-circle text-primary me-2"></i>
+                            <label class="form-label fw-semibold text-muted mb-0">Full Name</label>
                         </div>
-                        <div class="col-6 col-md-3">
-                            <div class="p-3">
-                                <i class="fas fa-user-check fa-2x text-warning mb-2"></i>
-                                <h4 class="fw-bold text-warning">Verified</h4>
-                                <p class="text-muted mb-0">Profile Status</p>
-                            </div>
+                        <div class="p-3 bg-light rounded-2 border">
+                            <p class="mb-0 fw-semibold text-dark">{{ auth()->user()->full_name ?? 'Not provided' }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="mb-4">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fas fa-envelope text-primary me-2"></i>
+                            <label class="form-label fw-semibold text-muted mb-0">Email Address</label>
+                        </div>
+                        <div class="p-3 bg-light rounded-2 border">
+                            <p class="mb-0 fw-semibold text-dark">{{ auth()->user()->email }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="mb-4">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fas fa-phone text-primary me-2"></i>
+                            <label class="form-label fw-semibold text-muted mb-0">Phone Number</label>
+                        </div>
+                        <div class="p-3 bg-light rounded-2 border">
+                            <p class="mb-0 fw-semibold text-dark">{{ auth()->user()->mobile ?? 'Not provided' }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Member Since -->
+                    <div class="mb-4">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fas fa-calendar-plus text-primary me-2"></i>
+                            <label class="form-label fw-semibold text-muted mb-0">Member Since</label>
+                        </div>
+                        <div class="p-3 bg-light rounded-2 border">
+                            <p class="mb-0 fw-semibold text-dark">
+                                {{ \Carbon\Carbon::parse(auth()->user()->created_at)->format('F j, Y') }}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -117,59 +95,67 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-    /* Custom Styles for Enhanced Appearance */
+    /* Material UI Inspired Styles */
     .card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: none;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
     
     .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        transform: translateY(-2px);
     }
     
     .card-header {
         border-bottom: none;
         font-weight: 600;
-    }
-    
-    .form-control:focus {
-        border-color: #0d6efd;
-        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.1);
-    }
-    
-    .btn-primary {
-        background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
-        border: none;
-        font-weight: 500;
-    }
-    
-    .btn-warning {
-        background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
-        border: none;
-        font-weight: 500;
-    }
-    
-    .btn-danger {
-        background: linear-gradient(135deg, #dc3545 0%, #b02a37 100%);
-        border: none;
-        font-weight: 500;
+        background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
     }
     
     .bg-primary {
-        background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%) !important;
+        background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%) !important;
     }
     
-    .bg-warning {
-        background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%) !important;
+    .bg-light {
+        background-color: #f8f9fa !important;
+        transition: background-color 0.3s ease;
     }
     
-    .bg-danger {
-        background: linear-gradient(135deg, #dc3545 0%, #b02a37 100%) !important;
+    .bg-light:hover {
+        background-color: #e9ecef !important;
     }
     
-    /* Mobile-specific adjustments */
+    .rounded-3 {
+        border-radius: 12px !important;
+    }
+    
+    .rounded-2 {
+        border-radius: 8px !important;
+    }
+    
+    /* Typography */
+    .h3 {
+        font-weight: 500;
+        color: #1976d2;
+    }
+    
+    .text-muted {
+        color: #6c757d !important;
+    }
+    
+    .fw-semibold {
+        font-weight: 500;
+    }
+    
+    /* Icon styling */
+    .fa-user, .fa-id-card, .fa-user-circle, .fa-envelope, .fa-phone, .fa-calendar-plus {
+        font-size: 1.1em;
+    }
+    
+    /* Mobile Responsive */
     @media (max-width: 768px) {
-        .container-fluid {
+        .container {
             padding-left: 15px;
             padding-right: 15px;
         }
@@ -182,93 +168,34 @@
             font-size: 1.5rem;
         }
         
-        .btn {
-            width: 100%;
-            margin-bottom: 10px;
+        .p-3 {
+            padding: 0.75rem !important;
         }
         
-        .btn-group .btn {
-            width: auto;
-        }
-        
-        /* Improve form spacing on mobile */
-        .max-w-xl {
-            max-width: 100% !important;
-        }
-        
-        /* Adjust stats section for mobile */
-        .col-6 {
-            margin-bottom: 15px;
-        }
-        
-        .fa-2x {
-            font-size: 1.5rem !important;
-        }
-        
-        h4.fw-bold {
-            font-size: 1.1rem;
+        .mb-4 {
+            margin-bottom: 1rem !important;
         }
     }
     
-    /* Animation for form sections */
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
+    /* Animation */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
     
     .card {
-        animation: fadeIn 0.5s ease-out;
+        animation: fadeInUp 0.6s ease-out;
     }
     
-    /* Staggered animation for cards */
-    .card:nth-child(1) { animation-delay: 0.1s; }
-    .card:nth-child(2) { animation-delay: 0.2s; }
-    .card:nth-child(3) { animation-delay: 0.3s; }
-    
-    /* Custom rounded elements */
-    .rounded-3 {
-        border-radius: 0.75rem !important;
-    }
-    
-    /* Improve focus states for accessibility */
-    .btn:focus, .form-control:focus {
-        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    /* Material Design inspired shadows */
+    .shadow-lg {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
     }
 </style>
-
-<!-- Optional: Add some interactive JavaScript -->
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Add smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-        
-        // Add confirmation for delete button
-        const deleteButton = document.querySelector('button[type="submit"].btn-danger');
-        if (deleteButton) {
-            deleteButton.addEventListener('click', function(e) {
-                if (!confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
-                    e.preventDefault();
-                }
-            });
-        }
-        
-        // Add loading states to buttons
-        document.querySelectorAll('form').forEach(form => {
-            form.addEventListener('submit', function() {
-                const submitButton = this.querySelector('button[type="submit"]');
-                if (submitButton) {
-                    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Processing...';
-                    submitButton.disabled = true;
-                }
-            });
-        });
-    });
-</script>
 @endsection

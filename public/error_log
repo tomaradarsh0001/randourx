@@ -1,0 +1,93 @@
+[24-Sep-2025 12:03:29 UTC] PHP Warning:  include(/home/randourx/public_html/vendor/composer/../../app/Http/Kernel.php): Failed to open stream: No such file or directory in /home/randourx/public_html/vendor/composer/ClassLoader.php on line 576
+[24-Sep-2025 12:03:29 UTC] PHP Warning:  include(): Failed opening '/home/randourx/public_html/vendor/composer/../../app/Http/Kernel.php' for inclusion (include_path='.:/opt/alt/php83/usr/share/pear:/opt/alt/php83/usr/share/php:/usr/share/pear:/usr/share/php') in /home/randourx/public_html/vendor/composer/ClassLoader.php on line 576
+[24-Sep-2025 12:03:29 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "App\Http\Kernel" does not exist in /home/randourx/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:912
+Stack trace:
+#0 /home/randourx/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(912): ReflectionClass->__construct()
+#1 /home/randourx/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#2 /home/randourx/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(986): Illuminate\Container\Container->resolve()
+#3 /home/randourx/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(296): Illuminate\Foundation\Application->resolve()
+#4 /home/randourx/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(908): Illuminate\Container\Container->Illuminate\Container\{closure}()
+#5 /home/randourx/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#6 /home/randourx/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(986): Illuminate\Container\Container->resolve()
+#7 /home/randourx/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(731): Illuminate\Foundation\Application->resolve()
+#8 /home/randourx/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(971): Illuminate\Container\Container->make()
+#9 /home/randourx/public_html/public/index.php(49): Illuminate\Foundation\Application->make()
+#10 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [App\Http\Kernel] does not exist. in /home/randourx/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:914
+Stack trace:
+#0 /home/randourx/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#1 /home/randourx/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(986): Illuminate\Container\Container->resolve()
+#2 /home/randourx/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(296): Illuminate\Foundation\Application->resolve()
+#3 /home/randourx/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(908): Illuminate\Container\Container->Illuminate\Container\{closure}()
+#4 /home/randourx/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#5 /home/randourx/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(986): Illuminate\Container\Container->resolve()
+#6 /home/randourx/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(731): Illuminate\Foundation\Application->resolve()
+#7 /home/randourx/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(971): Illuminate\Container\Container->make()
+#8 /home/randourx/public_html/public/index.php(49): Illuminate\Foundation\Application->make()
+#9 {main}
+  thrown in /home/randourx/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 914
+[03-Oct-2025 04:49:48 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 180
+[03-Oct-2025 04:55:36 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 180
+[04-Oct-2025 04:02:37 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 180
+[04-Oct-2025 04:08:02 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 180
+[04-Oct-2025 04:20:27 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 180
+[04-Oct-2025 04:33:17 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 180
+[04-Oct-2025 13:25:26 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 180
+[05-Oct-2025 05:52:11 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[06-Oct-2025 07:21:11 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[06-Oct-2025 08:22:01 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[06-Oct-2025 08:24:40 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[06-Oct-2025 08:31:26 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[06-Oct-2025 08:34:32 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[06-Oct-2025 08:39:13 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[06-Oct-2025 08:41:03 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[06-Oct-2025 09:02:37 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[06-Oct-2025 10:27:50 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[06-Oct-2025 10:50:43 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[06-Oct-2025 11:59:01 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[06-Oct-2025 12:09:31 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[06-Oct-2025 13:27:12 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[06-Oct-2025 14:00:00 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[06-Oct-2025 14:02:24 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[06-Oct-2025 16:51:56 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[06-Oct-2025 17:35:03 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[07-Oct-2025 04:05:29 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[07-Oct-2025 06:42:01 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[07-Oct-2025 08:51:25 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[07-Oct-2025 08:55:28 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[08-Oct-2025 06:40:24 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[08-Oct-2025 18:28:15 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[09-Oct-2025 05:14:09 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[09-Oct-2025 05:26:50 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[09-Oct-2025 05:30:47 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[09-Oct-2025 05:33:32 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[09-Oct-2025 05:43:27 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[09-Oct-2025 08:51:41 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[09-Oct-2025 09:05:09 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[09-Oct-2025 09:26:50 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[09-Oct-2025 10:31:27 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[09-Oct-2025 10:45:29 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[09-Oct-2025 10:49:36 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[09-Oct-2025 14:56:51 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[09-Oct-2025 14:59:32 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[09-Oct-2025 15:26:49 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[09-Oct-2025 15:49:10 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[09-Oct-2025 18:20:14 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[09-Oct-2025 18:32:14 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[09-Oct-2025 18:39:51 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[10-Oct-2025 03:01:48 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[10-Oct-2025 05:43:01 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[10-Oct-2025 05:48:03 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[10-Oct-2025 16:36:23 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 183
+[14-Oct-2025 12:14:02 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 184
+[15-Oct-2025 17:24:57 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 184
+[22-Oct-2025 08:11:26 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 184
+[22-Oct-2025 08:13:42 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 184
+[24-Oct-2025 05:54:12 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 184
+[24-Oct-2025 12:11:37 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 184
+[24-Oct-2025 12:23:03 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 184
+[24-Oct-2025 16:32:36 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 184
+[29-Oct-2025 09:09:26 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 184
+[30-Oct-2025 05:15:17 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 184
+[30-Oct-2025 05:18:28 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 184
