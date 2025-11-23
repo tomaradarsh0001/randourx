@@ -165,35 +165,13 @@
                         <div class="col-md-6">
                             <ul class="list-unstyled mb-0">
                                 <li class="mb-2 d-flex align-items-start">
-                                    <i class="fab fa-bitcoin text-warning mr-2 mt-1"></i>
-                                    <span class="text-muted">Bitcoin (BTC)</span>
+                                    <i class="text-warning mr-2 mt-1"></i><img src="{{ asset('images/usdt.png')}}" height="20px" width="20px"></img>
+                                    <span class="text-muted">&nbsp; USDT BEP-20</span>
                                 </li>
-                                <li class="mb-2 d-flex align-items-start">
-                                    <i class="fab fa-ethereum text-primary mr-2 mt-1"></i>
-                                    <span class="text-muted">Ethereum (ETH)</span>
-                                </li>
-                                <li class="d-flex align-items-start">
-                                    <i class="fas fa-wallet text-success mr-2 mt-1"></i>
-                                    <span class="text-muted">Binance Smart Chain</span>
-                                </li>
+                               
                             </ul>
                         </div>
-                        <div class="col-md-6">
-                            <ul class="list-unstyled mb-0">
-                                <li class="mb-2 d-flex align-items-start">
-                                    <i class="fab fa-monero text-orange mr-2 mt-1"></i>
-                                    <span class="text-muted">Solana (SOL)</span>
-                                </li>
-                                <li class="mb-2 d-flex align-items-start">
-                                    <i class="fas fa-circle text-info mr-2 mt-1"></i>
-                                    <span class="text-muted">Polygon (MATIC)</span>
-                                </li>
-                                <li class="d-flex align-items-start">
-                                    <i class="fas fa-shield-alt text-purple mr-2 mt-1"></i>
-                                    <span class="text-muted">And many others...</span>
-                                </li>
-                            </ul>
-                        </div>
+                       
                     </div>
                 </div>
             </div>

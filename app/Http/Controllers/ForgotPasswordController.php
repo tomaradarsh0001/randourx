@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use App\Mail\ForgotPasswordMail;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class ForgotPasswordController extends Controller
 {
@@ -93,5 +94,25 @@ class ForgotPasswordController extends Controller
     // Continue password reset process...
     return back()->with('success', 'Password reset instructions sent to your email.');
 }
+public function changePassword(Request $request)
+{
+    $request->validate([
+        'old_password' => 'required',
+        'new_password' => 'required|min:8',
+        'confirm_password' => 'required|same:new_password',
+    ]);
 
+    $user = Auth::user();
+
+    // Check if old password matches
+    if (!Hash::check($request->old_password, $user->password)) {
+        return back()->withErrors(['old_password' => 'Current password is incorrect.']);
+    }
+
+    // Update password
+    $user->password = Hash::make($request->new_password);
+    $user->save();
+
+    return back()->with('success', 'Password changed successfully.');
+}
 }
