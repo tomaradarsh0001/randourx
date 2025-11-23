@@ -24,98 +24,128 @@
         
         <!-- Wallet Cards -->
         <div class="row mb-4">
-            <div class="col-md-3">
-                <div class="card wallet-card wallet-warning">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-start mb-3">
-                            <div class="wallet-icon">
-                                <i class="fas fa-wallet"></i>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-sm btn-icon" type="button" data-bs-toggle="dropdown">
-                                    <i class="fas fa-ellipsis-v"></i>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="{{route('member.deposit.history')}}">View Transactions</a></li>
-                                    <li><a class="dropdown-item" href="#">Deposit Funds</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <h3 class="wallet-amount">{{ $user->wallet1 }} USD</h3>
-                        <p class="wallet-label">My Wallet</p>
+    <div class="col-md-3">
+        <div class="card wallet-card wallet-warning">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <div class="wallet-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-icon" type="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{route('member.deposit.history')}}">View Transactions</a></li>
+                            <li><a class="dropdown-item" href="#">Deposit Funds</a></li>
+                        </ul>
                     </div>
                 </div>
-            </div>
-            
-            <div class="col-md-3">
-                <div class="card wallet-card wallet-warning">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-start mb-3">
-                            <div class="wallet-icon">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-sm btn-icon" type="button" data-bs-toggle="dropdown">
-                                    <i class="fas fa-ellipsis-v"></i>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="{{route('user.income')}}">View Transactions</a></li>
-                                    <li><a class="dropdown-item" href="#">Withdraw Income</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <h3 class="wallet-amount">{{ $user->wallet2 }} USD</h3>
-                        <p class="wallet-label">Income Wallet</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-md-3">
-                <div class="card wallet-card wallet-warning">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-start mb-3">
-                            <div class="wallet-icon">
-                                <i class="fas fa-piggy-bank"></i>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-sm btn-icon" type="button" data-bs-toggle="dropdown">
-                                    <i class="fas fa-ellipsis-v"></i>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="{{ route('user.investments')}}">View Investments</a></li>
-                                    <li><a class="dropdown-item" href="#">New Investment</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <h3 class="wallet-amount">{{ $user->wallet3 }} USD</h3>
-                        <p class="wallet-label">Investment</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-md-3">
-                <div class="card wallet-card wallet-warning">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-start mb-3">
-                            <div class="wallet-icon">
-                                <i class="fas fa-hand-holding-usd"></i>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn btn-sm btn-icon" type="button" data-bs-toggle="dropdown">
-                                    <i class="fas fa-ellipsis-v"></i>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="{{route('member.transactions.index')}}">View Transactions</a></li>
-                                    <li><a class="dropdown-item" href="{{route('member.transactions.withdraw')}}">Request Withdrawal</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <h3 class="wallet-amount">{{ $user->wallet4 }} USD</h3>
-                        <p class="wallet-label">Withdrawn</p>
-                    </div>
-                </div>
+
+                <h3 class="wallet-amount highlight-amount">${{ $user->wallet1 }} USD</h3>
+                <p class="wallet-label highlight-label">My Wallet</p>
             </div>
         </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card wallet-card wallet-warning">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <div class="wallet-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-icon" type="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{route('user.income')}}">View Transactions</a></li>
+                            <li><a class="dropdown-item" href="#">Withdraw Income</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 class="wallet-amount highlight-amount">${{ $user->wallet2 }} USD</h3>
+                <p class="wallet-label highlight-label">Income Wallet</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card wallet-card wallet-warning">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <div class="wallet-icon">
+                        <i class="fas fa-piggy-bank"></i>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-icon" type="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ route('user.investments')}}">View Investments</a></li>
+                            <li><a class="dropdown-item" href="#">New Investment</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 class="wallet-amount highlight-amount">${{ $user->wallet3 }} USD</h3>
+                <p class="wallet-label highlight-label">Investment</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card wallet-card wallet-warning">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <div class="wallet-icon">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-icon" type="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{route('member.transactions.index')}}">View Transactions</a></li>
+                            <li><a class="dropdown-item" href="{{route('member.transactions.withdraw')}}">Request Withdrawal</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 class="wallet-amount highlight-amount">${{ $user->wallet4 }} USD</h3>
+                <p class="wallet-label highlight-label">Withdrawn</p>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+.wallet-amount{
+        font-size: 2.25rem !important;
+}
+/* Very big + almost white highlighted amount */
+.highlight-amount {
+    font-weight: 900;
+    font-size: 48px;  /* even bigger */
+    background: linear-gradient(90deg, #ffffff, #f2f2f2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0px 4px 12px rgba(255, 255, 255, 0.35);
+}
+
+/* Light white label */
+.highlight-label {
+    font-weight: 700;
+    font-size: 20px; /* bigger */
+    color: #ffffff;
+    opacity: 0.85;
+    text-shadow: 0px 2px 8px rgba(255, 255, 255, 0.3);
+    letter-spacing: 1px;
+}
+
+
+</style>
         
         <!-- Mobile Layout: Referral Card First -->
         <div class="d-block d-md-none mb-4">

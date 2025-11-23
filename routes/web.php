@@ -12,6 +12,7 @@ use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\SalaryIncomeController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\WalletAddressController;
 
 use App\Http\Controllers\ForgotPasswordController;
 use Illuminate\Support\Facades\Route;
@@ -186,6 +187,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/contacts/{id}', [ContactController::class, 'show'])->name('contacts.show');
     Route::delete('/contacts/{id}', [ContactController::class, 'destroy'])->name('contacts.destroy');
 });
-
+Route::middleware(['auth'])->group(function () {
+    Route::get('/my-account', [WalletAddressController::class, 'show'])->name('my-account');
+    Route::post('/my-account/wallet', [WalletAddressController::class, 'update'])->name('wallet.update');
+});
 require __DIR__.'/auth.php';
 

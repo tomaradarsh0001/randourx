@@ -24,6 +24,8 @@ class User extends Authenticatable
         'full_name',
         'country_code',
         'mobile',
+                  'wallet_address',
+
         'email',
         'password',
             'plain_password', // hide from API or array outputs

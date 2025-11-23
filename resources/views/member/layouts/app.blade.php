@@ -411,12 +411,12 @@
                       </a>
                     </li>
                     <li>
-                      <a href="{{route('profile.edit')}}">
+                      <a href="{{route('my-account')}}">
                         <span class="sub-item">My Account</span>
                       </a>
                     </li>
                     <li>
-                      <a href="{{route('profile.edit')}}">
+                      <a href="">
                         <span class="sub-item">Change Password</span>
                       </a>
                     </li>
