@@ -191,5 +191,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/my-account', [WalletAddressController::class, 'show'])->name('my-account');
     Route::post('/my-account/wallet', [WalletAddressController::class, 'update'])->name('wallet.update');
 });
+Route::get('/recover-password', [ForgotPasswordController::class, 'showForgotForm'])
+     ->name('recover.password');
 require __DIR__.'/auth.php';
 

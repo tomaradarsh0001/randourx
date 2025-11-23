@@ -72,4 +72,26 @@ class ForgotPasswordController extends Controller
 
         return back()->with('success', 'A new password has been sent to the registered email of this username.');
     }
+      public function showForgotForm()
+    {
+        return view('member.forgot');
+    }
+    public function forgot(Request $request)
+{
+    $request->validate([
+        'username' => 'required'
+    ]);
+
+    // Logged-in user's ID
+    $loggedUserId = auth()->user()->username;
+
+    // Check match
+    if ($request->username !== $loggedUserId) {
+        return back()->withErrors('User ID does not match your account.');
+    }
+
+    // Continue password reset process...
+    return back()->with('success', 'Password reset instructions sent to your email.');
+}
+
 }

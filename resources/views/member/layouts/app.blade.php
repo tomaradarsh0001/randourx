@@ -416,7 +416,7 @@
                       </a>
                     </li>
                     <li>
-                      <a href="">
+                      <a href="{{route('recover.password')}}">
                         <span class="sub-item">Change Password</span>
                       </a>
                     </li>
