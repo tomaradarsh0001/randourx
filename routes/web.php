@@ -193,7 +193,7 @@ Route::middleware(['auth'])->group(function () {
 });
 Route::get('/recover-password', [ForgotPasswordController::class, 'showForgotForm'])
      ->name('recover.password');
-     // Add this route - make sure it's in your member routes group if you have one
-Route::post('/change-password', [ForgotPasswordController::class, 'changePassword'])->name('change.password');
+     Route::post('/change-password', [ForgotPasswordController::class, 'changePassword'])->name('change.password');
+
 require __DIR__.'/auth.php';
 

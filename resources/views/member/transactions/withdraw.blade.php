@@ -39,7 +39,9 @@
                             <label for="payment_method" class="form-label">Withdrawal Method</label>
                             <select class="form-select @error('payment_method') is-invalid @enderror" 
                                     id="payment_method" name="payment_method" required>
-                                <option value="Cryptocurrency" {{ old('payment_method') == 'Cryptocurrency' ? 'selected' : '' }}>Cryptocurrency</option>                            </select>
+                              
+                                <option value="Cryptocurrency" {{ old('payment_method') == 'Cryptocurrency' ? 'selected' : '' }}>Cryptocurrency</option>
+                            </select>
                             @error('payment_method')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

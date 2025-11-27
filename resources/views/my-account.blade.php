@@ -35,7 +35,7 @@
             @endif
 
             <!-- Wallet Address Card -->
-            <div class="card shadow-sm border-0 mb-4">
+            <div class="card shadow-sm border-0 margin54">
                 <!-- Card Header -->
                 <div class="card-header bg-primary text-white py-3">
                     <div class="d-flex align-items-center">
@@ -60,20 +60,41 @@
                             </div>
                             
                             <div class="bg-light rounded p-3 border">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="d-flex align-items-center">
-                                        <i class="fas fa-key text-muted mr-3"></i>
-                                        <code class="text-dark font-monospace small break-all">
-                                            {{ $user->wallet_address }}
-                                        </code>
+                                <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
+                                    <div class="d-flex align-items-center mb-2 mb-md-0 w-100">
+                                        <i class="fas fa-key text-muted mr-3 flex-shrink-0"></i>
+                                        <div class="wallet-address-container w-100">
+                                            <!-- Truncated display -->
+                                            <code class="text-dark font-monospace small wallet-address" 
+                                                  id="walletDisplay"
+                                                  data-full-address="{{ $user->wallet_address }}">
+                                                {{ Str::length($user->wallet_address) > 15 ? Str::substr($user->wallet_address, 0, 15) . '...' : $user->wallet_address }}
+                                            </code>
+                                            <!-- Full address (hidden by default) -->
+                                            <code class="text-dark font-monospace small wallet-address d-none" 
+                                                  id="walletFull">
+                                                {{ $user->wallet_address }}
+                                            </code>
+                                        </div>
                                     </div>
-                                    <button 
-                                        onclick="copyToClipboard('{{ $user->wallet_address }}')"
-                                        class="btn btn-sm btn-outline-primary d-flex align-items-center"
-                                    >
-                                        <i class="fas fa-copy mr-1"></i>
-                                        Copy
-                                    </button>
+                                    <div class="d-flex gap-2 mt-2 mt-md-0 flex-shrink-0">
+                                        <button 
+                                            onclick="toggleWalletAddress()"
+                                            class="btn btn-sm btn-outline-secondary d-flex align-items-center"
+                                            id="toggleBtn"
+                                            title="Toggle full address"
+                                        >
+                                            <i class="fas fa-eye mr-1"></i>
+                                            <span class="d-none d-sm-inline">Show</span>
+                                        </button>
+                                        <button 
+                                            onclick="copyToClipboard('{{ $user->wallet_address }}')"
+                                            class="btn btn-sm btn-outline-primary d-flex align-items-center"
+                                        >
+                                            <i class="fas fa-copy mr-1"></i>
+                                            <span class="d-none d-sm-inline">Copy</span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                             
@@ -185,11 +206,11 @@
 function copyToClipboard(text) {
     navigator.clipboard.writeText(text).then(function() {
         // Show success message
-        const button = event.target;
+        const button = event.target.closest('button');
         const originalHtml = button.innerHTML;
         button.innerHTML = `
             <i class="fas fa-check mr-1"></i>
-            Copied!
+            <span class="d-none d-sm-inline">Copied!</span>
         `;
         button.classList.remove('btn-outline-primary');
         button.classList.add('btn-success');
@@ -201,7 +222,29 @@ function copyToClipboard(text) {
         }, 2000);
     }).catch(function(err) {
         console.error('Failed to copy: ', err);
+        alert('Failed to copy to clipboard. Please copy manually.');
     });
+}
+
+// Toggle between truncated and full wallet address
+function toggleWalletAddress() {
+    const displayElement = document.getElementById('walletDisplay');
+    const fullElement = document.getElementById('walletFull');
+    const toggleBtn = document.getElementById('toggleBtn');
+    
+    if (displayElement.classList.contains('d-none')) {
+        // Show truncated
+        displayElement.classList.remove('d-none');
+        fullElement.classList.add('d-none');
+        toggleBtn.innerHTML = '<i class="fas fa-eye mr-1"></i><span class="d-none d-sm-inline">Show</span>';
+        toggleBtn.title = "Show full address";
+    } else {
+        // Show full
+        displayElement.classList.add('d-none');
+        fullElement.classList.remove('d-none');
+        toggleBtn.innerHTML = '<i class="fas fa-eye-slash mr-1"></i><span class="d-none d-sm-inline">Hide</span>';
+        toggleBtn.title = "Hide full address";
+    }
 }
 
 // Character counter and validation
@@ -244,6 +287,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     e.preventDefault();
                 }
             });
+        }
+    }
+    
+    // Auto-truncate long wallet addresses in display mode
+    const walletDisplay = document.getElementById('walletDisplay');
+    if (walletDisplay) {
+        const fullAddress = walletDisplay.getAttribute('data-full-address');
+        if (fullAddress && fullAddress.length > 15) {
+            walletDisplay.textContent = fullAddress.substring(0, 15) + '...';
         }
     }
     
@@ -341,9 +393,27 @@ document.addEventListener('DOMContentLoaded', function() {
 .badge {
     font-size: 0.75rem;
 }
+.margin54{
+    margin-bottom: 0.5rem !important;
+}
 
 .font-monospace {
     font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+/* Wallet address container for mobile responsiveness */
+.wallet-address-container {
+    min-width: 0; /* Important for text overflow */
+}
+
+.wallet-address {
+    word-break: break-all;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-width: 100%;
+    display: block;
+    line-height: 1.4;
 }
 
 /* Custom scrollbar for code elements */
@@ -392,6 +462,87 @@ code::-webkit-scrollbar-thumb:hover {
 
 .text-purple {
     color: #6f42c1 !important;
+}
+
+.page-inner{
+   margin-bottom: 90px;   
+}
+
+/* Wallet address display styling */
+#walletDisplay, #walletFull {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.02);
+}
+
+#walletDisplay:hover, #walletFull:hover {
+    color: #007bff !important;
+    background: rgba(0, 123, 255, 0.05);
+}
+
+.gap-2 {
+    gap: 0.5rem;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 767.98px) {
+    .card-body {
+        padding: 1rem !important;
+    }
+    
+    .wallet-address {
+        font-size: 0.8rem;
+        padding: 6px 8px;
+    }
+    
+    .btn-sm {
+        padding: 0.375rem 0.5rem;
+        font-size: 0.775rem;
+    }
+    
+    /* Ensure buttons stack properly on mobile */
+    .d-flex.gap-2 {
+        width: 100%;
+        justify-content: flex-end;
+    }
+    
+    /* Adjust layout for mobile */
+    .d-flex.flex-column.flex-md-row .wallet-address-container {
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 575.98px) {
+    .wallet-address {
+        font-size: 0.75rem;
+    }
+    
+    .btn-sm {
+        padding: 0.25rem 0.375rem;
+        font-size: 0.7rem;
+    }
+    
+    /* Make buttons icon-only on very small screens */
+    .btn-sm span.d-none.d-sm-inline {
+        display: none !important;
+    }
+    
+    .btn-sm i {
+        margin-right: 0 !important;
+    }
+}
+
+/* Ensure proper text breaking on all devices */
+.wallet-address {
+    white-space: normal !important;
+}
+
+/* Add smooth transitions */
+.wallet-address {
+    transition: all 0.3s ease;
 }
 </style>
 
