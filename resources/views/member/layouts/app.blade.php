@@ -390,7 +390,7 @@
                     </li>
                    
                     <li>
-                      <a href="{{ route('member.transactions.index')}}">
+                      <a href="{{ route('member.transactions.withdraw')}}">
                         <span class="sub-item">Fund Withdrawal Report</span>
                       </a>
                     </li>
