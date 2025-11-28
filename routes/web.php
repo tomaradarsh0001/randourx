@@ -13,6 +13,7 @@ use App\Http\Controllers\SalaryIncomeController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\WalletAddressController;
+use App\Http\Controllers\FundTransferController;
 
 use App\Http\Controllers\ForgotPasswordController;
 use Illuminate\Support\Facades\Route;
@@ -126,10 +127,23 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::post('/roi/manual', [RoiRateController::class, 'manualProcess'])->name('roi.manual');
 
 });
+// routes/web.php
 
+ Route::prefix('fund-transfer')->group(function () {
+        Route::get('/', [FundTransferController::class, 'showTransferForm'])->name('transfer.form');
+        Route::post('/transfer', [FundTransferController::class, 'transfer'])->name('transfer.execute');
+        Route::get('/history', [FundTransferController::class, 'history'])->name('transfer.history');
+           Route::post('/validate-user', [FundTransferController::class, 'validateUser'])->name('user.validate');
+        Route::post('/search-users', [FundTransferController::class, 'searchUsers'])->name('user.search');
+    });
+
+    // Admin routes
+    Route::middleware(['admin'])->prefix('admin')->group(function () {
+        Route::get('/fund-transfers', [FundTransferController::class, 'adminHistory'])->name('admin.transfers.history');
+    });
  Route::prefix('transactions')->group(function () {
         Route::get('/deposits', [TransactionController::class, 'index'])->name('member.transactions.index');
-        Route::get('/withdraws', [TransactionController::class, 'withdraw'])->name('member.transactions.withdraw');
+        Route::get('/withdraws', [TransactionController::class, 'withdraw'])->name('member.transactions.withdraws');
         Route::get('/deposit', [TransactionController::class, 'createDeposit'])->name('member.transactions.deposit');
         Route::post('/deposit', [TransactionController::class, 'storeDeposit'])->name('member.transactions.deposit.store');
         Route::get('/withdraw', [TransactionController::class, 'createWithdrawal'])->name('member.transactions.withdraw');

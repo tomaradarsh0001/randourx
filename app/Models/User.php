@@ -89,4 +89,14 @@ class User extends Authenticatable
     {
         return $this->is_admin === 1;
     }
+      public function sentTransfers()
+    {
+        return $this->hasMany(FundTransfer::class, 'from_user_id');
+    }
+
+    // Received transfers
+    public function receivedTransfers()
+    {
+        return $this->hasMany(FundTransfer::class, 'to_user_id');
+    }
 }

@@ -261,6 +261,11 @@
                         <span class="sub-item">View Transactions</span>
                       </a>
                     </li>
+                     <li>
+                      <a href="{{ route('admin.transfers.history)}}">
+                        <span class="sub-item">Funds Transfer Report</span>
+                      </a>
+                    </li>
                   </ul>
                 </div>
               </li>

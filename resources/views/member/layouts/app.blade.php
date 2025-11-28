@@ -362,6 +362,12 @@
                         <span class="sub-item">Withdrawal Request</span>
                       </a>
                     </li>
+                      <li>
+                      <a href="{{ route('transfer.form')}}">
+                        <span class="sub-item">Transfer Funds</span>
+                      </a>
+                    </li>
+                    
                   </ul>
                 </div>
               </li>
@@ -390,8 +396,13 @@
                     </li>
                    
                     <li>
-                      <a href="{{ route('member.transactions.withdraw')}}">
+                      <a href="{{ route('member.transactions.withdraws')}}">
                         <span class="sub-item">Fund Withdrawal Report</span>
+                      </a>
+                    </li>
+                     <li>
+                      <a href="{{ route('transfer.history')}}">
+                        <span class="sub-item">Funds Transfer Report</span>
                       </a>
                     </li>
                   </ul>
