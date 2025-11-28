@@ -128,7 +128,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 });
 
  Route::prefix('transactions')->group(function () {
-        Route::get('/', [TransactionController::class, 'index'])->name('member.transactions.index');
+        Route::get('/deposits', [TransactionController::class, 'index'])->name('member.transactions.index');
+        Route::get('/withdraws', [TransactionController::class, 'withdraw'])->name('member.transactions.withdraw');
         Route::get('/deposit', [TransactionController::class, 'createDeposit'])->name('member.transactions.deposit');
         Route::post('/deposit', [TransactionController::class, 'storeDeposit'])->name('member.transactions.deposit.store');
         Route::get('/withdraw', [TransactionController::class, 'createWithdrawal'])->name('member.transactions.withdraw');
