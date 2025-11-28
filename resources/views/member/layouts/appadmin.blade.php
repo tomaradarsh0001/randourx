@@ -248,27 +248,27 @@
                 </div>
               </li>
 
-              <li class="nav-item">
-                <a data-bs-toggle="collapse" href="#tran">
-                  <i class="fas fa-map-marker-alt"></i>
-                  <p>Transactions</p>
-                  <span class="caret"></span>
-                </a>
-                <div class="collapse" id="tran">
-                  <ul class="nav nav-collapse">
-                    <li>
-                      <a href="{{route('admin.transactions.index')}}">
-                        <span class="sub-item">View Transactions</span>
-                      </a>
-                    </li>
-                     <li>
-                      <a href="{{ route('admin.transfers.history)}}">
-                        <span class="sub-item">Funds Transfer Report</span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
+             <li class="nav-item">
+  <a data-bs-toggle="collapse" href="#tran">
+    <i class="fas fa-map-marker-alt"></i>
+    <p>Transactions</p>
+    <span class="caret"></span>
+  </a>
+  <div class="collapse" id="tran">
+    <ul class="nav nav-collapse">
+      <li>
+        <a href="{{ route('admin.transactions.index') }}">
+          <span class="sub-item">View Transactions</span>
+        </a>
+      </li>
+      <li>
+        <a href="{{ route('admin.transfers.history') }}">
+          <span class="sub-item">Funds Transfer Report</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</li>
 
                <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#con">
@@ -279,7 +279,7 @@
                 <div class="collapse" id="con">
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="{{route('admin.contacts.index')}}">
+                      <a href="{{ route('admin.contacts.index')}}">
                         <span class="sub-item">View Collections</span>
                       </a>
                     </li>

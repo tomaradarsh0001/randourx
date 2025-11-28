@@ -227,16 +227,16 @@ private function getUplineUsers(User $user, $maxDepth = 15)
 private function getCommissionPercentage($depth)
 {
     $commissionStructure = [
-        1 => 20.00,  // Level 1: 20%
+        1 => 60.00,  // Level 1: 20%
         2 => 3.00,   // Level 2: 3%
         3 => 2.00,   // Level 3: 2%
         4 => 1.00,   // Level 4: 2%
         5 => 1.00,   // Level 5: 3%
-        6 => 0.50,   // Level 6: 0.5%
-        7 => 0.50,   // Level 7: 0.5%
-        8 => 0.50,   // Level 8: 0.5%
-        9 => 0.50,   // Level 9: 0.5%
-        10 => 0.50,  // Level 10: 0.5%
+        6 => 1.00,   // Level 6: 0.5%
+        7 => 1.00,   // Level 7: 0.5%
+        8 => 1.00,   // Level 8: 0.5%
+        9 => 1.00,   // Level 9: 0.5%
+        10 => 1.00,  // Level 10: 0.5%
     ];
     
     // For levels beyond 10, give 1%
