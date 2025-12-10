@@ -19,15 +19,20 @@ class ForgotPasswordMail extends Mailable
         $this->newPassword = $newPassword;
     }
 
+ 
+    
     public function build()
-    {
-        return $this->subject('Your New Password - Randourx')
-                    ->view('emails.forgot_password')
-                    ->with([
-                          'full_user' => $this->user["full_name"],
-                        'username' => $this->user["username"],
-                        'email' => $this->user["email"],
-                        'newPassword' => $this->newPassword,
-                    ]);
-    }
+{
+    // Use the exact filename that exists in your views/emails folder
+    return $this->to($this->user->email)
+                ->subject('Password Reset Request - bitlom.io')
+                ->view('emails.forgot_password') // or 'emails.forgot-password'
+                ->with([
+                    'user' => $this->user,
+                      'full_user' => $this->user["full_name"],
+                      'username' => $this->user["username"],
+                      'email' => $this->user["email"],
+                      'newPassword' => $this->newPassword,
+                ]);
+}
 }

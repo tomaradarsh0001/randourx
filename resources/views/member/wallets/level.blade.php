@@ -159,11 +159,11 @@
                                 @if($levelData && $levelData->transaction_count > 0)
                                     @php
                                         $percentage = 0;
-                                        if($level == 1) $percentage = 20;
+                                        if($level == 1) $percentage = 60;
                                         elseif($level == 2) $percentage = 3;
-                                        elseif($level == 3 || $level == 4) $percentage = 2;
-                                        elseif($level == 5) $percentage = 3;
-                                        elseif($level >= 6 && $level <= 10) $percentage = 0.5;
+                                        elseif($level == 3 ) $percentage = 2;
+                                        elseif($level == 4) $percentage = 1;
+                                        elseif($level >= 6 && $level <= 10) $percentage = 1;
                                         else $percentage = 1;
 
                                         $total = $levelData->total_commission ?? 0;
@@ -205,11 +205,11 @@
     @for($i = 1; $i <= 15; $i++)
         @php
             $percentage = 0;
-            if($i == 1) $percentage = 20;
+            if($i == 1) $percentage = 60;
             elseif($i == 2) $percentage = 3;
-            elseif($i == 3 || $i == 4) $percentage = 2;
-            elseif($i == 5) $percentage = 3;
-            elseif($i >= 6 && $i <= 10) $percentage = 0.5;
+            elseif($i == 3 ) $percentage = 2;
+            elseif($i == 4) $percentage = 1;
+            elseif($i >= 6 && $i <= 10) $percentage = 1;
             else $percentage = 1;
             
             $levelData = $commissionByLevel->get($i);
@@ -229,11 +229,7 @@
                 8 => '#34495e', 
                 9 => '#34495e',
                 10 => '#34495e',
-                11 => '#7f8c8d',
-                12 => '#7f8c8d',
-                13 => '#7f8c8d',
-                14 => '#7f8c8d',
-                15 => '#7f8c8d'
+               
             ];
             $levelColor = $levelColors[$i] ?? '#6c757d';
         @endphp

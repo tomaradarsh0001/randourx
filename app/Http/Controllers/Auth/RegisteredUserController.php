@@ -38,7 +38,6 @@ public function create(): View
 }
 
 
-
  public function store(Request $request): RedirectResponse
 {
     try {

@@ -37,12 +37,8 @@
                                     <label for="payment_method" class="form-label fw-semibold">Payment Method</label>
                                     <select class="form-select @error('payment_method') is-invalid @enderror" 
                                             id="payment_method" name="payment_method" required>
-                                        <option value="" disabled selected>Select payment method</option>
-                                        <option value="Bank Transfer" {{ old('payment_method') == 'Bank Transfer' ? 'selected' : '' }}>Bank Transfer</option>
-                                        <option value="PayPal" {{ old('payment_method') == 'PayPal' ? 'selected' : '' }}>PayPal</option>
-                                        <option value="Credit Card" {{ old('payment_method') == 'Credit Card' ? 'selected' : '' }}>Credit Card</option>
+                                       
                                         <option value="Cryptocurrency" {{ old('payment_method') == 'Cryptocurrency' ? 'selected' : '' }}>Cryptocurrency</option>
-                                        <option value="Other" {{ old('payment_method') == 'Other' ? 'selected' : '' }}>Other</option>
                                     </select>
                                     @error('payment_method')
                                         <div class="invalid-feedback">{{ $message }}</div>

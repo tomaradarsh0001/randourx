@@ -14,10 +14,21 @@ class TransactionController extends Controller
     public function index()
     {
         $transactions = Auth::user()->transactions()
+            ->where('type', 'deposit')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
             
         return view('member.transactions.index', compact('transactions'));
+    }
+
+     public function withdraw()
+    {
+        $transactions = Auth::user()->transactions()
+        ->where('type', 'withdrawal')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+            
+        return view('member.transactions.withdrawal', compact('transactions'));
     }
 
     public function createDeposit()

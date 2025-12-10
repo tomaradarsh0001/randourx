@@ -24,6 +24,8 @@ class User extends Authenticatable
         'full_name',
         'country_code',
         'mobile',
+                  'wallet_address',
+
         'email',
         'password',
             'plain_password', // hide from API or array outputs
@@ -86,5 +88,15 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->is_admin === 1;
+    }
+      public function sentTransfers()
+    {
+        return $this->hasMany(FundTransfer::class, 'from_user_id');
+    }
+
+    // Received transfers
+    public function receivedTransfers()
+    {
+        return $this->hasMany(FundTransfer::class, 'to_user_id');
     }
 }
