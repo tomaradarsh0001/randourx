@@ -85,15 +85,41 @@
                                     <!-- QR Code Placeholder -->
                                     <div class="text-center mt-3">
                                         <div class="qr-code-placeholder mx-auto bg-white p-3 rounded-3 shadow-sm" style="max-width: 200px;">
-                                            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTQwIDQwSDE2MHYxMjBINDBWNzBINDBWNDBaIiBmaWxsPSIjMzMzIi8+PHJlY3QgeD0iODAiIHk9IjgwIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIGZpbGw9IiMzMzMiLz48L3N2Zz4=" 
+                                            <img src="{{asset('images/dep.jpeg')}}" 
                                                  alt="QR Code" class="img-fluid">
                                         </div>
                                         <p class="small text-muted mt-3">
                                             Your screenshot should clearly show transaction details, amount, and reference ID.
                                         </p>
                                     </div>
+                                    <!-- Wallet Address Copy -->
+                                <div class="mt-3 text-center">
+                                    <input type="text"
+                                        id="walletAddress"
+                                        class="form-control text-center fw-semibold"
+                                        value="0x54Cc65c6B4e16ef2e8B23729058CF4245b262046"
+                                        readonly
+                                        onclick="copyWalletAddress()">
+        
+                                    <small class="text-muted d-block mt-1">
+                                        Click to copy wallet address
+                                    </small>
+                                </div>
+        <!-- Copy Toast -->
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="copyToast" class="toast align-items-center text-bg-success border-0" role="alert">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        ✅ Wallet address copied!
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                            data-bs-dismiss="toast"></button>
+                </div>
+            </div>
+        </div>
                                 </div>
                             </div>
+
                         </div>
 
                         <!-- Submit Button -->
@@ -108,8 +134,33 @@
         </div>
     </div>
 </div>
+<script>
+function copyWalletAddress() {
+    const input = document.getElementById('walletAddress');
+    input.select();
+    input.setSelectionRange(0, 99999);
+
+    navigator.clipboard.writeText(input.value).then(() => {
+        const toastEl = document.getElementById('copyToast');
+        const toast = new bootstrap.Toast(toastEl, { delay: 2000 });
+        toast.show();
+    });
+}
+</script>
 
 <style>
+    #walletAddress {
+    cursor: pointer;
+    background-color: #f8f9fa;
+    border: 1px dashed #ced4da;
+}
+
+#walletAddress:focus {
+    outline: none;
+    box-shadow: none;
+    border-color: #0d6efd;
+}
+
     .mb-5 {
         margin-bottom: 6rem !important;
     }

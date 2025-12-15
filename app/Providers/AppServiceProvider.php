@@ -51,6 +51,23 @@ class AppServiceProvider extends ServiceProvider
                 ->where('d.depth', '>', 0)
                 ->select('u.id', 'u.wallet3', 'd.depth')
                 ->get();
+
+               $recentDeposits = \DB::table('transactions')
+                ->where('user_id', auth()->id())
+                ->where('type', 'deposit')
+                ->latest()
+                ->limit(5)
+                ->select('amount', 'reference_id', 'status', \DB::raw("DATE_FORMAT(created_at, '%d %b %Y, %h:%i %p') as created_at"))
+                ->get();
+
+
+            $recentWithdrawals = \DB::table('transactions')
+                ->where('user_id', auth()->id())
+                ->where('type', 'withdrawal')
+                ->latest()
+                ->limit(5)
+                ->get(['amount', 'reference_id', 'status', 'created_at']);
+
                 
             $totalBusinessDownline = $downlines->sum('wallet3') + $user->wallet3;
             $totalBusiness = $totalBusinessDownline + $user->wallet3;
@@ -74,7 +91,9 @@ class AppServiceProvider extends ServiceProvider
                 'user',
                 'salaryProgress',
                 'isEligibleForSalary',
-                'showSalaryModal'
+                'showSalaryModal',
+                'recentDeposits',
+                'recentWithdrawals'
             ));
         });
     }

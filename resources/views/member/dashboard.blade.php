@@ -21,6 +21,192 @@
                 </div>
             </div>
         </div>
+      @if($showSalaryModal && $isEligibleForSalary)
+<div id="salaryNewsBanner" class="salary-news-banner">
+    <div class="banner-content">
+        <div class="banner-left">
+            <div class="banner-icon">
+                <i class="fas fa-bullhorn"></i>
+            </div>
+
+            <div class="banner-text">
+                <div class="banner-title">
+                    🎉 Congratulations! Level {{ $salaryProgress['currentLevel'] }} Achieved
+                </div>
+
+                <div class="banner-subtext">
+                    💼 Total Business:
+                    <strong>${{ number_format($totalBusinessDownline, 2) }}</strong>
+                    &nbsp; | &nbsp;
+                    ⏳ Days Elapsed:
+                    <strong>{{ $salaryProgress['daysElapsed'] }}</strong>
+                </div>
+
+                <div class="banner-action">
+                    👉 Add a <strong>direct user</strong> with investment of
+                    <strong>${{ number_format($lastDeposit, 2) }}</strong> or more
+                    to unlock your <strong>salary income</strong>.
+                </div>
+
+                <!-- 🔹 Progress Bars -->
+                <div class="banner-progress">
+                    @foreach($salaryProgress['levels'] as $level)
+                        <div class="progress-item">
+                            <span class="progress-label">
+                                L{{ $level['level'] }} – ${{ number_format($level['amount']) }}
+                            </span>
+                            <div class="progress progress-sm">
+                                <div class="progress-bar 
+                                    {{ $level['status'] == 'achieved' ? 'bg-success' : 'bg-warning' }}"
+                                    style="width: {{ $level['percent'] }}%">
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+
+        <div class="banner-right">
+            <button class="btn btn-sm btn-light" onclick="copyReferralCode()">
+                <i class="fas fa-link"></i> Copy Referral Link
+            </button>
+
+            <button class="banner-close" onclick="closeSalaryBanner()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+    
+</div>
+@endif
+
+
+<style>
+    .banner-progress {
+    margin-top: 6px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.progress-item {
+    min-width: 130px;
+    font-size: 11px;
+}
+
+.progress-label {
+    display: block;
+    margin-bottom: 2px;
+    opacity: 0.9;
+    font-weight: 600;
+}
+
+.progress-sm {
+    height: 5px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-sm .progress-bar {
+    height: 100%;
+    border-radius: 4px;
+}
+
+  .salary-news-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1055;
+    background: linear-gradient(90deg, #0d6efd, #6f42c1);
+    color: #fff;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.18);
+    animation: slideDown 0.5s ease-in-out;
+}
+
+.banner-content {
+    max-width: 1200px;
+    margin: auto;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.banner-left {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+}
+
+.banner-icon {
+    background: rgba(255,255,255,0.2);
+    padding: 10px;
+    border-radius: 50%;
+    font-size: 22px;
+}
+
+.banner-title {
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.banner-subtext {
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+.banner-action {
+    font-size: 13px;
+    margin-top: 2px;
+}
+
+.banner-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.banner-close {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.banner-close:hover {
+    color: #ffdede;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+</style>
+<script>
+function closeSalaryBanner() {
+    document.getElementById('salaryNewsBanner').style.display = 'none';
+}
+
+function copyReferralCode() {
+    const copyText = document.getElementById("url");
+    navigator.clipboard.writeText(copyText.value).then(() => {
+        alert('Referral link copied!');
+    });
+}
+</script>
+
+
         
         <!-- Wallet Cards -->
         <div class="row mb-4">
@@ -370,6 +556,318 @@
                 </div>
             </div>
         </div>
+        <style>
+            .mt-44 {
+    margin-top: -1rem !important;
+        margin-bottom: 8rem !important;
+}
+        </style>
+<div class="row mt-44">
+
+    <!-- Recent Deposits -->
+    <div class="col-md-6 mb-4 mb-md-0">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-header bg-success text-white d-flex align-items-center">
+                <i class="fas fa-arrow-down me-2"></i>
+                <strong>Recent Deposits</strong>
+                <span class="badge bg-light text-dark ms-2">{{ count($recentDeposits) }}</span>
+            </div>
+
+            <div class="card-body p-0">
+                <!-- Mobile View - Card Layout -->
+                <div class="d-block d-md-none">
+                    @forelse($recentDeposits as $deposit)
+                    <div class="transaction-card border-bottom p-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <div class="d-flex align-items-center mb-1">
+                                    <span class="badge bg-success-light text-success me-2">DEP</span>
+                                    <h6 class="mb-0 fw-bold">${{ number_format($deposit->amount, 2) }}</h6>
+                                </div>
+                                <small class="text-muted">
+                                    <i class="far fa-clock me-1"></i>
+                                    {{ \Carbon\Carbon::parse($deposit->created_at)->format('M d, H:i') }}
+                                </small>
+                            </div>
+                            <div class="text-end">
+                                <span class="badge bg-{{ $deposit->status == 'approved' ? 'success' : ($deposit->status == 'pending' ? 'warning' : 'danger') }}">
+                                    {{ ucfirst($deposit->status) }}
+                                </span>
+                                <br>
+                                <small class="text-muted mt-1 d-block">ID: {{ substr($deposit->reference_id, -6) }}</small>
+                            </div>
+                        </div>
+                    </div>
+                    @empty
+                    <div class="text-center py-5">
+                        <div class="mb-3">
+                            <i class="fas fa-wallet fa-2x text-muted"></i>
+                        </div>
+                        <p class="text-muted mb-0">No deposits found</p>
+                    </div>
+                    @endforelse
+                </div>
+
+                <!-- Desktop View - Table Layout -->
+                <div class="d-none d-md-block">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="ps-4">Amount</th>
+                                    <th>Date</th>
+                                    <th class="pe-4">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($recentDeposits as $deposit)
+                                <tr class="clickable-row" onclick="window.location='{{ route('member.deposit.history') }}'">
+                                    <td class="ps-4 fw-semibold text-success">
+                                        <span class="badge bg-success-light text-success me-2">+</span>
+                                        ${{ number_format($deposit->amount, 2) }}
+                                    </td>
+                                    <td>
+                                        <div>{{ \Carbon\Carbon::parse($deposit->created_at)->format('M d, Y') }}</div>
+                                        <small class="text-muted">{{ \Carbon\Carbon::parse($deposit->created_at)->format('H:i') }}</small>
+                                    </td>
+                                   
+                                    <td class="pe-4">
+                                        <span class="badge rounded-pill bg-{{ $deposit->status == 'approved' ? 'success' : ($deposit->status == 'pending' ? 'warning' : 'danger') }}-light text-{{ $deposit->status == 'approved' ? 'success' : ($deposit->status == 'pending' ? 'warning' : 'danger') }}">
+                                            <i class="fas fa-circle me-1" style="font-size: 6px;"></i>
+                                            {{ ucfirst($deposit->status) }}
+                                        </span>
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="4" class="text-center py-4">
+                                        <div class="mb-2">
+                                            <i class="fas fa-wallet fa-lg text-muted"></i>
+                                        </div>
+                                        <p class="text-muted mb-0">No deposits found</p>
+                                    </td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            @if(count($recentDeposits) > 0)
+            <div class="card-footer bg-transparent border-top-0 pt-0">
+                <a href="{{ route('member.deposit.history') }}" class="btn btn-sm btn-outline-success w-100">
+                    <i class="fas fa-history me-2"></i>View All Deposits
+                </a>
+            </div>
+            @endif
+        </div>
+    </div>
+
+    <!-- Recent Withdrawals -->
+    <div class="col-md-6">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-header bg-warning text-dark d-flex align-items-center">
+                <i class="fas fa-arrow-up me-2"></i>
+                <strong>Recent Withdrawals</strong>
+                <span class="badge bg-light text-dark ms-2">{{ count($recentWithdrawals) }}</span>
+            </div>
+
+            <div class="card-body p-0">
+                <!-- Mobile View - Card Layout -->
+                <div class="d-block d-md-none">
+                    @forelse($recentWithdrawals as $withdrawal)
+                    <div class="transaction-card border-bottom p-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <div class="d-flex align-items-center mb-1">
+                                    <span class="badge bg-danger-light text-danger me-2">WTH</span>
+                                    <h6 class="mb-0 fw-bold">${{ number_format($withdrawal->amount, 2) }}</h6>
+                                </div>
+                                <small class="text-muted">
+                                    <i class="far fa-clock me-1"></i>
+                                    {{ \Carbon\Carbon::parse($withdrawal->created_at)->format('M d, H:i') }}
+                                </small>
+                            </div>
+                            <div class="text-end">
+                                <span class="badge bg-{{ $withdrawal->status == 'approved' ? 'success' : ($withdrawal->status == 'pending' ? 'warning' : 'danger') }}">
+                                    {{ ucfirst($withdrawal->status) }}
+                                </span>
+                                <br>
+                                <small class="text-muted mt-1 d-block">
+                                    {{ $withdrawal->payment_method ?? 'Bank Transfer' }}
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    @empty
+                    <div class="text-center py-5">
+                        <div class="mb-3">
+                            <i class="fas fa-money-check-alt fa-2x text-muted"></i>
+                        </div>
+                        <p class="text-muted mb-0">No withdrawals found</p>
+                    </div>
+                    @endforelse
+                </div>
+
+                <!-- Desktop View - Table Layout -->
+                <div class="d-none d-md-block">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="ps-4">Amount</th>
+                                    <th>Date</th>
+                                    <th class="pe-4">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($recentWithdrawals as $withdrawal)
+                                <tr class="clickable-row" onclick="window.location='{{ route('member.transactions.index') }}'">
+                                    <td class="ps-4 fw-semibold text-danger">
+                                        <span class="badge bg-danger-light text-danger me-2">-</span>
+                                        ${{ number_format($withdrawal->amount, 2) }}
+                                    </td>
+                                    <td>
+                                        <div>{{ \Carbon\Carbon::parse($withdrawal->created_at)->format('M d, Y') }}</div>
+                                        <small class="text-muted">{{ \Carbon\Carbon::parse($withdrawal->created_at)->format('H:i') }}</small>
+                                    </td>
+                               
+                                    <td class="pe-4">
+                                        <span class="badge rounded-pill bg-{{ $withdrawal->status == 'approved' ? 'success' : ($withdrawal->status == 'pending' ? 'warning' : 'danger') }}-light text-{{ $withdrawal->status == 'approved' ? 'success' : ($withdrawal->status == 'pending' ? 'warning' : 'danger') }}">
+                                            <i class="fas fa-circle me-1" style="font-size: 6px;"></i>
+                                            {{ ucfirst($withdrawal->status) }}
+                                        </span>
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="4" class="text-center py-4">
+                                        <div class="mb-2">
+                                            <i class="fas fa-money-check-alt fa-lg text-muted"></i>
+                                        </div>
+                                        <p class="text-muted mb-0">No withdrawals found</p>
+                                    </td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            @if(count($recentWithdrawals) > 0)
+            <div class="card-footer bg-transparent border-top-0 pt-0">
+                <a href="{{ route('member.transactions.index') }}" class="btn btn-sm btn-outline-warning w-100">
+                    <i class="fas fa-history me-2"></i>View All Withdrawals
+                </a>
+            </div>
+            @endif
+        </div>
+    </div>
+
+</div>
+
+<!-- Add this CSS to your existing style section -->
+<style>
+    /* Transaction Cards for Mobile */
+    .transaction-card {
+        transition: all 0.2s ease;
+    }
+    
+    .transaction-card:hover {
+        background-color: rgba(0,0,0,0.02);
+    }
+    
+    /* Badge variations */
+    .bg-success-light {
+        background-color: rgba(25, 135, 84, 0.1) !important;
+    }
+    
+    .bg-warning-light {
+        background-color: rgba(255, 193, 7, 0.1) !important;
+    }
+    
+    .bg-danger-light {
+        background-color: rgba(220, 53, 69, 0.1) !important;
+    }
+    
+    /* Table hover effects */
+    .clickable-row {
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    
+    .clickable-row:hover {
+        background-color: rgba(0,0,0,0.03);
+        transform: translateX(2px);
+    }
+    
+    /* Card height consistency */
+    @media (min-width: 768px) {
+        .card.h-100 {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card.h-100 .card-body {
+            flex: 1;
+        }
+    }
+    
+    /* Mobile optimizations */
+    @media (max-width: 767.98px) {
+        .transaction-card {
+            padding: 12px 15px !important;
+        }
+        
+        .transaction-card h6 {
+            font-size: 15px;
+        }
+        
+        .transaction-card small {
+            font-size: 12px;
+        }
+        
+        .badge {
+            font-size: 11px;
+            padding: 4px 8px;
+        }
+    }
+    
+    /* Status badge colors */
+    .badge.bg-success {
+        background-color: #28a745 !important;
+    }
+    
+    .badge.bg-warning {
+        background-color: #ffc107 !important;
+        color: #212529 !important;
+    }
+    
+    .badge.bg-danger {
+        background-color: #dc3545 !important;
+    }
+    
+    /* Table improvements */
+    .table th {
+        font-weight: 600;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #6c757d;
+    }
+    
+    .table td {
+        vertical-align: middle;
+        padding: 12px 16px;
+    }
+    
+    /* Empty state styling */
+    .text-center.py-5 {
+        color: #adb5bd;
+    }
+</style>
 
         <!-- Mobile Layout: User Info Card After Income Stats -->
         <div class="d-blocks d-md-none">
@@ -446,143 +944,14 @@
                         </div>
                     </div>
                 </div>
+                
             </div>
+            
         </div>
         
-        @if($showSalaryModal && $isEligibleForSalary)
-        <!-- Salary Eligibility Modal -->
-        <div class="modal fade" id="salaryEligibilityModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-md modal-dialog-centered">
-                <div class="modal-content border-0 shadow-lg rounded-4">
-                    <!-- Header -->
-                    <div class="modal-header bg-gradient-primary text-white rounded-top-4 py-2">
-                        <div class="d-flex align-items-center">
-                            <div class="modal-icon me-2 fs-4">
-                                <i class="fas fa-trophy"></i>
-                            </div>
-                            <div>
-                                <h6 class="modal-title fw-bold mb-0">Congratulations!</h6>
-                                <small class="text-white-50">You've reached a new milestone</small>
-                            </div>
-                        </div>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-
-                    <!-- Body -->
-                    <div class="modal-body py-3 px-4">
-                        <div class="text-center mb-3">
-                            <h5 class="fw-semibold text-success mb-2">
-                                Level {{ $salaryProgress['currentLevel'] }} Achieved!
-                            </h5>
-                            <div class="achievement-badge mx-auto mb-2 bg-light border rounded-pill py-1 px-3 d-inline-flex align-items-center shadow-sm">
-                                <i class="fas fa-medal text-warning me-2"></i>
-                                <span class="fw-semibold">Level {{ $salaryProgress['currentLevel'] }}</span>
-                            </div>
-                        </div>
-
-                        <div class="row text-center mb-3">
-                            <div class="col-6">
-                                <div class="p-2 bg-light rounded-3 shadow-sm">
-                                    <i class="fas fa-chart-line text-primary mb-1"></i>
-                                    <h6 class="mb-0">${{ number_format($totalBusinessDownline, 2) }}</h6>
-                                    <small class="text-muted">Total Business</small>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="p-2 bg-light rounded-3 shadow-sm">
-                                    <i class="far fa-clock text-info mb-1"></i>
-                                    <h6 class="mb-0">{{ $salaryProgress['daysElapsed'] }}</h6>
-                                    <small class="text-muted">Days Elapsed</small>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Progress Levels -->
-                        <div class="progress-levels mb-3">
-                            <h6 class="fw-semibold text-secondary mb-2">Your Progress</h6>
-                            @foreach($salaryProgress['levels'] as $level)
-                            <div class="level-progress-item mb-2">
-                                <div class="d-flex justify-content-between small mb-1">
-                                    <span class="level-name">
-                                        <i class="fas fa-star me-1 text-warning"></i> 
-                                        Level {{ $level['level'] }}
-                                    </span>
-                                    <span class="level-amount fw-semibold">${{ number_format($level['amount']) }}</span>
-                                </div>
-                                <div class="progress" style="height: 6px;">
-                                    <div class="progress-bar bg-{{ $level['status'] == 'achieved' ? 'success' : 'warning' }}"
-                                        role="progressbar"
-                                        style="width: {{ $level['percent'] }}%;"
-                                        aria-valuenow="{{ $level['percent'] }}" aria-valuemin="0" aria-valuemax="100">
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
-                        </div>
-
-                        <!-- Eligibility Info -->
-                        <div class="alert alert-info shadow-sm rounded-3 py-2 px-3 small d-flex align-items-start mb-0">
-                            <div class="me-3 mt-1 text-info">
-                                <i class="fas fa-info-circle fa-lg"></i>
-                            </div>
-                            <div>
-                                <div class="fw-semibold text-dark mb-1">Next Step</div>
-                                <div class="text-muted">
-                                    Add a new <strong>direct user</strong> with an investment of 
-                                    <strong>${{ number_format($lastDeposit, 2) }}</strong> or more to claim your salary income.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Footer -->
-                    <div class="modal-footer border-0 pt-0 pb-3">
-                        <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">
-                            <i class="fas fa-times me-1"></i> Close
-                        </button>
-                        <button type="button" class="btn btn-primary btn-sm" id="claimRewardBtn" onclick="copyReferralCode()">
-                            <i class="fas fa-link me-1"></i> Copy Referral Link
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <script>
-        // Show the modal when conditions are met
-        document.addEventListener('DOMContentLoaded', function() {
-            @if($showSalaryModal && $isEligibleForSalary)
-            var salaryModal = new bootstrap.Modal(document.getElementById('salaryEligibilityModal'));
-            salaryModal.show();
-            @endif
-        });
-
-        function copyReferralCode() {
-            const btn = document.getElementById('claimRewardBtn');
-            const originalText = btn.innerHTML;
-            const copyText = document.getElementById("url");
-
-            // Select and copy text
-            copyText.select();
-            copyText.setSelectionRange(0, 99999);
-            navigator.clipboard.writeText(copyText.value);
-
-            // Change button state
-            btn.innerHTML = '<i class="fas fa-check me-1"></i> Copied!';
-            btn.classList.add('btn-success');
-            btn.classList.remove('btn-primary');
-
-            // Revert back after 2 seconds
-            setTimeout(() => {
-                btn.innerHTML = originalText;
-                btn.classList.remove('btn-success');
-                btn.classList.add('btn-primary');
-            }, 2000);
-        }
-        </script>
-        @endif
-    </div>
+        
 </div>
+
 
 <!-- Custom Styles -->
 <style>
