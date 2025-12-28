@@ -47,15 +47,7 @@
                             @enderror
                         </div>
                         
-                        <div class="mb-3">
-                            <label for="account_details" class="form-label">Account Details</label>
-                            <textarea class="form-control @error('account_details') is-invalid @enderror" 
-                                      id="account_details" name="account_details" rows="3" required
-                                      placeholder="Enter your account details for withdrawal (account number, PayPal email, crypto address, etc.)">{{ old('account_details') }}</textarea>
-                            @error('account_details')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                       
                         
                         <div class="d-grid">
                             <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">Submit Withdrawal Request</button>

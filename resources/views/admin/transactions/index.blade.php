@@ -40,6 +40,7 @@
                                     <th>User</th>
                                     <th>Type</th>
                                     <th>Amount</th>
+                                    <th>Amount after Deduction</th>
                                     <th>Payment Method</th>
                                     <th>Reference ID</th>
                                     <th>Status</th>
@@ -73,6 +74,9 @@
                                     </td>
                                     <td class="fw-bold text-{{ $transaction->type == 'deposit' ? 'success' : 'primary' }}">
                                         ${{ number_format($transaction->amount, 2) }}
+                                    </td>
+                                     <td class="fw-bold text-{{ $transaction->type == 'deposit' ? 'success' : 'primary' }}">
+                                        ${{ number_format($transaction->amount  * 0.90, 2) }}
                                     </td>
                                     <td>
                                         <span class="text-capitalize">{{ $transaction->payment_method }}</span>

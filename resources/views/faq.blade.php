@@ -259,7 +259,7 @@
             <i class="fas fa-plus"></i>
         </div>
         <div class="panal">
-            <p>The Minimum Amount of Deposit is $10. The Minimum Amount of Withdrawal is $5.<br>
+            <p>The Minimum Amount of Deposit is $5. The Minimum Amount of Withdrawal is $5.<br>
 			Withdrawal fees: 10%
 			
 			</p>

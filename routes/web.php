@@ -17,6 +17,8 @@ use App\Http\Controllers\FundTransferController;
 
 use App\Http\Controllers\ForgotPasswordController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
+
 use Illuminate\Http\Request;
 
 
@@ -30,7 +32,14 @@ use Illuminate\Http\Request;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/run-schedule', function () {
 
+    abort_unless(request('token') === 'aidfagiouyd83421', 403);
+
+    Artisan::call('schedule:run');
+
+    return 'Scheduler executed';
+});
 Route::get('/', function () {
     return view('welcome');
 });
@@ -130,7 +139,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 // routes/web.php
 
  Route::prefix('fund-transfer')->group(function () {
-        Route::get('/', [FundTransferController::class, 'showTransferForm'])->name('transfer.form');
+        Route::get('/form', [FundTransferController::class, 'showTransferForm'])->name('transfer.form');
         Route::post('/transfer', [FundTransferController::class, 'transfer'])->name('transfer.execute');
         Route::get('/history', [FundTransferController::class, 'history'])->name('transfer.history');
            Route::post('/validate-user', [FundTransferController::class, 'validateUser'])->name('user.validate');

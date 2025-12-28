@@ -75,7 +75,6 @@ class TransactionController extends Controller
         $validated = $request->validate([
             'amount' => 'required|numeric|min:1',
             'payment_method' => 'required|string|max:255',
-            'account_details' => 'required|string|max:500',
         ]);
 
         $user = Auth::user();
@@ -90,7 +89,7 @@ class TransactionController extends Controller
                 'type' => 'withdrawal',
                 'amount' => $validated['amount'],
                 'payment_method' => $validated['payment_method'],
-                'reference_id' => $validated['account_details'],
+                'reference_id' => 'N/A',
                 'status' => 'pending',
             ]);
 
@@ -98,7 +97,7 @@ class TransactionController extends Controller
             $user->increment('wallet4', $validated['amount']);
         });
 
-        return redirect()->route('member.transactions.index')
+        return redirect()->route('member.transactions.withdraws')
             ->with('success', 'Withdrawal request submitted successfully. Waiting for admin approval.');
     }
 

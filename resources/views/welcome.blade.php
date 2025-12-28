@@ -267,7 +267,7 @@
                                 <h6 class="text-white fw-semibold text-uppercase mb-0">PLAN A</h6>
                             </div>
                             <div class="plan-percentage">
-                                <h3 class="text-white fw-semibold">0.20%-0.90% <span class="text-white"> - till 2.5x</span>
+                                <h3 class="text-white fw-semibold">0.50% <span class="text-white"> </span>
                                 </h3>
                             </div>
                             <div class="table-height">
@@ -281,7 +281,7 @@
                                     <tbody>
                                         <tr>
                                             <td>$5</td>
-                                            <td>$12.5</td>
+                                            <td>$10</td>
                                         </tr>
                                        
                                        
@@ -310,7 +310,7 @@
                                     <tbody>
                                         <tr>
                                             <td>1 </td>
-                                            <td>20% </td>
+                                            <td>60% </td>
                                         </tr>
                                         <tr>
                                             <td>2</td>
@@ -321,17 +321,10 @@
                                             <td>2% </td>
                                         </tr>
                                         <tr>
-                                            <td>4-5</td>
+                                            <td>4-10</td>
                                             <td>1%</td>
                                         </tr>
-                                          <tr>
-                                            <td>6-10</td>
-                                            <td>0.5%</td>
-                                        </tr>
-                                          <tr>
-                                            <td>11-15</td>
-                                            <td>1%</td>
-                                        </tr>
+                                         
                                     </tbody>
                                 </table>
                             </div>
@@ -402,7 +395,7 @@
                         <div class="ref-img"> <img src="{{ asset('imagess/ref-ico.png') }}"> </div>
                         <div class="ref-value ms-3">
                             <h5 class="text-white fw-semibold mb-0">Level 1</h5>
-                            <span class="text-white fw-medium">20%</span>
+                            <span class="text-white fw-medium">60%</span>
                         </div>
                     </div>
                 </div>
@@ -645,7 +638,7 @@
                     <div class="company-email mt-4 mb-3">
                         <h6 class="text-white fw-medium mb-0">
                             <iconify-icon icon="radix-icons:dot-filled"></iconify-icon>
-                            E-Mail : randourx@gmail.com
+                            E-Mail : info@randourx.com
                         </h6>
                     </div>
                 </div>

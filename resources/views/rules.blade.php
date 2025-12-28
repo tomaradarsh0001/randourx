@@ -32,9 +32,9 @@
                     </div>
                     <div class="col-xl-4 col-lg-5">
                         <div class="server-time">
-                            <div class="server-time-img"> <img src="imagess/server-time.png"> </div>
+                            <div class="server-time-img"> <img src=> </div>
                             <div class="server-content ms-3">
-                                <h6 class="text-white fw-normal">Servertime : 19:13:08 PM</h6>
+                                <h6 class="text-white fw-normal"></h6>
                             </div>
                         </div>
                     </div>
@@ -140,10 +140,10 @@
 
 You agree to be of legal age in your country to partake in this program, and in all the cases your minimal age must be 18 years.<br><br>
 
-bitlom.io is not available to the general public and is opened only to the qualified members of bitlom.io, the use of this site is restricted to our members and to individuals personally invited by them. Every deposit is considered to be a private transaction between the bitlom.io and its Member.<br><br>
+randour-x is not available to the general public and is opened only to the qualified members of randour-x.com, the use of this site is restricted to our members and to individuals personally invited by them. Every deposit is considered to be a private transaction between the randour-x.com and its Member.<br><br>
 	
 As a private transaction, this program is exempt from the US Securities Act of 1933, the US Securities Exchange Act of 1934 and the US Investment Company Act of 1940 and all other rules, regulations and amendments thereof. We are not FDIC insured. We are not a licensed bank or a security firm.<br><br>
-  You agree that all information, communications, materials coming from bitlom.io 
+  You agree that all information, communications, materials coming from randour-x.com
   are unsolicited and must be kept private, confidential and protected from any 
   disclosure. Moreover, the information, communications and materials contained 
   herein are not to be regarded as an offer, nor a solicitation for investments 
@@ -151,7 +151,7 @@ As a private transaction, this program is exempt from the US Securities Act of 1
   nor to any person to whom it will be unlawful to make such offer or solicitation.<br>
   <br>
 
-All the data giving by a member to bitlom.io will be only privately used and not disclosed to any third parties. bitlom.io is not responsible or liable for any loss of data.<br><br>
+All the data giving by a member to randour-x.com will be only privately used and not disclosed to any third parties. randour-x.com is not responsible or liable for any loss of data.<br><br>
   You agree to hold all principals and members harmless of any liability. You 
   are investing at your own risk and you agree that a past performance is not 
   an explicit guarantee for the same future performance. You agree that all information, 
@@ -164,13 +164,13 @@ All the data giving by a member to bitlom.io will be only privately used and not
   it is your sole responsibility to review the current terms. <br>
   <br>
 
-bitlom.io is not responsible or liable for any damages, losses and costs resulting from any violation of the conditions and terms and/or use of our website by a member. You guarantee to bitlom.io that you will not use this site in any illegal way and you agree to respect your local, national and international laws.<br><br>
+randour-x.com is not responsible or liable for any damages, losses and costs resulting from any violation of the conditions and terms and/or use of our website by a member. You guarantee to randour-x.com that you will not use this site in any illegal way and you agree to respect your local, national and international laws.<br><br>
 
 Don't post bad vote on Public Forums and at Gold Rating Site without contacting the administrator of our program FIRST. Maybe there was a technical problem with your transaction, so please always CLEAR the thing with the administrator.<br><br>
 
 We will not tolerate SPAM or any type of UCE in this program. SPAM violators will be immediately and permanently removed from the program.<br><br>
 
-bitlom.io reserves the right to accept or decline any member for membership without explanation.<br><br>
+randour-x.com reserves the right to accept or decline any member for membership without explanation.<br><br>
 
 If you do not agree with the above disclaimer, please do not go any further.
 
@@ -186,7 +186,7 @@ If you do not agree with the above disclaimer, please do not go any further.
             <div class="row">
                 <div class="col-lg-3">
                     <div class="footer-logo">
-                        <div class="footer-img mb-lg-4"> <img src="imagess/footer-logo.png"></div>
+                        <div class="footer-img mb-lg-4"> <img src=""></div>
                         <p class="text-white fw-semibold">By utilizing Ether as collateral, we offer innovative financial solutions that enable investors to access liquidity without selling their cryptocurrency holdings. </p>
                     </div>
                 </div>
@@ -240,7 +240,7 @@ If you do not agree with the above disclaimer, please do not go any further.
                     <div class="company-email mt-4 mb-3">
                         <h6 class="text-white fw-medium mb-0">
                             <iconify-icon icon="radix-icons:dot-filled"></iconify-icon>
-                            E-Mail : admin@bitlom.io
+                            E-Mail : info@randour-x.com
                         </h6>
                     </div>
                 </div>
@@ -248,7 +248,7 @@ If you do not agree with the above disclaimer, please do not go any further.
             <hr>
             <div class="row mt-lg-5">
                 <div class="col-lg-6 order-2 order-lg-1">
-                    <div class="copy-rights "> <span class="text-white fw-normal"><a href="#" class="text-white text-decoration-none">bitlom.io </a> | @ Copyright <script>document.write(new Date().getFullYear())</script>. All Rights Reserved.</span> </div>
+                    <div class="copy-rights "> <span class="text-white fw-normal"><a href="#" class="text-white text-decoration-none">randour-x.com </a> | @ Copyright <script>document.write(new Date().getFullYear())</script>. All Rights Reserved.</span> </div>
                 </div>
                 <div class="col-lg-4 offset-lg-2 order-1 order-lg-2">
                     <div class="company-rules"> 
@@ -280,5 +280,5 @@ If you do not agree with the above disclaimer, please do not go any further.
 </body>
 
 
-<!-- Mirrored from bitlom.io/?a=rules by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Aug 2024 11:13:23 GMT -->
+<!-- Mirrored from randour-x.com/?a=rules by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 Aug 2024 11:13:23 GMT -->
 </html>

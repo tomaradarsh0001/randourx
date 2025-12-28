@@ -14,15 +14,15 @@ class MemberController extends Controller
    public function buyPackage(Request $request)
 {
     $request->validate([
-        'amount' => 'required|integer|min:10',
+        'amount' => 'required|integer|min:5',
     ]);
 
     $user = Auth::user();
     $amount = $request->amount;
 
     // Ensure multiples of 10 and not exceeding balance
-    if ($amount % 10 !== 0) {
-        return back()->with('error', 'Amount must be in multiples of 10.');
+    if ($amount % 5 !== 0) {
+        return back()->with('error', 'Amount must be in multiples of 5.');
     }
 
     if ($amount > $user->wallet1) {

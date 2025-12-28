@@ -167,6 +167,7 @@
                                         <th>User</th>
                                         <th>Type</th>
                                         <th>Amount</th>
+                                        <th>Amount after Deduction</th>
                                         <th>Status</th>
                                         <th>Date</th>
                                         <th class="pe-3">Action</th>
@@ -193,6 +194,7 @@
                                             </span>
                                         </td>
                                         <td class="fw-semibold">${{ number_format($transaction->amount, 2) }}</td>
+                                        <td class="fw-semibold">${{ number_format($transaction->amount * 0.90, 2) }}</td>
                                         <td>
                                             <span class="badge bg-{{ $transaction->status == 'approved' ? 'success' : ($transaction->status == 'pending' ? 'warning' : 'danger') }}">
                                                 {{ ucfirst($transaction->status) }}

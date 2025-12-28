@@ -33,13 +33,12 @@
                         <table id="downlines-table" class="table table-striped table-bordered table-hover align-middle text-center w-100">
                             <thead class="table-dark d-none d-md-table-header-group">
                                 <tr>
-                                    <th style="width: 50px;">#</th>
+                                    <th style="width: 100px;">#</th>
                                     <th>Username</th>
                                     <th>Full Name</th>
-                                    <th>Email</th>
+                                   
                                     <th>Depth</th>
                                     <th>Wallet3 ($)</th>
-                                    <th>Date Joined</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -60,10 +59,7 @@
                                                     <span class="fw-bold">Full Name:</span>
                                                     <span>{{ $downline->full_name }}</span>
                                                 </div>
-                                                <div class="d-flex justify-content-between">
-                                                    <span class="fw-bold">Email:</span>
-                                                    <span class="text-truncate" style="max-width: 150px;">{{ $downline->email }}</span>
-                                                </div>
+                                                
                                                 <div class="d-flex justify-content-between">
                                                     <span class="fw-bold">Depth:</span>
                                                     <span class="badge bg-info text-white">
@@ -76,10 +72,7 @@
                                                         ${{ number_format($downline->wallet3, 2) }}
                                                     </span>
                                                 </div>
-                                                <div class="d-flex justify-content-between">
-                                                    <span class="fw-bold">Date Joined:</span>
-                                                    <span>{{ \Carbon\Carbon::parse($downline->created_at)->format('d M Y') }}</span>
-                                                </div>
+                                              
                                             </div>
                                             
                                             <!-- Desktop view -->
@@ -93,7 +86,8 @@
                                             </div>
                                         </td>
                                         <td class="d-none d-md-table-cell">{{ $downline->full_name }}</td>
-                                        <td class="d-none d-md-table-cell">{{ $downline->email }}</td>
+                                       
+
                                         <td class="d-none d-md-table-cell">
                                             <span class="badge bg-info text-white">
                                                 Level {{ $downline->depth >= 15 ? 15 : $downline->depth }}
@@ -102,7 +96,6 @@
                                         <td class="d-none d-md-table-cell fw-bold text-success">
                                             ${{ number_format($downline->wallet3, 2) }}
                                         </td>
-                                        <td class="d-none d-md-table-cell">{{ \Carbon\Carbon::parse($downline->created_at)->format('d M Y, h:i A') }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

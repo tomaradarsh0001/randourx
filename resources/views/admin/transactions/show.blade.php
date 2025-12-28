@@ -31,6 +31,11 @@
                                     <th>Amount:</th>
                                     <td class="fw-bold">${{ number_format($transaction->amount, 2) }}</td>
                                 </tr>
+                                 <tr>
+                                    <th>Amount:</th>
+                                    <td class="fw-bold">${{ number_format($transaction->amount  * 0.90, 2) }}</td>
+                                </tr>
+                                
                                 <tr>
                                     <th>Payment Method:</th>
                                     <td>{{ $transaction->payment_method }}</td>

@@ -35,45 +35,55 @@ class TransactionController extends Controller
     }
 
     public function approve(Request $request, Transaction $transaction)
-    {
-        $request->validate([
-            'admin_notes' => 'nullable|string|max:1000',
-        ]);
+{
+    $request->validate([
+        'admin_notes' => 'nullable|string|max:1000',
+    ]);
 
-        if ($transaction->status !== 'pending') {
-            return back()->with('error', 'Transaction is not pending approval.');
-        }
+    if ($transaction->status !== 'pending') {
+        return back()->with('error', 'Transaction is not pending approval.');
+    }
 
-        \DB::transaction(function () use ($transaction, $request) {
-            $user = $transaction->user;
-            
-            if ($transaction->type === 'deposit') {
-                // Add amount to user's wallet1
-                $user->wallet1 += $transaction->amount;
-                $user->save();
-            } elseif ($transaction->type === 'withdrawal') {
-                // Check if user still has sufficient balance
-                if ($user->wallet1 < $transaction->amount) {
-                    return back()->with('error', 'User has insufficient balance for this withdrawal.');
-                }
-                
-                // Deduct amount from user's wallet1
-                $user->wallet1 -= $transaction->amount;
-                $user->save();
+    \DB::transaction(function () use ($transaction, $request) {
+
+        $user = $transaction->user;
+
+        if ($transaction->type === 'deposit') {
+
+            // Add full amount to wallet1
+            $user->wallet1 += $transaction->amount;
+            $user->save();
+
+        } elseif ($transaction->type === 'withdrawal') {
+
+            // Calculate 10% deduction
+            $originalAmount = $transaction->amount;       // Example: 10
+            $deduction = $originalAmount * 0.10;          // Example: 1
+            $finalAmount = $originalAmount - $deduction;  // Example: 9
+
+            // Check if user has sufficient balance
+            if ($user->wallet1 < $finalAmount) {
+                return back()->with('error', 'User has insufficient balance for this withdrawal.');
             }
 
-            // Update transaction status
-            $transaction->update([
-                'status' => 'approved',
-                'admin_notes' => $request->admin_notes,
-                'approved_at' => now(),
-                'approved_by' => auth()->id(),
-            ]);
-        });
+            // Deduct only final (90%) from wallet1
+            $user->wallet1 -= $finalAmount;
+            $user->save();
+        }
 
-        return redirect()->route('admin.transactions.pending')
-            ->with('success', 'Transaction approved successfully.');
-    }
+        // Update the transaction status only
+        $transaction->update([
+            'status' => 'approved',
+            'admin_notes' => $request->admin_notes,
+            'approved_at' => now(),
+            'approved_by' => auth()->id(),
+        ]);
+    });
+
+    return redirect()->route('admin.transactions.pending')
+        ->with('success', 'Transaction approved successfully with 10% deduction.');
+}
+
 
     public function reject(Request $request, Transaction $transaction)
     {

@@ -27,6 +27,7 @@ class DownlineController extends Controller
             'u.username',
             'u.full_name',
             'u.email',
+            'u.mobile',
             'u.wallet3',
             'u.created_at',
             'd.descendant_id',

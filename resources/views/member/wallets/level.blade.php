@@ -202,7 +202,7 @@
                             <h6 class="m-0 font-weight-bold text-primary">Commissions by Level</h6>
                         </div>
                         <div class="card-body">
-    @for($i = 1; $i <= 15; $i++)
+    @for($i = 1; $i <= 10; $i++)
         @php
             $percentage = 0;
             if($i == 1) $percentage = 60;
@@ -472,10 +472,7 @@
     background-color: #34495e !important; 
     color: white !important;
 }
-.badge-level-11, .badge-level-12, .badge-level-13, .badge-level-14, .badge-level-15 { 
-    background-color: #7f8c8d !important; 
-    color: white !important;
-}
+
 
 .mb-5 {
     margin-bottom: 6rem !important;
@@ -513,11 +510,7 @@
     .badge-level-8,
     .badge-level-9,
     .badge-level-10,
-    .badge-level-11,
-    .badge-level-12,
-    .badge-level-13,
-    .badge-level-14,
-    .badge-level-15 {
+    {
         min-width: 70px;
         text-align: center;
     }
@@ -561,11 +554,7 @@
     .badge-level-8,
     .badge-level-9,
     .badge-level-10,
-    .badge-level-11,
-    .badge-level-12,
-    .badge-level-13,
-    .badge-level-14,
-    .badge-level-15 {
+     {
         color: white !important;
         font-weight: 600;
     }

@@ -37,10 +37,10 @@
                     <div class="col-xl-4 col-lg-5">
                         <div class="server-time d-flex align-items-center">
                             <div class="server-time-img">
-                                <img src="{{ asset('imagess/server-time.png') }}" alt="Server Time">
+                                
                             </div>
                             <div class="server-content ms-3">
-                                <h6 class="text-white fw-normal">Server Time : {{ now()->format('H:i:s A') }}</h6>
+                                
                             </div>
                         </div>
                     </div>

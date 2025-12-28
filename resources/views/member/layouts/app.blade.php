@@ -665,7 +665,7 @@
         <form id="buyPackageForm" method="POST" action="{{ route('member.buyPackage') }}">
         @csrf
         <div class="mb-3">
-            <label for="investAmount" class="form-label">Enter Amount (in multiples of 10)</label>
+            <label for="investAmount" class="form-label">Enter Amount (in multiples of 5)</label>
             <input type="number" class="form-control" id="investAmount" name="amount" placeholder="e.g. 50" required>
             <div id="errorMsg" class="text-danger fw-bold mt-2 d-none"></div>
         </div>
@@ -695,15 +695,15 @@ document.addEventListener("DOMContentLoaded", function () {
             return false;
         }
 
-        if (amount < 10) {
-            errorBox.innerText = "Amount must be at least 10 USD.";
+        if (amount < 5) {
+            errorBox.innerText = "Amount must be at least 5 USD.";
             errorBox.classList.remove("d-none");
             confirmBtn.disabled = true;
             return false;
         }
 
-        if (amount % 10 !== 0) {
-            errorBox.innerText = "Amount must be in multiples of 10.";
+        if (amount % 5 !== 0) {
+            errorBox.innerText = "Amount must be in multiples of 5.";
             errorBox.classList.remove("d-none");
             confirmBtn.disabled = true;
             return false;

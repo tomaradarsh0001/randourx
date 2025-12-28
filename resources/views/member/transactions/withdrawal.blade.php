@@ -26,6 +26,7 @@
                                     <th>#</th>
                                     <th>Type</th>
                                     <th>Amount</th>
+                                    <th>Payment After Deduction (10%)</th>
                                     <th>Payment Method</th>
                                     <th>Reference ID</th>
                                     <th>Status</th>
@@ -43,6 +44,7 @@
                                         </span>
                                     </td>
                                     <td>${{ number_format($transaction->amount, 2) }}</td>
+                                    <td>${{ number_format($transaction->amount * 0.90, 2) }}</td>
                                     <td>{{ $transaction->payment_method }}</td>
                                     <td>{{ $transaction->reference_id ?? 'No actions allowed' }}</td>
                                     <td>
