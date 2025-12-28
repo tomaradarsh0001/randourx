@@ -28,8 +28,8 @@ class ProcessRoi extends Command
         if ($user->wallet3 > 0) {
             $roiAmount = ($user->wallet3 * $rate) / 100;
 
-            // New: wallet2 can grow until 3x of wallet3
-            $maxWallet2 = $user->wallet3 * 3;
+            // New: wallet2 can grow until 2x of wallet3
+            $maxWallet2 = $user->wallet3 * 2;
             $remainingCap = $maxWallet2 - $user->wallet2;
 
             if ($roiAmount > $remainingCap) {

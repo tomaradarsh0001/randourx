@@ -36,7 +36,7 @@ class PaySalaryIncome extends Command
 
                 $currentWallet2 = (float)$user->wallet2;
                 $currentWallet3 = (float)$user->wallet3;
-                $maxWallet2 = $currentWallet3 * 3; // wallet2 can grow up to 3x wallet3
+                $maxWallet2 = $currentWallet3 * 2; // wallet2 can grow up to 2x wallet3
                 $salaryAmount = (float)$item->amount;
                 $potentialWallet2 = $currentWallet2 + $salaryAmount;
 
@@ -59,12 +59,12 @@ class PaySalaryIncome extends Command
                             $item->paid_at = now();
                             $item->save();
 
-                            $this->info("✅ Partially paid salary id {$item->id} for user {$user->id}, added {$partialAmount} out of {$salaryAmount} (wallet2 reached 3x wallet3 limit)");
+                            $this->info("✅ Partially paid salary id {$item->id} for user {$user->id}, added {$partialAmount} out of {$salaryAmount} (wallet2 reached 2x wallet3 limit)");
                         } else {
                             $item->status = 'not_eligible';
                             $item->paid_at = now();
                             $item->save();
-                            $this->warn("⏸ Salary id {$item->id} for user {$user->id} marked as not_eligible (wallet2 already at 3x wallet3 limit)");
+                            $this->warn("⏸ Salary id {$item->id} for user {$user->id} marked as not_eligible (wallet2 already at 2x wallet3 limit)");
                         }
                     } else {
                         $user->income3 += $salaryAmount;
@@ -121,12 +121,12 @@ class PaySalaryIncome extends Command
                             $item->paid_at = now();
                             $item->save();
 
-                            $this->info("✅ Partially paid salary id {$item->id} for user {$user->id}, added {$partialAmount} out of {$salaryAmount} (wallet2 reached 3x wallet3 limit)");
+                            $this->info("✅ Partially paid salary id {$item->id} for user {$user->id}, added {$partialAmount} out of {$salaryAmount} (wallet2 reached 2x wallet3 limit)");
                         } else {
                             $item->status = 'not_eligible';
                             $item->paid_at = now();
                             $item->save();
-                            $this->warn("⏸ Salary id {$item->id} for user {$user->id} marked as not_eligible (wallet2 already at 3x wallet3 limit)");
+                            $this->warn("⏸ Salary id {$item->id} for user {$user->id} marked as not_eligible (wallet2 already at 2x wallet3 limit)");
                         }
                     } else {
                         $user->income3 += $salaryAmount;
