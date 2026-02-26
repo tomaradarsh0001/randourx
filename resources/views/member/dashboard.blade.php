@@ -425,7 +425,7 @@ function copyReferralCode() {
                                 </div>
                                 <div class="ms-3">
                                     <h4 class="stats-value">${{ $user->income3 }} USD</h4>
-                                    <p class="stats-label">Royalty Income</p>
+                                    <p class="stats-label">Salary Income</p>
                                 </div>
                             </div>
                             <div class="stats-footer">
@@ -758,7 +758,7 @@ function copyReferralCode() {
 
             @if(count($recentWithdrawals) > 0)
             <div class="card-footer bg-transparent border-top-0 pt-0">
-                <a href="{{ route('member.transactions.index') }}" class="btn btn-sm btn-outline-warning w-100">
+                <a href="{{ route('member.transactions.withdraws') }}" class="btn btn-sm btn-outline-warning w-100">
                     <i class="fas fa-history me-2"></i>View All Withdrawals
                 </a>
             </div>

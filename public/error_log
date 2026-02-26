@@ -91,3 +91,16 @@ Stack trace:
 [29-Oct-2025 09:09:26 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 184
 [30-Oct-2025 05:15:17 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 184
 [30-Oct-2025 05:18:28 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randourx/public_html/app/Http/Controllers/MemberController.php on line 184
+[24-Jan-2026 13:15:07 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randour1/public_html/app/Http/Controllers/MemberController.php on line 184
+[24-Jan-2026 13:34:39 UTC] PHP Fatal error:  Cannot use Illuminate\Support\Facades\Artisan as Artisan because the name is already in use in /home/randour1/public_html/routes/web.php on line 37
+[24-Jan-2026 13:34:54 UTC] PHP Fatal error:  Cannot use Illuminate\Support\Facades\Artisan as Artisan because the name is already in use in /home/randour1/public_html/routes/web.php on line 37
+[24-Jan-2026 13:36:34 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randour1/public_html/app/Http/Controllers/MemberController.php on line 184
+[29-Jan-2026 08:39:21 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randour1/public_html/app/Http/Controllers/MemberController.php on line 184
+[17-Feb-2026 11:04:28 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randour1/public_html/app/Http/Controllers/MemberController.php on line 184
+[18-Feb-2026 09:52:28 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randour1/public_html/app/Http/Controllers/MemberController.php on line 184
+[18-Feb-2026 13:59:14 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randour1/public_html/app/Http/Controllers/MemberController.php on line 184
+[18-Feb-2026 14:32:27 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randour1/public_html/app/Http/Controllers/MemberController.php on line 184
+[25-Feb-2026 05:40:33 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randour1/public_html/app/Http/Controllers/MemberController.php on line 184
+[25-Feb-2026 06:13:22 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randour1/public_html/app/Http/Controllers/MemberController.php on line 184
+[26-Feb-2026 12:23:39 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randour1/public_html/app/Http/Controllers/MemberController.php on line 184
+[26-Feb-2026 12:35:10 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /home/randour1/public_html/app/Http/Controllers/MemberController.php on line 184

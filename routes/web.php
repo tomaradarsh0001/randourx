@@ -32,14 +32,14 @@ use Illuminate\Http\Request;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/run-schedule', function () {
+// routes/web.php
 
-    abort_unless(request('token') === 'aidfagiouyd83421', 403);
 
+Route::get('/run-scheduler', function () {
     Artisan::call('schedule:run');
-
     return 'Scheduler executed';
 });
+
 Route::get('/', function () {
     return view('welcome');
 });

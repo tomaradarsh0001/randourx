@@ -63,7 +63,8 @@
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <i class="fas fa-calendar-alt text-muted small me-2"></i>
-                                            <span>{{ \Carbon\Carbon::parse($income->timing)->format('d M Y, h:i A') }}</span>
+                                            <span>{{ \Carbon\Carbon::parse($income->timing)->subDay()->format('d M Y, h:i A') }}
+</span>
                                         </div>
                                     </td>
                                 </tr>
@@ -142,22 +143,15 @@
                                 <div class="d-flex justify-content-between align-items-center py-1">
                                     <span class="text-muted small">
                                         <i class="fas fa-calendar me-1"></i>
-                                        Date:
+                                        Date & Time:
                                     </span>
-                                    <small class="text-muted">{{ \Carbon\Carbon::parse($income->timing)->format('d M Y') }}</small>
+                                    <small class="text-muted">{{ \Carbon\Carbon::parse($income->timing)->subDay()->format('d M Y, h:i A') }}
+</small>
                                 </div>
                             </div>
                             
                             <!-- Time -->
-                            <div class="col-12">
-                                <div class="d-flex justify-content-between align-items-center py-1">
-                                    <span class="text-muted small">
-                                        <i class="fas fa-clock me-1"></i>
-                                        Time:
-                                    </span>
-                                    <small class="text-muted">{{ \Carbon\Carbon::parse($income->timing)->format('h:i A') }}</small>
-                                </div>
-                            </div>
+                           
                         </div>
                     </div>
                 </div>

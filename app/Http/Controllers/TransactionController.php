@@ -42,14 +42,9 @@ class TransactionController extends Controller
             'amount' => 'required|numeric|min:1',
             'payment_method' => 'required|string|max:255',
             'reference_id' => 'required|string|max:255',
-            'screenshot' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        // Handle screenshot upload
-        if ($request->hasFile('screenshot')) {
-            $path = $request->file('screenshot')->store('transaction-screenshots', 'public');
-            $validated['screenshot'] = $path;
-        }
+       
 
         // Create transaction
         Auth::user()->transactions()->create([
@@ -57,7 +52,6 @@ class TransactionController extends Controller
             'amount' => $validated['amount'],
             'payment_method' => $validated['payment_method'],
             'reference_id' => $validated['reference_id'],
-            'screenshot' => $validated['screenshot'],
             'status' => 'pending',
         ]);
 

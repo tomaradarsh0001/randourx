@@ -84,7 +84,6 @@ class TransactionController extends Controller
         ->with('success', 'Transaction approved successfully with 10% deduction.');
 }
 
-
     public function reject(Request $request, Transaction $transaction)
     {
         $request->validate([

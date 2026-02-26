@@ -255,7 +255,7 @@
         <div class="sidebar-logo">
           <!-- Logo Header -->
           <div class="logo-header" data-background-color="dark">
-            <a href="{{ route('dashboard') }}" class="logo">
+            <a href="/dashboard" class="logo">
               <img
                 src="{{ asset('member/assets/img/kaiadmin/logo_light.svg') }}"
                 alt="navbar brand"
@@ -283,7 +283,7 @@
               <li class="nav-item active">
                 <a
                   data-bs-toggle="collapse"
-                  href="{{ route('dashboard') }}"
+                  href="/dashboard"
                   class="collapsed"
                   aria-expanded="false"
                 >
@@ -479,7 +479,7 @@
           <div class="main-header-logo">
             <!-- Logo Header -->
             <div class="logo-header" data-background-color="dark">
-              <a href="{{ route('dashboard') }}" class="logo">
+              <a href="/dashboard" class="logo">
                 <img
                   src="{{ asset('member/assets/img/kaiadmin/logo_light.svg') }}"
                   alt="navbar brand"
@@ -624,7 +624,7 @@
           <div class="container-fluid">
             <ul class="nav nav-pills ">
               <li class="nav-item">
-                <a class="nav-link " href="{{('dashboard')}}">
+                <a class="nav-link " href="/dashboard">
                   <span>
                     <img src="{{ asset('member/assets/img/home_icon.png') }}" alt="Home" style="width: 35px; height: 35px;">
                     <span class="nav-text">Home</span>

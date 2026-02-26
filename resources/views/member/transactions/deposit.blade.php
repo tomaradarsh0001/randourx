@@ -38,7 +38,7 @@
                                     <select class="form-select @error('payment_method') is-invalid @enderror" 
                                             id="payment_method" name="payment_method" required>
                                        
-                                        <option value="Cryptocurrency" {{ old('payment_method') == 'Cryptocurrency' ? 'selected' : '' }}>Cryptocurrency</option>
+                                        <option value="Cryptocurrency" {{ old('payment_method') == 'Cryptocurrency' ? 'selected' : '' }}>USDT BEP20</option>
                                     </select>
                                     @error('payment_method')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -59,27 +59,14 @@
                                 </div>
                             </div>
 
-                            <!-- Screenshot Upload Field -->
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="screenshot" class="form-label fw-semibold">Payment Proof (Screenshot)</label>
-                                    <div class="file-upload-wrapper">
-                                        <input type="file" class="form-control @error('screenshot') is-invalid @enderror" 
-                                               id="screenshot" name="screenshot" accept="image/*" required>
-                                        <div class="form-text">Accepted formats: JPG, PNG, GIF. Max size: 5MB</div>
-                                        @error('screenshot')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
+                           
 
                             <!-- Payment Instructions -->
                             <div class="col-12">
                                 <div class="payment-instructions bg-light p-4 rounded-3">
                                     <h6 class="fw-semibold mb-3"><i class="material-icons me-2">info</i>Payment Instructions</h6>
                                     <p class="text-muted mb-2">
-                                        Scan & Pay using the QR Code below and upload the payment screenshot.
+                                        Scan & Pay using the QR Code below.
                                     </p>
                                     
                                     <!-- QR Code Placeholder -->
