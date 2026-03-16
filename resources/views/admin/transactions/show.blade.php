@@ -117,9 +117,9 @@
                     <form action="{{ route('admin.transactions.approve', $transaction) }}" method="POST">
                         @csrf
                         <div class="mb-3">
-                            <label for="approve_notes" class="form-label">Notes (Optional)</label>
+                            <label for="approve_notes" class="form-label">Enter Hash ID</label>
                             <textarea class="form-control" id="approve_notes" name="admin_notes" 
-                                      rows="3" placeholder="Add any notes about this approval"></textarea>
+                                      rows="3" placeholder="Enter Hash ID"></textarea>
                         </div>
                         <button type="submit" class="btn btn-success w-100">
                             <i class="fas fa-check-circle"></i> Approve Transaction

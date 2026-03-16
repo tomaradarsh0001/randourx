@@ -33,8 +33,7 @@ class TransactionController extends Controller
         $transaction->load('user');
         return view('admin.transactions.show', compact('transaction'));
     }
-
-    public function approve(Request $request, Transaction $transaction)
+public function approve(Request $request, Transaction $transaction)
 {
     $request->validate([
         'admin_notes' => 'nullable|string|max:1000',
@@ -44,64 +43,94 @@ class TransactionController extends Controller
         return back()->with('error', 'Transaction is not pending approval.');
     }
 
-    \DB::transaction(function () use ($transaction, $request) {
+    try {
 
-        $user = $transaction->user;
+        \DB::transaction(function () use ($transaction, $request) {
 
-        if ($transaction->type === 'deposit') {
+            $user = $transaction->user;
 
-            // Add full amount to wallet1
-            $user->wallet1 += $transaction->amount;
-            $user->save();
+            if ($transaction->type === 'deposit') {
 
-        } elseif ($transaction->type === 'withdrawal') {
+                // Add full amount to wallet1
+                $user->wallet1 += $transaction->amount;
+                $user->save();
 
-            // Calculate 10% deduction
-            $originalAmount = $transaction->amount;       // Example: 10
-            $deduction = $originalAmount * 0.10;          // Example: 1
-            $finalAmount = $originalAmount - $deduction;  // Example: 9
+            } elseif ($transaction->type === 'withdrawal') {
 
-            // Check if user has sufficient balance
-            if ($user->wallet1 < $finalAmount) {
-                return back()->with('error', 'User has insufficient balance for this withdrawal.');
+                $originalAmount = $transaction->amount;
+                $deduction = $originalAmount * 0.10;      // 10% fee
+                $finalAmount = $originalAmount - $deduction; // 90% deduction
+
+                // ✅ Check if wallet2 has enough balance
+                if ($user->wallet2 < $finalAmount) {
+                    throw new \Exception('Insufficient balance in Wallet2.');
+                }
+
+                // Deduct 90% from wallet2
+                // $user->wallet2 -= $finalAmount;
+                $user->save();
             }
 
-            // Deduct only final (90%) from wallet1
-            $user->wallet1 -= $finalAmount;
-            $user->save();
-        }
+            // Update transaction
+            $transaction->update([
+                'status' => 'approved',
+                'admin_notes' => $request->admin_notes,
+                'approved_at' => now(),
+                'approved_by' => auth()->id(),
+            ]);
+        });
 
-        // Update the transaction status only
-        $transaction->update([
-            'status' => 'approved',
-            'admin_notes' => $request->admin_notes,
-            'approved_at' => now(),
-            'approved_by' => auth()->id(),
-        ]);
-    });
+    } catch (\Exception $e) {
+        return back()->with('error', $e->getMessage());
+    }
 
-    return redirect()->route('admin.transactions.pending')
-        ->with('success', 'Transaction approved successfully with 10% deduction.');
+    return redirect()
+        ->route('admin.transactions.pending')
+        ->with('success', 'Transaction approved successfully.');
 }
 
-    public function reject(Request $request, Transaction $transaction)
-    {
-        $request->validate([
-            'admin_notes' => 'required|string|max:1000',
-        ]);
+  public function reject(Request $request, Transaction $transaction)
+{
+    $request->validate([
+        'admin_notes' => 'required|string|max:1000',
+    ]);
 
-        if ($transaction->status !== 'pending') {
-            return back()->with('error', 'Transaction is not pending approval.');
-        }
-
-        $transaction->update([
-            'status' => 'rejected',
-            'admin_notes' => $request->admin_notes,
-            'approved_at' => now(),
-            'approved_by' => auth()->id(),
-        ]);
-
-        return redirect()->route('admin.transactions.pending')
-            ->with('success', 'Transaction rejected successfully.');
+    if ($transaction->status !== 'pending') {
+        return back()->with('error', 'Transaction is not pending approval.');
     }
+
+    try {
+
+        \DB::transaction(function () use ($transaction, $request) {
+
+            $user = $transaction->user;
+
+            // If withdrawal, refund the deducted amount
+            if ($transaction->type === 'withdrawal') {
+
+                // Refund full original amount
+                $user->wallet2 += $transaction->amount;
+                $user->wallet4 -= $transaction->amount;
+                $user->save();
+            }
+
+            // If deposit and you previously held balance somewhere,
+            // you could revert here (currently nothing needed)
+
+            $transaction->update([
+                'status' => 'rejected',
+                'admin_notes' => $request->admin_notes,
+                'approved_at' => now(),
+                'approved_by' => auth()->id(),
+            ]);
+        });
+
+    } catch (\Exception $e) {
+        return back()->with('error', $e->getMessage());
+    }
+
+    return redirect()
+        ->route('admin.transactions.pending')
+        ->with('success', 'Transaction rejected and amount refunded successfully.');
+}
 }

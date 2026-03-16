@@ -217,28 +217,26 @@
 <form method="POST" action="{{ route('register') }}" onsubmit="return checkform()" name="regform">
     @csrf
     <div class="row">
-        <!-- Sponsor Username -->
+        <!-- Sponsor Username - Made Required -->
         <div class="col-lg-6">
-    <div class="form-block position-relative">
-        <div class="form-ico">
-            <iconify-icon icon="carbon:user-profile"></iconify-icon>
+            <div class="form-block position-relative">
+                <div class="form-ico">
+                    <iconify-icon icon="carbon:user-profile"></iconify-icon>
+                </div>
+                <input type="text" name="sponsor_username" id="sponsor_username"
+                       class="form-control"
+                       placeholder="Enter Sponsor ID *"
+                       minlength="5" maxlength="15"
+                       autocomplete="off"
+                       value="{{ session('sponsor') ?? '' }}"
+                       @if(session('sponsor')) readonly @endif
+                       required>
+                <div class="invalid-feedback">Sponsor ID is required</div>
+            </div>
+            <div class="alert alert-info p-2 mt-2" id="showsponsername" style="display:none"></div>
         </div>
-        <input type="text" name="sponsor_username" id="sponsor_username"
-       class="form-control"
-       placeholder="Enter Sponsor ID"
-       minlength="5" maxlength="15"
-       autocomplete="off"
-       value="{{ session('sponsor') ?? '' }}"
-       @if(session('sponsor')) readonly @endif>
 
-        
-        <!-- <div class="alert alert-danger p-2 mt-2" id="err1" style="display:none"></div> -->
-    </div>
-    <div class="alert alert-info p-2 mt-2" id="showsponsername" style="display:none"></div>
-</div>
-
-
-        <!-- Full Name -->
+        <!-- Full Name - Already Required -->
         <div class="col-lg-6">
             <div class="form-block position-relative">
                 <div class="form-ico">
@@ -246,93 +244,96 @@
                 </div>
                 <input type="text" name="full_name" id="full_name"
                        class="form-control"
-                       placeholder="Enter Full Name"
+                       placeholder="Enter Full Name *"
                        maxlength="40"
-                       autocomplete="off" required>
+                       autocomplete="off" 
+                       required>
+                <div class="invalid-feedback">Full name is required</div>
             </div>
         </div>
     </div>
 
     <!-- Country Code + Mobile -->
-    <!-- Country Code Dropdown -->
-<!-- Country Code + Mobile -->
-<div class="col-lg-12">
-    <div class="form-block position-relative d-flex align-items-center">
+    <div class="col-lg-12">
+        <div class="form-block position-relative d-flex align-items-center">
 
-        <!-- Custom Country Dropdown -->
-        <div class="custom-dropdown" style="position: relative; width: 200px; margin-right: 10px;">
-    <!-- Selected Option -->
-    <div class="form-control d-flex align-items-center justify-content-between"
-         id="selected-option" style="cursor: pointer;">
-        <span class="d-flex align-items-center">
-            @if($default['flag'])
-                <img src="{{ $default['flag'] }}" id="selected-flag" alt="Flag" width="24" class="me-2">
-            @endif
-            <span id="selected-code">{{ $default['code'] }}</span>
-        </span>
-        <span class="ms-1">&#x25BC;</span>
-    </div>
+            <!-- Custom Country Dropdown -->
+            <div class="custom-dropdown" style="position: relative; width: 200px; margin-right: 10px;">
+                <!-- Selected Option -->
+                <div class="form-control d-flex align-items-center justify-content-between"
+                     id="selected-option" style="cursor: pointer;">
+                    <span class="d-flex align-items-center">
+                        @if($default['flag'])
+                            <img src="{{ $default['flag'] }}" id="selected-flag" alt="Flag" width="24" class="me-2">
+                        @endif
+                        <span id="selected-code">{{ $default['code'] }}</span>
+                    </span>
+                    <span class="ms-1">&#x25BC;</span>
+                </div>
 
-    <!-- Options List -->
-    <div class="options-list border bg-white shadow-sm mt-1"
-         id="options-list"
-         style="display:none; max-height:200px; overflow-y:auto; position:absolute; width:100%; z-index:999;">
-        @foreach($countries as $country)
-            @php
-                $countryFlag = "https://flagcdn.com/w40/" . strtolower($country->country_code_name_in_short) . ".png";
-            @endphp
-            <div class="option d-flex align-items-center p-2"
-                 style="cursor:pointer;"
-                 onclick="selectCountry('{{ $country->country_code_with_plus }}', '{{ $countryFlag }}')">
-                <img src="{{ $countryFlag }}" alt="Flag" width="24" class="me-2">
-                <span>{{ $country->country_code_with_plus }} - {{ $country->country_name }}</span>
+                <!-- Options List -->
+                <div class="options-list border bg-white shadow-sm mt-1"
+                     id="options-list"
+                     style="display:none; max-height:200px; overflow-y:auto; position:absolute; width:100%; z-index:999;">
+                    @foreach($countries as $country)
+                        @php
+                            $countryFlag = "https://flagcdn.com/w40/" . strtolower($country->country_code_name_in_short) . ".png";
+                        @endphp
+                        <div class="option d-flex align-items-center p-2"
+                             style="cursor:pointer;"
+                             onclick="selectCountry('{{ $country->country_code_with_plus }}', '{{ $countryFlag }}')">
+                            <img src="{{ $countryFlag }}" alt="Flag" width="24" class="me-2">
+                            <span>{{ $country->country_code_with_plus }} - {{ $country->country_name }}</span>
+                        </div>
+                    @endforeach
+                </div>
+
+                <!-- Hidden Select for Form Submission -->
+                <select name="country_code" id="hidden-country-code" class="d-none" required>
+                    <option value="">Select Code *</option>
+                    @foreach($countries as $country)
+                        <option value="{{ $country->country_code_with_plus }}">
+                            {{ $country->country_code_with_plus }}
+                        </option>
+                    @endforeach
+                </select>
+                <div class="invalid-feedback" style="display:none;" id="country-code-error">Country code is required</div>
             </div>
-        @endforeach
-    </div>
 
-    <!-- Hidden Select for Form Submission -->
-    <select name="country_code" id="hidden-country-code" class="d-none" required>
-        <option value="">Select Code</option>
-        @foreach($countries as $country)
-            <option value="{{ $country->country_code_with_plus }}">
-                {{ $country->country_code_with_plus }}
-            </option>
-        @endforeach
-    </select>
-</div>
-
-
-        <!-- Mobile -->
-        <div class="form-ico form-icoo">
-            <iconify-icon icon="carbon:phone"></iconify-icon>
+            <!-- Mobile -->
+            <div class="form-ico form-icoo">
+                <iconify-icon icon="carbon:phone"></iconify-icon>
+            </div>
+            <input type="number" name="mobile" id="mobile"
+                   class="form-control"
+                   placeholder="Enter Phone *"
+                   autocomplete="off" 
+                   required
+                   minlength="10"
+                   maxlength="15">
+            <div class="invalid-feedback">Mobile number is required</div>       
         </div>
-       <input type="number" name="mobile" id="mobile"
-               class="form-control"
-               placeholder="Enter Phone"
-               autocomplete="off" required>
-               
-            </div>
-            <div class="alert alert-danger p-2 mt-2" id="err_mobile" style="display:none"></div>
-</div>
+        <div class="alert alert-danger p-2 mt-2" id="err_mobile" style="display:none"></div>
+    </div>
 
-
-    <!-- Email -->
+    <!-- Email - Already Required -->
     <div class="col-lg-12">
         <div class="form-block position-relative">
             <div class="form-ico">
                 <iconify-icon icon="cib:mail-ru"></iconify-icon>
             </div>
-          <input type="email" name="email" id="email"
-               class="form-control"
-               placeholder="Enter Email ID"
-               maxlength="40"
-               autocomplete="off" required>
-        <div class="alert alert-danger p-2 mt-2" id="err_email" style="display:none"></div>
+            <input type="email" name="email" id="email"
+                   class="form-control"
+                   placeholder="Enter Email ID *"
+                   maxlength="40"
+                   autocomplete="off" 
+                   required>
+            <div class="invalid-feedback">Valid email is required</div>
+            <div class="alert alert-danger p-2 mt-2" id="err_email" style="display:none"></div>
         </div>
     </div>
-   
 
-    <!-- Password & Confirm -->
+    <!-- Password & Confirm - Already Required -->
     <div class="row">
         <div class="col-lg-6">
             <div class="form-block position-relative">
@@ -341,7 +342,10 @@
                 </div>
                 <input type="password" name="password" id="password"
                        class="form-control"
-                       placeholder="******" required>
+                       placeholder="*******" 
+                       required
+                       minlength="4">
+                <div class="invalid-feedback">Password is required (minimum 4 characters)</div>
             </div>
         </div>
         <div class="col-lg-6">
@@ -351,12 +355,14 @@
                 </div>
                 <input type="password" name="password_confirmation" id="password_confirmation"
                        class="form-control"
-                       placeholder="******" required>
+                       placeholder="*******" 
+                       required>
+                <div class="invalid-feedback">Please confirm your password</div>
             </div>
         </div>
     </div>
 
-    <!-- Terms -->
+    <!-- Terms - Already Required -->
     <div class="formDown">
         <div class="checkInput">
             <label class="custom-checkbox">
@@ -364,21 +370,120 @@
                 <span class="checkmark"></span>
             </label>
             <label for="signupform-agreement">
-                I agree with <a href="{{ url('terms-conditions') }}" target="_blank">terms and conditions</a>
+                I agree with <a href="{{ url('terms-conditions') }}" target="_blank">terms and conditions</a> *
             </label>
         </div>
     </div>
 
     <!-- Submit -->
     <div class="btnContainer">
-    <div class="innerpage-btn mt-3 mb-3">
-        <button type="submit" class="btn btn-primary btn-primary1">
-            Register Now
-        </button>
+        <div class="innerpage-btn mt-3 mb-3">
+            <button type="submit" class="btn btn-primary btn-primary1">
+                Register Now
+            </button>
+        </div>
     </div>
-</div>
 
 </form>
+
+<!-- Add this JavaScript for additional validation if needed -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Form validation enhancement
+    const form = document.querySelector('form[name="regform"]');
+    
+    form.addEventListener('submit', function(event) {
+        let isValid = true;
+        
+        // Check sponsor username
+        const sponsor = document.getElementById('sponsor_username');
+        if (!sponsor.value || sponsor.value.length < 5) {
+            sponsor.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            sponsor.classList.remove('is-invalid');
+        }
+        
+        // Check country code
+        const countryCode = document.getElementById('hidden-country-code');
+        if (!countryCode.value) {
+            document.getElementById('country-code-error').style.display = 'block';
+            countryCode.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            document.getElementById('country-code-error').style.display = 'none';
+            countryCode.classList.remove('is-invalid');
+        }
+        
+        // Check mobile
+        const mobile = document.getElementById('mobile');
+        if (!mobile.value || mobile.value.length < 10) {
+            mobile.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            mobile.classList.remove('is-invalid');
+        }
+        
+        // Check email
+        const email = document.getElementById('email');
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email.value || !emailPattern.test(email.value)) {
+            email.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            email.classList.remove('is-invalid');
+        }
+        
+        // Check password
+        const password = document.getElementById('password');
+        if (!password.value || password.value.length < 4) {
+            password.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            password.classList.remove('is-invalid');
+        }
+        
+        // Check password confirmation
+        const passwordConfirm = document.getElementById('password_confirmation');
+        if (passwordConfirm.value !== password.value) {
+            passwordConfirm.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            passwordConfirm.classList.remove('is-invalid');
+        }
+        
+        // Check terms
+        const terms = document.getElementById('signupform-agreement');
+        if (!terms.checked) {
+            terms.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            terms.classList.remove('is-invalid');
+        }
+        
+        if (!isValid) {
+            event.preventDefault();
+            alert('Please fill all required fields correctly.');
+        }
+    });
+});
+</script>
+
+<!-- Add CSS for validation styling -->
+<style>
+.is-invalid {
+    border-color: #dc3545 !important;
+}
+.invalid-feedback {
+    display: none;
+    color: #dc3545;
+    font-size: 80%;
+    margin-top: 0.25rem;
+}
+.is-invalid ~ .invalid-feedback {
+    display: block;
+}
+</style>
 {{-- Success Registration Popup --}}
 @if(session('registration_success'))
 <div id="registrationSuccessModal" class="modal fade show" style="display: block; background: rgba(0,0,0,0.5);">

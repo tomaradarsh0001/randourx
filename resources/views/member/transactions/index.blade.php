@@ -27,7 +27,7 @@
                                     <th>Type</th>
                                     <th>Amount</th>
                                     <th>Payment Method</th>
-                                    <th>Reference ID</th>
+                                    <th>Hash ID</th>
                                     <th>Status</th>
                                     <th>Date</th>
                                     <th>Actions</th>
@@ -44,7 +44,7 @@
                                     </td>
                                     <td>${{ number_format($transaction->amount, 2) }}</td>
                                     <td>{{ $transaction->payment_method }}</td>
-                                    <td>{{ $transaction->reference_id ?? 'No actions allowed' }}</td>
+                                    <td>{{ $transaction->admin_notes ?? 'N/A' }}</td>
                                     <td>
                                         <span class="badge bg-{{ $transaction->status == 'approved' ? 'success' : ($transaction->status == 'pending' ? 'warning' : ($transaction->status == 'cancelled' ? 'secondary' : 'danger')) }}">
                                             {{ ucfirst($transaction->status) }}
